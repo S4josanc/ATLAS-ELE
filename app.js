@@ -23,3 +23,7 @@ function show(x){detail.innerHTML=`<div class='detail'><span class='tag'>${x.typ
 document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()});
 document.getElementById('close').onclick=()=>panel.style.display='none';document.getElementById('explore').onclick=()=>{document.getElementById('worldCard').classList.add('hidden');map.flyTo([46,8],5,{duration:1.2})};map.on('zoomstart',()=>document.getElementById('worldCard').classList.add('hidden'));
 function search(){const q=document.getElementById('q').value.toLowerCase().trim();if(!q)return;const x=data.find(x=>[x.name,x.city,x.country].some(v=>v.toLowerCase().includes(q)));if(x){map.flyTo([x.lat,x.lng],10,{duration:1.2});show(x)}}document.getElementById('searchBtn').onclick=search;document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')search()});render();
+const teacherCard=document.getElementById('teacherCard');
+document.getElementById('joinBtn').onclick=()=>{teacherCard.classList.add('open');document.getElementById('worldCard').classList.add('hidden')};
+document.getElementById('teacherClose').onclick=()=>teacherCard.classList.remove('open');
+document.getElementById('teachersChip').onclick=(e)=>{e.stopPropagation();teacherCard.classList.add('open');document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));document.getElementById('teachersChip').classList.add('active')};
