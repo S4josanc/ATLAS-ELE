@@ -62,9 +62,12 @@
       "type": "university",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.140423,
+      "lng": 17.115837,
+      "precision": "exact",
+      "address": "Gondova 2, Bratislava",
+      "web": "https://fphil.uniba.sk/",
+      "verified": true
     },
     {
       "id": "SK-000004",
@@ -72,9 +75,12 @@
       "type": "university",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.165885,
+      "lng": 17.125354,
+      "precision": "exact",
+      "address": "Račianska 59, Bratislava",
+      "web": "https://www.fedu.uniba.sk/",
+      "verified": true
     },
     {
       "id": "SK-000005",
