@@ -47,4 +47,29 @@ document.getElementById('langSwitch').onclick=()=>applyLanguage(currentLang==='e
 const moreMenu=document.getElementById('moreMenu');
 document.getElementById('moreChip').addEventListener('click',e=>{e.stopPropagation();moreMenu.classList.toggle('open')});
 document.addEventListener('click',e=>{if(!e.target.closest('.moreWrap'))moreMenu.classList.remove('open')});
-document.getElementById('globe3d').onclick=()=>{const n=document.createElement('div');n.className='globeNotice';n.innerHTML='<div style="font-size:42px">🌍</div><h3>ATLAS ELE 3D</h3><p>The globe view is the next map layer: rotate the world, explore countries and then move seamlessly into the detailed 2D map.</p><button>Got it</button>';document.body.appendChild(n);n.querySelector('button').onclick=()=>n.remove()};
+
+let globeInstance=null;
+const typeColors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e'};
+function initGlobe(){
+ if(globeInstance)return;
+ const el=document.getElementById('globeView');
+ globeInstance=Globe()(el)
+  .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+  .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+  .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+  .pointsData(data)
+  .pointLat(d=>d.lat).pointLng(d=>d.lng).pointColor(d=>typeColors[d.type]||'#0878d1')
+  .pointAltitude(.018).pointRadius(.42)
+  .pointLabel(d=>'<div class="globe-tooltip"><b>'+d.name+'</b><small>📍 '+d.city+', '+d.country+'<br>🇪🇸 '+d.program+'</small></div>')
+  .onPointClick(d=>show(d));
+ globeInstance.controls().autoRotate=true;globeInstance.controls().autoRotateSpeed=.32;
+ globeInstance.pointOfView({lat:28,lng:8,altitude:2.15},1200);
+ const resize=()=>{globeInstance.width(el.clientWidth).height(el.clientHeight)};resize();window.addEventListener('resize',resize);
+}
+function setViewMode(mode){
+ const is3=mode==='3d';document.body.classList.toggle('globe-mode',is3);document.getElementById('globeView').classList.toggle('active',is3);
+ document.getElementById('map2d').classList.toggle('active',!is3);document.getElementById('globe3d').classList.toggle('active',is3);
+ if(is3){initGlobe();setTimeout(()=>{const el=document.getElementById('globeView');globeInstance.width(el.clientWidth).height(el.clientHeight)},50)}else{setTimeout(()=>map.invalidateSize(),50)}
+}
+document.getElementById('globe3d').onclick=()=>setViewMode('3d');
+document.getElementById('map2d').onclick=()=>setViewMode('2d');
