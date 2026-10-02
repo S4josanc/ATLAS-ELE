@@ -43,3 +43,8 @@ function applyLanguage(lang){
  document.getElementById('langFlag').textContent=lang==='es'?'🇪🇸':'🇬🇧';document.getElementById('langCode').textContent=lang.toUpperCase();document.title=lang==='es'?'ATLAS ELE — El mapa mundial de la enseñanza del español':'ATLAS ELE — The global map of Spanish teaching';
 }
 document.getElementById('langSwitch').onclick=()=>applyLanguage(currentLang==='en'?'es':'en');applyLanguage(currentLang);
+
+const moreMenu=document.getElementById('moreMenu');
+document.getElementById('moreChip').addEventListener('click',e=>{e.stopPropagation();moreMenu.classList.toggle('open')});
+document.addEventListener('click',e=>{if(!e.target.closest('.moreWrap'))moreMenu.classList.remove('open')});
+document.getElementById('globe3d').onclick=()=>{const n=document.createElement('div');n.className='globeNotice';n.innerHTML='<div style="font-size:42px">🌍</div><h3>ATLAS ELE 3D</h3><p>The globe view is the next map layer: rotate the world, explore countries and then move seamlessly into the detailed 2D map.</p><button>Got it</button>';document.body.appendChild(n);n.querySelector('button').onclick=()=>n.remove()};
