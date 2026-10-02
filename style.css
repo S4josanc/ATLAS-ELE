@@ -16,3 +16,11 @@
 .chips button[data-filter="language"].active{background:linear-gradient(135deg,#f5a443,#e78319);box-shadow:0 7px 17px rgba(243,139,32,.28)}
 .chips button[data-filter="association"].active{background:linear-gradient(135deg,#28b77d,#10965f);box-shadow:0 7px 17px rgba(22,166,108,.26)}
 .chips button[data-filter="teacher"].active{background:linear-gradient(135deg,#f143a2,#d71983);box-shadow:0 7px 17px rgba(235,33,142,.27)}
+/* v0.6 solid category tabs matching map markers */
+.chips button[data-filter="school"]{background:linear-gradient(135deg,#1791e5,#0874c8)!important;color:#fff!important;border-color:#6bb9ed!important;box-shadow:0 7px 17px rgba(8,120,209,.27)!important}
+.chips button[data-filter="university"]{background:linear-gradient(135deg,#8a52d8,#6d31b8)!important;color:#fff!important;border-color:#b58be9!important;box-shadow:0 7px 17px rgba(120,54,206,.25)!important}
+.chips button[data-filter="language"]{background:linear-gradient(135deg,#f5a443,#e78319)!important;color:#fff!important;border-color:#f8c27d!important;box-shadow:0 7px 17px rgba(243,139,32,.26)!important}
+.chips button[data-filter="association"]{background:linear-gradient(135deg,#28b77d,#10965f)!important;color:#fff!important;border-color:#70d1aa!important;box-shadow:0 7px 17px rgba(22,166,108,.24)!important}
+.chips button[data-filter="teacher"]{background:linear-gradient(135deg,#f143a2,#d71983)!important;color:#fff!important;border-color:#f58bc3!important;box-shadow:0 7px 17px rgba(235,33,142,.25)!important}
+.chips button[data-filter="school"]:hover,.chips button[data-filter="university"]:hover,.chips button[data-filter="language"]:hover,.chips button[data-filter="association"]:hover,.chips button[data-filter="teacher"]:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.chips button[data-filter="school"].active,.chips button[data-filter="university"].active,.chips button[data-filter="language"].active,.chips button[data-filter="association"].active,.chips button[data-filter="teacher"].active{transform:translateY(-1px);outline:2px solid rgba(255,255,255,.95);outline-offset:-3px;filter:saturate(1.08) brightness(.98)}
