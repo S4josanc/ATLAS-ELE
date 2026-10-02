@@ -36,7 +36,7 @@ let currentLang=localStorage.getItem('atlasLang')||((navigator.language||'').toL
 function applyLanguage(lang){
  currentLang=lang;localStorage.setItem('atlasLang',lang);document.documentElement.lang=lang;const t=translations[lang];
  document.getElementById('tagline').textContent=t.tagline;document.getElementById('q').placeholder=t.searchPlaceholder;document.getElementById('searchBtn').textContent=t.search;
- document.getElementById('topExplore').textContent=t.topExplore;document.getElementById('menuLabel').textContent=t.menu;document.getElementById('moreLabel').textContent=t.more;
+ document.getElementById('topExplore').textContent=t.topExplore;document.getElementById('menuLabel').textContent=t.menu;const ml=document.getElementById('moreLabel');if(ml)ml.textContent=t.more;
  const mainBtns=[...document.querySelectorAll('.chips > button, .chips > .moreWrap > #moreChip')];const labels=[t.all,t.school,t.university,t.language,t.association,t.teachers];labels.forEach((v,i)=>{if(mainBtns[i])mainBtns[i].innerHTML=v});
  document.getElementById('moreChip').innerHTML='••• <span id="moreLabel">'+t.more+'</span>';
  const addLabel=document.querySelector('.iconAction label');if(addLabel)addLabel.textContent=t.add;const joinStrong=document.querySelector('#joinBtn strong');if(joinStrong)joinStrong.innerHTML=lang==='es'?'Ponte en<br>el mapa':'Put yourself<br>on the map';
@@ -82,3 +82,18 @@ function setViewMode(mode){
 }
 document.getElementById('globe3d').onclick=()=>setViewMode('3d');
 document.getElementById('map2d').onclick=()=>setViewMode('2d');
+
+function initMiniGlobe(){
+ const el=document.getElementById('miniGlobe'); if(!el || typeof Globe!=='function') return;
+ try{
+  const g=Globe()(el)
+   .width(58).height(58)
+   .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+   .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+   .backgroundColor('rgba(0,0,0,0)')
+   .showAtmosphere(true).atmosphereColor('#7ad9ff').atmosphereAltitude(.12);
+  g.pointOfView({lat:20,lng:-10,altitude:1.75},0);
+  const ctl=g.controls();ctl.autoRotate=true;ctl.autoRotateSpeed=.8;ctl.enableZoom=false;ctl.enablePan=false;ctl.enableRotate=false;
+ }catch(e){ el.textContent='🌍'; el.style.fontSize='42px'; el.style.display='grid'; el.style.placeItems='center'; }
+}
+initMiniGlobe();
