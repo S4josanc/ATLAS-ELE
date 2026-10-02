@@ -1,0 +1,250 @@
+{
+  "meta": {
+    "status": "pilot",
+    "precision": "city-centroid",
+    "records": 24,
+    "note": "Public-safe pilot. Coordinates are city-level and must not be presented as exact institution locations."
+  },
+  "institutions": [
+    {
+      "id": "DE-000001",
+      "name": "Sprachsalon Berlin",
+      "type": "language",
+      "city": "Berlin",
+      "country": "Germany",
+      "lat": 52.52,
+      "lng": 13.405,
+      "precision": "city"
+    },
+    {
+      "id": "DE-000002",
+      "name": "TU Berlin — ZEMS",
+      "type": "university",
+      "city": "Berlin",
+      "country": "Germany",
+      "lat": 52.52,
+      "lng": 13.405,
+      "precision": "city"
+    },
+    {
+      "id": "AT-000001",
+      "name": "Vienna International School",
+      "type": "school",
+      "city": "Vienna",
+      "country": "Austria",
+      "lat": 48.2082,
+      "lng": 16.3738,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000001",
+      "name": "Bilingválne gymnázium Žilina",
+      "type": "school",
+      "city": "Žilina",
+      "country": "Slovakia",
+      "lat": 49.2231,
+      "lng": 18.7394,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000002",
+      "name": "Bilingválne slovensko-španielske gymnázium",
+      "type": "school",
+      "city": "Nové Mesto nad Váhom",
+      "country": "Slovakia",
+      "lat": 48.7576,
+      "lng": 17.8309,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000003",
+      "name": "Comenius University — Romance Studies",
+      "type": "university",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000004",
+      "name": "Comenius University — Faculty of Education",
+      "type": "university",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000005",
+      "name": "Constantine the Philosopher University",
+      "type": "university",
+      "city": "Nitra",
+      "country": "Slovakia",
+      "lat": 48.3061,
+      "lng": 18.0764,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000006",
+      "name": "English International School of Bratislava",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000007",
+      "name": "Espania Kindergarten",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000008",
+      "name": "Gymnázium Federica García Lorcu",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000009",
+      "name": "Gymnázium J. Hollého",
+      "type": "school",
+      "city": "Trnava",
+      "country": "Slovakia",
+      "lat": 48.3774,
+      "lng": 17.5883,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000010",
+      "name": "Gymnázium M. R. Štefánika 16",
+      "type": "school",
+      "city": "Nové Zámky",
+      "country": "Slovakia",
+      "lat": 47.9854,
+      "lng": 18.1619,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000011",
+      "name": "Gymnázium Mikuláša Kováča",
+      "type": "school",
+      "city": "Banská Bystrica",
+      "country": "Slovakia",
+      "lat": 48.7363,
+      "lng": 19.1462,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000012",
+      "name": "Gymnázium Park mládeže 5",
+      "type": "school",
+      "city": "Košice",
+      "country": "Slovakia",
+      "lat": 48.7164,
+      "lng": 21.2611,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000013",
+      "name": "Gymnázium, Párovská 1",
+      "type": "school",
+      "city": "Nitra",
+      "country": "Slovakia",
+      "lat": 48.3061,
+      "lng": 18.0764,
+      "precision": "city"
+    },
+    {
+      "id": "SK-000014",
+      "name": "QSI International School of Bratislava",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1486,
+      "lng": 17.1077,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000001",
+      "name": "Academia Alba — ELE",
+      "type": "language",
+      "city": "Murcia",
+      "country": "Spain",
+      "lat": 37.9922,
+      "lng": -1.1307,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000002",
+      "name": "Academia Atlántika",
+      "type": "language",
+      "city": "Cádiz",
+      "country": "Spain",
+      "lat": 36.5271,
+      "lng": -6.2886,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000003",
+      "name": "Academia Avenida de Andalucía — ELE",
+      "type": "language",
+      "city": "Málaga",
+      "country": "Spain",
+      "lat": 36.7213,
+      "lng": -4.4214,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000004",
+      "name": "Academia Berceo Salamanca",
+      "type": "language",
+      "city": "Salamanca",
+      "country": "Spain",
+      "lat": 40.9701,
+      "lng": -5.6635,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000005",
+      "name": "Academia Británica — International House Córdoba",
+      "type": "language",
+      "city": "Córdoba",
+      "country": "Spain",
+      "lat": 37.8882,
+      "lng": -4.7794,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000006",
+      "name": "Academia Carfax",
+      "type": "language",
+      "city": "Málaga",
+      "country": "Spain",
+      "lat": 36.7213,
+      "lng": -4.4214,
+      "precision": "city"
+    },
+    {
+      "id": "ES-000007",
+      "name": "Academia Contacto",
+      "type": "language",
+      "city": "Madrid",
+      "country": "Spain",
+      "lat": 40.4168,
+      "lng": -3.7038,
+      "precision": "city"
+    }
+  ]
+}
