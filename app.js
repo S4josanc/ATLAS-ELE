@@ -86,7 +86,9 @@ initMiniGlobe();
 async function loadPublicMapData(){
  try{
   const r=await fetch('data/pilot-city-points.json?v=2',{cache:'no-store'});if(!r.ok)throw new Error('data '+r.status);
-  const payload=await r.json();data=(payload.institutions||[]).map(x=>({...x,program:x.program||'Spanish / ELE',verified:x.verified??false,web:x.web||''}));
+  const payload=await r.json();const pilot=(payload.institutions||[]).map(x=>({...x,program:x.program||'Spanish / ELE',verified:x.verified??false,web:x.web||''}));
+  const spain=(window.ATLAS_SPAIN||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
+  const byId=new Map();pilot.forEach(x=>byId.set(x.id,x));spain.forEach(x=>byId.set(x.id,x));data=[...byId.values()];
   render();
   const hs=document.querySelectorAll('.headlineStats strong');if(hs[0])hs[0].textContent=data.length.toLocaleString();if(hs[1])hs[1].textContent=new Set(data.map(x=>x.country)).size;
   const ms=document.querySelectorAll('.mini-stats strong');if(ms[0])ms[0].textContent=data.length.toLocaleString();if(ms[1])ms[1].textContent=new Set(data.map(x=>x.country)).size;
