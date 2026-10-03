@@ -44,4 +44,21 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["AE-AC-001","Centro acreditado ELE — Emiratos Árabes Unidos","language","Dubai","United Arab Emirates",25.2048,55.2708,"",true],
 ["KZ-AC-001","Centro acreditado ELE — Kazajistán","language","Almaty","Kazakhstan",43.222,76.8512,"",true],
 ["IR-AC-001","Centro acreditado ELE — Irán","language","Tehran","Iran",35.6892,51.389,"",true]
+,["CN-IC-002","Instituto Cervantes / presencia ELE de Shanghái","official","Shanghai","China",31.2304,121.4737,"",true],
+["VN-IC-001","Aula Cervantes de Hanói","official","Hanoi","Vietnam",21.0278,105.8342,"",true],
+["MY-IC-001","Aula Cervantes de Kuala Lumpur","official","Kuala Lumpur","Malaysia",3.139,101.6869,"",true],
+["TN-IC-001","Instituto Cervantes de Túnez","official","Tunis","Tunisia",36.8065,10.1815,"",true],
+["GB-IC-002","Instituto Cervantes de Mánchester","official","Manchester","United Kingdom",53.4808,-2.2426,"",true],
+["US-IC-002","Instituto Cervantes de Chicago","official","Chicago","United States",41.8781,-87.6298,"",true],
+["CA-IC-002","Aula Cervantes de Calgary","official","Calgary","Canada",51.0447,-114.0719,"",true],
+["EG-IC-002","Instituto Cervantes — Alejandría","official","Alexandria","Egypt",31.2001,29.9187,"",true],
+["MA-IC-002","Instituto Cervantes de Rabat","official","Rabat","Morocco",34.0209,-6.8416,"",true],
+["MA-IC-003","Instituto Cervantes de Tánger","official","Tangier","Morocco",35.7595,-5.834,"",true],
+["BR-IC-002","Instituto Cervantes de Río de Janeiro","official","Rio de Janeiro","Brazil",-22.9068,-43.1729,"",true],
+["BR-IC-003","Instituto Cervantes de Brasilia","official","Brasília","Brazil",-15.7939,-47.8828,"",true],
+["IT-IC-002","Instituto Cervantes de Milán","official","Milan","Italy",45.4642,9.19,"",true],
+["IT-IC-003","Instituto Cervantes de Nápoles","official","Naples","Italy",40.8518,14.2681,"",true],
+["FR-IC-002","Instituto Cervantes — presencia ELE de Lyon","official","Lyon","France",45.764,4.8357,"",true],
+["FR-IC-003","Instituto Cervantes — presencia ELE de Toulouse","official","Toulouse","France",43.6047,1.4442,"",true],
+["DZ-IC-002","Instituto Cervantes de Orán","official","Oran","Algeria",35.6971,-0.6308,"",true]
 ]);
