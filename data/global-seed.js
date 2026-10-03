@@ -88,4 +88,10 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ,["AO-UNI-001","Universidade Agostinho Neto — ESHOTUR Spanish","university","Luanda","Angola",-8.839,13.2894,"https://www.uan.ao/",true],
 ["MZ-UNI-001","Universidade Joaquim Chissano — Spanish","university","Maputo","Mozambique",-25.9692,32.5732,"",true],
 ["CI-UNI-001","Université Félix Houphouët-Boigny — Spanish / Hispanic Studies","university","Abidjan","Côte d’Ivoire",5.35995,-4.00826,"",true]
+,["BJ-UNI-001","Université d'Abomey-Calavi — Spanish / Hispanic Studies","university","Abomey-Calavi","Benin",6.4485,2.3557,"https://www.uac.bj/",true],
+["UG-UNI-001","Makerere University — Spanish","university","Kampala","Uganda",0.3476,32.5825,"https://www.mak.ac.ug/",true],
+["KE-UN-001","United Nations Office at Nairobi — Spanish Language Programme","official","Nairobi","Kenya",-1.234,36.8172,"https://www.unon.org/",true],
+["ZW-LANG-001","Spanish language programme — Harare","language","Harare","Zimbabwe",-17.8252,31.0335,"",true],
+["MU-LANG-001","Spanish language programme — Mauritius","language","Moka","Mauritius",-20.219,57.496,"",true],
+["NA-UNI-001","University of Namibia — Spanish","university","Windhoek","Namibia",-22.5609,17.0658,"https://www.unam.edu.na/",true]
 ]);
