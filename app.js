@@ -89,7 +89,21 @@ async function loadPublicMapData(){
   const payload=await r.json();const pilot=(payload.institutions||[]).map(x=>({...x,program:x.program||'Spanish / ELE',verified:x.verified??false,web:x.web||''}));
   const spain=(window.ATLAS_SPAIN||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
   const central=(window.ATLAS_CENTRAL||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
-  const byId=new Map();pilot.forEach(x=>byId.set(x.id,x));spain.forEach(x=>byId.set(x.id,x));central.forEach(x=>byId.set(x.id,x));data=[...byId.values()];
+  const byId=new Map();
+  const precisionRank={unknown:0,country:1,region:2,city:3,address:4,exact:5};
+  function mergeRecord(x,source){
+    const old=byId.get(x.id);
+    if(!old){byId.set(x.id,{...x,_source:source});return}
+    const oldRank=precisionRank[old.precision||'unknown']||0,newRank=precisionRank[x.precision||'unknown']||0;
+    if(newRank>oldRank){console.info('[ATLAS] upgraded location',x.id,old.precision,'→',x.precision,source);byId.set(x.id,{...old,...x,_source:source});return}
+    if(newRank===oldRank){
+      const merged={...old};
+      for(const [k,v] of Object.entries(x)){if((merged[k]===undefined||merged[k]===null||merged[k]==='')&&v!==undefined&&v!==null&&v!=='')merged[k]=v}
+      byId.set(x.id,merged);console.warn('[ATLAS] duplicate ID kept first location',x.id,old._source,'vs',source);return
+    }
+    console.warn('[ATLAS] protected higher-precision location',x.id,old.precision,'from',x.precision,source);
+  }
+  pilot.forEach(x=>mergeRecord(x,'pilot'));spain.forEach(x=>mergeRecord(x,'spain'));central.forEach(x=>mergeRecord(x,'central-europe'));data=[...byId.values()];
   render();
   const hs=document.querySelectorAll('.headlineStats strong');if(hs[0])hs[0].textContent=data.length.toLocaleString();if(hs[1])hs[1].textContent=new Set(data.map(x=>x.country)).size;
   const ms=document.querySelectorAll('.mini-stats strong');if(ms[0])ms[0].textContent=data.length.toLocaleString();if(ms[1])ms[1].textContent=new Set(data.map(x=>x.country)).size;
