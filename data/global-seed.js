@@ -61,4 +61,15 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["FR-IC-002","Instituto Cervantes — presencia ELE de Lyon","official","Lyon","France",45.764,4.8357,"",true],
 ["FR-IC-003","Instituto Cervantes — presencia ELE de Toulouse","official","Toulouse","France",43.6047,1.4442,"",true],
 ["DZ-IC-002","Instituto Cervantes de Orán","official","Oran","Algeria",35.6971,-0.6308,"",true]
+,["NO-UNI-001","University of Oslo — Spanish, Portuguese and Latin American Studies","university","Oslo","Norway",59.9139,10.7522,"https://www.uio.no/",true],
+["FI-UNI-001","University of Helsinki — Spanish Philology","university","Helsinki","Finland",60.1699,24.9384,"https://www.helsinki.fi/en/faculty-humanities/research/disciplines/languages/spanish-philology",true],
+["DK-UNI-001","University of Copenhagen — Spanish and Latin American Language and Culture","university","Copenhagen","Denmark",55.6761,12.5683,"https://www.ku.dk/studies/bachelor/spanish-and-latin-american-language-and-culture",true],
+["IS-UNI-001","University of Iceland — Spanish","university","Reykjavík","Iceland",64.1466,-21.9426,"https://english.hi.is/spanish/ba",true],
+["EE-UNI-001","University of Tartu — Spanish Language and Culture","university","Tartu","Estonia",58.3776,26.729,"https://maailmakeeled.ut.ee/et/sisu/hispaania-keel",true],
+["LV-UNI-001","University of Latvia — Iberian and Latin American Studies","university","Riga","Latvia",56.9496,24.1052,"https://www.lu.lv/",true],
+["LT-UNI-001","Vilnius University — English and Spanish","university","Vilnius","Lithuania",54.6872,25.2797,"https://admissions.vu.lt/studies/bachelor-studies/english-and-another-foreign-language-spanish",true],
+["AM-UNI-001","Yerevan State University — English, Spanish and Communication","university","Yerevan","Armenia",40.1872,44.5152,"https://www.ysu.am/en/faculty/68/educational-program-411",true],
+["GE-UNI-001","Tbilisi State University — Language Center Spanish","university","Tbilisi","Georgia",41.7151,44.8271,"https://www.tsu.ge/en/page/Administrative-Departments",true],
+["ZA-UNI-001","University of Pretoria — Spanish","university","Pretoria","South Africa",-25.7479,28.2293,"https://www.up.ac.za/",true],
+["NZ-UNI-001","University of Auckland — Spanish","university","Auckland","New Zealand",-36.8509,174.7645,"https://www.auckland.ac.nz/en/study/study-options/find-a-study-option/spanish.html",true]
 ]);
