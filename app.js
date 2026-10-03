@@ -3,7 +3,7 @@ const map=L.map('map',{zoomControl:true,worldCopyJump:true}).setView([45,8],4);L
 let filter='all',markers=[];const clusterLayer=L.markerClusterGroup({showCoverageOnHover:false,spiderfyOnMaxZoom:true,maxClusterRadius:52,iconCreateFunction:clusterIcon});map.addLayer(clusterLayer);const panel=document.getElementById('panel'),detail=document.getElementById('detail');
 function clusterIcon(cluster){const children=cluster.getAllChildMarkers();const counts={};children.forEach(m=>{const t=m.options.atlasType||'school';counts[t]=(counts[t]||0)+1});const dominant=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'school';const colors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e'};const n=cluster.getChildCount();const size=n<10?38:n<100?44:50;return L.divIcon({html:'<div class="atlas-cluster" style="--cluster:'+colors[dominant]+';width:'+size+'px;height:'+size+'px"><span>'+n+'</span></div>',className:'atlas-cluster-wrap',iconSize:[size,size]})}
 function icon(type){const c={school:'#0c72b8',university:'#7557c9',language:'#e69032',association:'#31a47c'}[type]||'#0c72b8';return L.divIcon({className:'',html:"<div class='atlas-marker' style='width:20px;height:20px;background:"+c+"'></div>",iconSize:[20,20]})}
-function render(){clusterLayer.clearLayers();markers=[];const shown=data.filter(x=>filter==='all'||x.type===filter);shown.forEach(x=>{let m=L.marker([x.lat,x.lng],{icon:icon(x.type),atlasType:x.type}).on('click',()=>show(x));markers.push(m)});clusterLayer.addLayers(markers);const c=document.getElementById('count');const cc=document.getElementById('countries');if(c)c.textContent=data.length.toLocaleString();if(cc)cc.textContent=new Set(data.map(x=>x.country)).size;if(globeInstance)globeInstance.pointsData(shown)}
+function render(){clusterLayer.clearLayers();markers=[];const shown=data.filter(x=>filter==='all'||x.type===filter);shown.forEach(x=>{let m=L.marker([x.lat,x.lng],{icon:icon(x.type),atlasType:x.type}).on('click',()=>show(x));markers.push(m)});clusterLayer.addLayers(markers);const c=document.getElementById('count');const cc=document.getElementById('countries');if(c)c.textContent=data.length.toLocaleString();if(cc)cc.textContent=new Set(data.map(x=>x.country)).size;if(globeInstance)globeInstance.pointsData(getGlobePoints(shown))}
 function show(x){const t=translations[currentLang];detail.innerHTML=`<div class='detail'><span class='tag'>${x.type}</span><h2>${x.name}</h2><div class='meta'>📍 ${x.city}, ${x.country}</div><span class='pill'>🇪🇸 ${x.program}</span><span class='pill'>${x.verified?t.verified:t.demo}</span><p style='color:#66768a;line-height:1.5'>${t.publicProfile}</p>${x.web?`<a class='website' target='_blank' href='${x.web}'>${t.visit}</a>`:''}</div>`;panel.style.display='block'}
 document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()});
 document.getElementById('close').onclick=()=>panel.style.display='none';document.getElementById('explore').onclick=()=>{document.getElementById('worldCard').classList.add('hidden');map.flyTo([46,8],5,{duration:1.2})};map.on('zoomstart',()=>document.getElementById('worldCard').classList.add('hidden'));
@@ -45,6 +45,11 @@ document.addEventListener('click',e=>{if(!e.target.closest('.moreWrap'))moreMenu
 
 let globeInstance=null;
 const typeColors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e'};
+function getGlobePoints(source=data){
+ const groups=new Map();
+ source.forEach(x=>{const key=(+x.lat).toFixed(4)+'|'+(+x.lng).toFixed(4);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(x)});
+ return [...groups.values()].map(items=>{if(items.length===1)return {...items[0],count:1,items};const counts={};items.forEach(x=>counts[x.type]=(counts[x.type]||0)+1);const type=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];return {...items[0],type,count:items.length,items,name:items.length+' places'}});
+}
 function initGlobe(){
  if(globeInstance)return;
  const el=document.getElementById('globeView');
@@ -52,11 +57,12 @@ function initGlobe(){
   .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
   .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
   .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-  .pointsData(data)
+  .pointsData(getGlobePoints())
   .pointLat(d=>d.lat).pointLng(d=>d.lng).pointColor(d=>typeColors[d.type]||'#0878d1')
-  .pointAltitude(.018).pointRadius(.42)
-  .pointLabel(d=>'<div class="globe-tooltip"><b>'+d.name+'</b><small>📍 '+d.city+', '+d.country+'<br>🇪🇸 '+d.program+'</small></div>')
-  .onPointClick(d=>show(d));
+  .pointAltitude(d=>.012+Math.min(d.count||1,20)*.0012).pointRadius(d=>.25+Math.min(Math.sqrt(d.count||1)*.12,.55))
+  .pointResolution(10)
+  .pointLabel(d=>'<div class="globe-tooltip"><b>'+((d.count||1)>1?(d.count+' places'):d.name)+'</b><small>📍 '+d.city+', '+d.country+((d.count||1)>1?'<br>Click to explore this cluster':'<br>🇪🇸 '+d.program)+'</small></div>')
+  .onPointClick(d=>{if((d.count||1)>1){setViewMode('2d');map.flyTo([d.lat,d.lng],12,{duration:1.1})}else show(d)});
  globeInstance.controls().autoRotate=true;globeInstance.controls().autoRotateSpeed=.32;
  globeInstance.pointOfView({lat:28,lng:8,altitude:2.15},1200);
  const resize=()=>{globeInstance.width(el.clientWidth).height(el.clientHeight)};resize();window.addEventListener('resize',resize);
@@ -108,7 +114,7 @@ async function loadPublicMapData(){
   render();
   const hs=document.querySelectorAll('.headlineStats strong');if(hs[0])hs[0].textContent=data.length.toLocaleString();if(hs[1])hs[1].textContent=new Set(data.map(x=>x.country)).size;
   const ms=document.querySelectorAll('.mini-stats strong');if(ms[0])ms[0].textContent=data.length.toLocaleString();if(ms[1])ms[1].textContent=new Set(data.map(x=>x.country)).size;
-  if(globeInstance)globeInstance.pointsData(data);
+  if(globeInstance)globeInstance.pointsData(getGlobePoints());
  }catch(e){console.error('ATLAS ELE data load failed',e)}
 }
 loadPublicMapData();
