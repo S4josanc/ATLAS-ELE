@@ -76,4 +76,9 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["AZ-UNI-001","Azerbaijan University of Languages — Spanish Language Center","university","Baku","Azerbaijan",40.4093,49.8671,"https://adu.edu.az/ru/bim/Centers/SpanishCenter/",true],
 ["MD-UNI-001","Moldova State University — Spanish and English","university","Chișinău","Moldova",47.0105,28.8638,"https://usm.md/",true],
 ["XK-UNI-001","University of Pristina — Language Center Spanish","university","Pristina","Kosovo",42.6629,21.1655,"https://filologjia.uni-pr.edu/",true]
+,["BA-UNI-001","University of Sarajevo — Department of Spanish / Romance Studies","university","Sarajevo","Bosnia and Herzegovina",43.8563,18.4131,"https://www.ff.unsa.ba/",true],
+["ME-UNI-001","University of Montenegro — Spanish Language","university","Podgorica","Montenegro",42.4304,19.2594,"https://www.ucg.ac.me/",true],
+["MN-UNI-001","National University of Mongolia — Spanish Studies","university","Ulaanbaatar","Mongolia",47.8864,106.9057,"https://www.num.edu.mn/",true],
+["UZ-UNI-001","Uzbekistan State University of World Languages — Spanish","university","Tashkent","Uzbekistan",41.2995,69.2401,"https://uzswlu.uz/",true],
+["GH-UNI-001","University of Ghana — Spanish / Casa Hispánica","university","Accra","Ghana",5.6037,-0.187,"https://languages.ug.edu.gh/",true]
 ]);
