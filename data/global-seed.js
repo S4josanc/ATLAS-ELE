@@ -134,4 +134,5 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ,["TZ-UNI-001","State University of Zanzibar — Department of Foreign Languages / Spanish","university","Zanzibar City","Tanzania",-6.1659,39.2026,"https://suza.ac.tz/?page_id=15806",true],
 ["ZM-UNI-001","University of Zambia — Language Centre / Spanish","university","Lusaka","Zambia",-15.3944,28.3322,"https://www.unza.zm/",true]
 ,["MW-UNI-001","University of Malawi — Foreign Languages / Spanish programme development","university","Zomba","Malawi",-15.3833,35.3333,"https://www.unima.ac.mw/",true]
+,["HT-LANG-001","UNIR-Haiti — Spanish Course","language","Port-au-Prince","Haiti",18.5392,-72.335,"https://unir-haiti.org/en/spanish-course/",true]
 ]);
