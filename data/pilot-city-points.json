@@ -98,9 +98,12 @@
       "type": "school",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.15615,
+      "lng": 17.17245,
+      "precision": "exact",
+      "address": "Radničné námestie 4, Bratislava",
+      "web": "https://eisbratislava.org/",
+      "verified": true
     },
     {
       "id": "SK-000007",
@@ -108,9 +111,12 @@
       "type": "school",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.14875,
+      "lng": 17.10255,
+      "precision": "exact",
+      "address": "Kozia 25, Bratislava",
+      "web": "https://www.espania.sk/",
+      "verified": true
     },
     {
       "id": "SK-000008",
@@ -118,9 +124,12 @@
       "type": "school",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.1292,
+      "lng": 17.2057,
+      "precision": "exact",
+      "address": "Hronská 3, Bratislava",
+      "web": "https://www.gymhron.sk/",
+      "verified": true
     },
     {
       "id": "SK-000009",
@@ -178,9 +187,12 @@
       "type": "school",
       "city": "Bratislava",
       "country": "Slovakia",
-      "lat": 48.1486,
-      "lng": 17.1077,
-      "precision": "city"
+      "lat": 48.1364,
+      "lng": 17.1046,
+      "precision": "exact",
+      "address": "Viedenská cesta 3–7, Bratislava",
+      "web": "https://bratislava.qsi.org/",
+      "verified": true
     },
     {
       "id": "ES-000001",
