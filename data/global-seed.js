@@ -72,4 +72,8 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["GE-UNI-001","Tbilisi State University — Language Center Spanish","university","Tbilisi","Georgia",41.7151,44.8271,"https://www.tsu.ge/en/page/Administrative-Departments",true],
 ["ZA-UNI-001","University of Pretoria — Spanish","university","Pretoria","South Africa",-25.7479,28.2293,"https://www.up.ac.za/",true],
 ["NZ-UNI-001","University of Auckland — Spanish","university","Auckland","New Zealand",-36.8509,174.7645,"https://www.auckland.ac.nz/en/study/study-options/find-a-study-option/spanish.html",true]
+,["AL-UNI-001","University of Tirana — Department of Spanish Language","university","Tirana","Albania",41.3275,19.8187,"https://fgjh.edu.al/en/department-of-spanish-language/",true],
+["AZ-UNI-001","Azerbaijan University of Languages — Spanish Language Center","university","Baku","Azerbaijan",40.4093,49.8671,"https://adu.edu.az/ru/bim/Centers/SpanishCenter/",true],
+["MD-UNI-001","Moldova State University — Spanish and English","university","Chișinău","Moldova",47.0105,28.8638,"https://usm.md/",true],
+["XK-UNI-001","University of Pristina — Language Center Spanish","university","Pristina","Kosovo",42.6629,21.1655,"https://filologjia.uni-pr.edu/",true]
 ]);
