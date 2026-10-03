@@ -2,7 +2,7 @@
   "meta": {
     "status": "pilot",
     "precision": "city-centroid",
-    "records": 24,
+    "records": 25,
     "note": "Public-safe pilot. Coordinates are city-level and must not be presented as exact institution locations."
   },
   "institutions": [
@@ -103,19 +103,6 @@
       "precision": "exact",
       "address": "Radničné námestie 4, Bratislava",
       "web": "https://eisbratislava.org/",
-      "verified": true
-    },
-    {
-      "id": "SK-000007",
-      "name": "Espania Kindergarten",
-      "type": "school",
-      "city": "Bratislava",
-      "country": "Slovakia",
-      "lat": 48.14875,
-      "lng": 17.10255,
-      "precision": "exact",
-      "address": "Kozia 25, Bratislava",
-      "web": "https://www.espania.sk/",
       "verified": true
     },
     {
@@ -263,6 +250,34 @@
       "lat": 40.4168,
       "lng": -3.7038,
       "precision": "city"
+    },
+    {
+      "id": "SK-CIS-001",
+      "name": "Cambridge International School Bratislava",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1582,
+      "lng": 17.1018,
+      "precision": "address",
+      "address": "Úprkova 3, 811 04 Bratislava",
+      "web": "https://www.cambridgeschool.eu/",
+      "verified": true,
+      "program": "Spanish · Cambridge IGCSE / A Level"
+    },
+    {
+      "id": "SK-BISB-001",
+      "name": "The British International School Bratislava",
+      "type": "school",
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "lat": 48.1889,
+      "lng": 17.0366,
+      "precision": "address",
+      "address": "Pekníkova 6, 841 02 Bratislava",
+      "web": "https://www.nordangliaeducation.com/bisb-bratislava",
+      "verified": true,
+      "program": "Spanish · Secondary / IB"
     }
   ]
 }
