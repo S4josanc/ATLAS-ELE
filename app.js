@@ -1,7 +1,7 @@
 let data=[];
 const map=L.map('map',{zoomControl:true,worldCopyJump:true}).setView([45,8],4);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
 let filter='all',markers=[];const clusterLayer=L.markerClusterGroup({showCoverageOnHover:false,spiderfyOnMaxZoom:true,disableClusteringAtZoom:15,maxClusterRadius:(z)=>z>=13?28:z>=10?38:52,iconCreateFunction:clusterIcon});map.addLayer(clusterLayer);const panel=document.getElementById('panel'),detail=document.getElementById('detail');
-function clusterIcon(cluster){const children=cluster.getAllChildMarkers();const counts={};children.forEach(m=>{const t=m.options.atlasType||'school';counts[t]=(counts[t]||0)+1});const dominant=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'school';const colors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e'};const n=cluster.getChildCount();const size=n<10?38:n<100?44:50;return L.divIcon({html:'<div class="atlas-cluster" style="--cluster:'+colors[dominant]+';width:'+size+'px;height:'+size+'px"><span>'+n+'</span></div>',className:'atlas-cluster-wrap',iconSize:[size,size]})}
+function clusterIcon(cluster){const children=cluster.getAllChildMarkers();const counts={};children.forEach(m=>{const t=m.options.atlasType||'school';counts[t]=(counts[t]||0)+1});const dominant=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'school';const colors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e',cervantes:'#d92525'};const n=cluster.getChildCount();const size=n<10?38:n<100?44:50;return L.divIcon({html:'<div class="atlas-cluster" style="--cluster:'+colors[dominant]+';width:'+size+'px;height:'+size+'px"><span>'+n+'</span></div>',className:'atlas-cluster-wrap',iconSize:[size,size]})}
 function icon(type){const c={school:'#0c72b8',university:'#7557c9',language:'#e69032',association:'#31a47c'}[type]||'#0c72b8';return L.divIcon({className:'',html:"<div class='atlas-marker' style='width:20px;height:20px;background:"+c+"'></div>",iconSize:[20,20]})}
 function render(){clusterLayer.clearLayers();markers=[];const shown=data.filter(x=>filter==='all'||x.type===filter);shown.forEach(x=>{let m=L.marker([x.lat,x.lng],{icon:icon(x.type),atlasType:x.type}).on('click',()=>show(x));markers.push(m)});clusterLayer.addLayers(markers);const c=document.getElementById('count');const cc=document.getElementById('countries');if(c)c.textContent=data.length.toLocaleString();if(cc)cc.textContent=new Set(data.map(x=>x.country)).size;if(globeInstance)globeInstance.pointsData(getGlobePoints(shown))}
 function show(x){const t=translations[currentLang];detail.innerHTML=`<div class='detail'><span class='tag'>${x.type}</span><h2>${x.name}</h2><div class='meta'>📍 ${x.city}, ${x.country}</div><span class='pill'>🇪🇸 ${x.program}</span><span class='pill'>${x.verified?t.verified:t.demo}</span><p style='color:#66768a;line-height:1.5'>${t.publicProfile}</p>${x.web?`<a class='website' target='_blank' href='${x.web}'>${t.visit}</a>`:''}</div>`;panel.style.display='block'}
@@ -48,7 +48,7 @@ document.getElementById('moreChip').addEventListener('click',e=>{e.stopPropagati
 document.addEventListener('click',e=>{if(!e.target.closest('.moreWrap'))moreMenu.classList.remove('open')});
 
 let globeInstance=null;
-const typeColors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e'};
+const typeColors={school:'#0878d1',university:'#7836ce',language:'#f38b20',association:'#16a66c',teacher:'#eb218e',cervantes:'#d92525'};
 function getGlobePoints(source=data){
  const groups=new Map();
  source.forEach(x=>{const key=(+x.lat).toFixed(4)+'|'+(+x.lng).toFixed(4);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(x)});
@@ -100,7 +100,7 @@ async function loadPublicMapData(){
   const payload=await r.json();const pilot=(payload.institutions||[]).map(x=>({...x,program:x.program||'Spanish / ELE',verified:x.verified??false,web:x.web||''}));
   const spain=(window.ATLAS_SPAIN||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],address:a[9]||'',precision:a[10]||'city',program:'Spanish / ELE'}));
   const central=(window.ATLAS_CENTRAL||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
-  const globalSeed=(window.ATLAS_GLOBAL||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));const cervantes=(window.ATLAS_CERVANTES||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:true,precision:'city',program:'Instituto Cervantes network'}));
+  const globalSeed=(window.ATLAS_GLOBAL||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));const cervantes=(window.ATLAS_CERVANTES||[]).map(a=>({id:a[0],name:a[1],type:'cervantes',city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:true,precision:'city',program:'Instituto Cervantes network'}));
   const byId=new Map();
   const precisionRank={unknown:0,country:1,region:2,city:3,address:4,exact:5};
   function mergeRecord(x,source){
@@ -115,7 +115,7 @@ async function loadPublicMapData(){
     }
     console.warn('[ATLAS] protected higher-precision location',x.id,old.precision,'from',x.precision,source);
   }
-  pilot.forEach(x=>mergeRecord(x,'pilot'));spain.forEach(x=>mergeRecord(x,'spain'));central.forEach(x=>mergeRecord(x,'central-europe'));globalSeed.forEach(x=>mergeRecord(x,'global-seed'));cervantes.forEach(x=>mergeRecord(x,'cervantes-2025'));data=[...byId.values()];
+  pilot.forEach(x=>mergeRecord(x,'pilot'));spain.forEach(x=>mergeRecord(x,'spain'));central.forEach(x=>mergeRecord(x,'central-europe'));globalSeed.forEach(x=>{if(/(?:Instituto|Aula|Extensión|Antena|Cátedra) Cervantes/i.test(x.name))x.type='cervantes';mergeRecord(x,'global-seed')});cervantes.forEach(x=>mergeRecord(x,'cervantes-2025'));data=[...byId.values()];
   render();
   const hs=document.querySelectorAll('.headlineStats strong');if(hs[0])hs[0].textContent=data.length.toLocaleString();if(hs[1])hs[1].textContent=new Set(data.map(x=>x.country)).size;
   const ms=document.querySelectorAll('.mini-stats strong');if(ms[0])ms[0].textContent=data.length.toLocaleString();if(ms[1])ms[1].textContent=new Set(data.map(x=>x.country)).size;
