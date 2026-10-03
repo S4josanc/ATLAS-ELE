@@ -175,4 +175,19 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["AU-UNI-005","Adelaide University — Spanish Studies","university","Adelaide","Australia",-34.9205,138.6063,"https://adelaideuni.edu.au/study/degrees/bachelor-of-arts-spanish-studies/",true],
 ["AU-UNI-006","La Trobe University — Spanish Studies","university","Melbourne","Australia",-37.7207,145.0482,"https://www.latrobe.edu.au/courses/bachelor-of-languages-and-linguistics/spanish-studies-beginners",true],
 ["AU-UNI-007","UNSW Sydney — Spanish Studies","university","Sydney","Australia",-33.9173,151.2313,"https://www.handbook.unsw.edu.au/undergraduate/specialisations/2024/SPANI1",true]
+,["CA-UNI-001","University of Toronto — Spanish Studies","university","Toronto","Canada",43.6629,-79.3957,"https://www.spanport.utoronto.ca/",true],
+["CA-UNI-002","University of British Columbia — Spanish Studies","university","Vancouver","Canada",49.2606,-123.246,"https://fhis.ubc.ca/undergraduate/spanish-studies/",true],
+["CA-UNI-003","McGill University — Hispanic Studies","university","Montreal","Canada",45.5048,-73.5772,"https://www.mcgill.ca/langlitcultures/",true],
+["CA-UNI-004","University of Alberta — Spanish","university","Edmonton","Canada",53.5232,-113.5263,"https://www.ualberta.ca/",true],
+["CA-UNI-005","University of Calgary — Spanish","university","Calgary","Canada",51.077,-114.13,"https://www.ucalgary.ca/",true],
+["CA-UNI-006","University of Ottawa — Spanish","university","Ottawa","Canada",45.4231,-75.6831,"https://www.uottawa.ca/",true],
+["CA-UNI-007","York University — Spanish","university","Toronto","Canada",43.7735,-79.5019,"https://www.yorku.ca/",true],
+["CA-UNI-008","Western University — Spanish","university","London","Canada",43.0096,-81.2737,"https://www.uwo.ca/",true],
+["CA-UNI-009","Queen's University — Spanish","university","Kingston","Canada",44.2253,-76.4951,"https://www.queensu.ca/",true],
+["CA-UNI-010","Dalhousie University — Spanish","university","Halifax","Canada",44.6366,-63.5917,"https://www.dal.ca/",true],
+["CA-UNI-011","University of Manitoba — Spanish","university","Winnipeg","Canada",49.8075,-97.1366,"https://umanitoba.ca/",true],
+["CA-UNI-012","University of Saskatchewan — Spanish","university","Saskatoon","Canada",52.1332,-106.67,"https://www.usask.ca/",true],
+["CA-UNI-013","University of Victoria — Spanish","university","Victoria","Canada",48.4634,-123.3117,"https://www.uvic.ca/",true],
+["CA-UNI-014","Simon Fraser University — Spanish","university","Burnaby","Canada",49.2781,-122.9199,"https://www.sfu.ca/",true],
+["CA-UNI-015","Université de Montréal — Études hispaniques","university","Montreal","Canada",45.5056,-73.6138,"https://www.umontreal.ca/",true]
 ]);
