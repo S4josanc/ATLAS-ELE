@@ -131,4 +131,6 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ,["RW-UNI-001","INES-Ruhengeri — Language Center Spanish","university","Musanze","Rwanda",-1.4998,29.63497,"https://www.ines.ac.rw/languages-center/course-duration/",true],
 ["GQ-UNI-001","Universidad Nacional de Guinea Ecuatorial — Español / Filología","university","Malabo","Equatorial Guinea",3.7504,8.7371,"https://ungecampus.com/",true]
 ,["GD-UNI-001","St. George's University — Spanish","university","St. George's","Grenada",12.0561,-61.7488,"https://www.sgu.edu/",true]
+,["TZ-UNI-001","State University of Zanzibar — Department of Foreign Languages / Spanish","university","Zanzibar City","Tanzania",-6.1659,39.2026,"https://suza.ac.tz/?page_id=15806",true],
+["ZM-UNI-001","University of Zambia — Language Centre / Spanish","university","Lusaka","Zambia",-15.3944,28.3322,"https://www.unza.zm/",true]
 ]);
