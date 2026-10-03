@@ -113,4 +113,7 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["BH-UNI-001","University of Bahrain — Spanish / Language Studies","university","Sakhir","Bahrain",26.0514,50.5189,"https://www.uob.edu.bh/",true],
 ["OM-UNI-001","Sultan Qaboos University — Spanish / Language Centre","university","Muscat","Oman",23.588,58.3829,"https://www.squ.edu.om/",true],
 ["FJ-UNI-001","University of the South Pacific — Spanish","university","Suva","Fiji",-18.1416,178.4419,"https://www.usp.ac.fj/",true]
+,["MT-UNI-001","University of Malta — Department of Spanish & Latin American Studies","university","Msida","Malta",35.9029,14.4833,"https://www.um.edu.mt/arts/spanish/",true],
+["SA-UNI-001","King Saud University — Spanish Language and Translation","university","Riyadh","Saudi Arabia",24.7136,46.6753,"https://cols.ksu.edu.sa/en/node/325",true],
+["IQ-UNI-001","University of Baghdad — Department of Spanish Language","university","Baghdad","Iraq",33.3152,44.3661,"https://colang.uobaghdad.edu.iq/",true]
 ]);
