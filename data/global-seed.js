@@ -81,4 +81,8 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["MN-UNI-001","National University of Mongolia — Spanish Studies","university","Ulaanbaatar","Mongolia",47.8864,106.9057,"https://www.num.edu.mn/",true],
 ["UZ-UNI-001","Uzbekistan State University of World Languages — Spanish","university","Tashkent","Uzbekistan",41.2995,69.2401,"https://uzswlu.uz/",true],
 ["GH-UNI-001","University of Ghana — Spanish / Casa Hispánica","university","Accra","Ghana",5.6037,-0.187,"https://languages.ug.edu.gh/",true]
+,["BD-UNI-001","University of Dhaka — Institute of Modern Languages / Spanish","university","Dhaka","Bangladesh",23.7289,90.3984,"https://du.ac.bd/body/about/iml",true],
+["NP-LANG-001","ELE USAL Nepal","language","Kathmandu","Nepal",27.7172,85.324,"https://nepal.eleusal.com/",true],
+["ET-SCH-001","Sandford International School — Spanish","school","Addis Ababa","Ethiopia",9.03,38.74,"",true],
+["CM-UNI-001","University of Yaoundé I — Spanish / Hispanic Studies","university","Yaoundé","Cameroon",3.848,11.5021,"https://www.uy1.uninet.cm/",true]
 ]);
