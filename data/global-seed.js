@@ -153,4 +153,19 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["US-DELE-008","Allendale Columbia School — Spanish / DELE","school","Rochester","United States",43.1566,-77.6088,"https://www.allendalecolumbia.org/",true],
 ["US-DELE-009","Phyllis E. Williams Spanish Immersion School","school","Upper Marlboro","United States",38.8159,-76.7497,"",true],
 ["US-DELE-010","Isabella and Ferdinand Academia de Español","language","Washington, D.C.","United States",38.9072,-77.0369,"",true]
+,["RU-DELE-001","Irkutsk Linguistic University — DELE","university","Irkutsk","Russia",52.2869,104.305,"",true],
+["RU-DELE-002","ESPACENTRO — Centro Español","language","Kazan","Russia",55.7961,49.1064,"",true],
+["RU-DELE-003","BIG BEN Language Centre — DELE","language","Novosibirsk","Russia",55.0084,82.9357,"http://bigben-nsk.com/",true],
+["RU-DELE-004","Omsk State University F. M. Dostoevsky — DELE","university","Omsk","Russia",54.9885,73.3242,"https://www.omsu.ru/",true],
+["RU-DELE-005","Orel State University — DELE","university","Oryol","Russia",52.9651,36.0785,"",true],
+["RU-DELE-006","Perm State University — Cardiolengua / DELE","university","Perm","Russia",58.0105,56.2502,"",true],
+["RU-DELE-007","Pyatigorsk State Linguistic University — DELE","university","Pyatigorsk","Russia",44.0486,43.0594,"",true],
+["RU-DELE-008","Southern Federal University — Centro Hispano-Ruso","university","Rostov-on-Don","Russia",47.2357,39.7015,"https://esp-centr.sfedu.ru/",true],
+["RU-DELE-009","ADELANTE — Centro de Lengua Española y Cultura","language","Saint Petersburg","Russia",59.9311,30.3609,"http://www.centroadelante.ru/",true],
+["RU-DELE-010","NILC Tver — DELE","language","Tver","Russia",56.8587,35.9176,"",true],
+["RU-DELE-011","AENGLE Language School — DELE","language","Volgograd","Russia",48.708,44.5133,"",true],
+["RU-DELE-012","Voronezh State University — DELE","university","Voronezh","Russia",51.6608,39.2003,"https://www.vsu.ru/",true],
+["US-DELE-011","FASNY French-American School of New York — DELE","school","Mamaroneck","United States",40.9487,-73.7326,"https://www.fasny.org/",true],
+["US-DELE-012","Vin-Ter Language School — DELE","language","Chevy Chase","United States",38.979,-77.083,"",true],
+["US-DELE-013","Butterfly Language School — DELE","language","Lake Charles","United States",30.2266,-93.2174,"",true]
 ]);
