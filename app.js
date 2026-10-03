@@ -94,7 +94,7 @@ async function loadPublicMapData(){
  try{
   const r=await fetch('data/pilot-city-points.json?v=2',{cache:'no-store'});if(!r.ok)throw new Error('data '+r.status);
   const payload=await r.json();const pilot=(payload.institutions||[]).map(x=>({...x,program:x.program||'Spanish / ELE',verified:x.verified??false,web:x.web||''}));
-  const spain=(window.ATLAS_SPAIN||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
+  const spain=(window.ATLAS_SPAIN||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],address:a[9]||'',precision:a[10]||'city',program:'Spanish / ELE'}));
   const central=(window.ATLAS_CENTRAL||[]).map(a=>({id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7]||'',verified:a[8],precision:'city',program:'Spanish / ELE'}));
   const byId=new Map();
   const precisionRank={unknown:0,country:1,region:2,city:3,address:4,exact:5};
