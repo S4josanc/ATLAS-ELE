@@ -168,4 +168,11 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["US-DELE-011","FASNY French-American School of New York — DELE","school","Mamaroneck","United States",40.9487,-73.7326,"https://www.fasny.org/",true],
 ["US-DELE-012","Vin-Ter Language School — DELE","language","Chevy Chase","United States",38.979,-77.083,"",true],
 ["US-DELE-013","Butterfly Language School — DELE","language","Lake Charles","United States",30.2266,-93.2174,"",true]
+,["AU-UNI-001","University of Sydney — Spanish & Latin American Studies","university","Sydney","Australia",-33.8886,151.1873,"https://www.sydney.edu.au/arts/schools/school-of-languages-and-cultures/spanish-and-latin-american-studies.html",true],
+["AU-UNI-002","University of Melbourne — Spanish & Latin American Studies","university","Melbourne","Australia",-37.7963,144.9614,"https://study.unimelb.edu.au/student-life/inside-melbourne/languages/spanish",true],
+["AU-UNI-003","Australian National University — Spanish Studies","university","Canberra","Australia",-35.2777,149.1185,"https://programsandcourses.anu.edu.au/major/SPNS-MAJ",true],
+["AU-UNI-004","University of Western Australia — Spanish Studies","university","Perth","Australia",-31.9802,115.8181,"https://www.uwa.edu.au/study/courses/spanish-studies",true],
+["AU-UNI-005","Adelaide University — Spanish Studies","university","Adelaide","Australia",-34.9205,138.6063,"https://adelaideuni.edu.au/study/degrees/bachelor-of-arts-spanish-studies/",true],
+["AU-UNI-006","La Trobe University — Spanish Studies","university","Melbourne","Australia",-37.7207,145.0482,"https://www.latrobe.edu.au/courses/bachelor-of-languages-and-linguistics/spanish-studies-beginners",true],
+["AU-UNI-007","UNSW Sydney — Spanish Studies","university","Sydney","Australia",-33.9173,151.2313,"https://www.handbook.unsw.edu.au/undergraduate/specialisations/2024/SPANI1",true]
 ]);
