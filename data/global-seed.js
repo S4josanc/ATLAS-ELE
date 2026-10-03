@@ -98,4 +98,19 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["MG-UNI-001","Université d'Antananarivo — Département d'Études Hispaniques","university","Antananarivo","Madagascar",-18.8792,47.5079,"https://www.univ-antananarivo.mg/",true],
 ["CV-UNI-001","Universidade de Cabo Verde — Spanish / Lectorado","university","Praia","Cabo Verde",14.9331,-23.5133,"https://www.unicv.edu.cv/",true],
 ["GA-UNI-001","Université Omar Bongo — Spanish / Hispanic Studies","university","Libreville","Gabon",0.4162,9.4673,"",true]
+,["PY-UNI-001","Universidad Nacional de Asunción — Instituto Superior de Lenguas","university","San Lorenzo","Paraguay",-25.3444,-57.5191,"https://www.una.py/",true],
+["BO-UNI-001","Universidad Mayor de San Andrés — Carrera de Lingüística e Idiomas","university","La Paz","Bolivia",-16.4897,-68.1193,"https://www.umsa.bo/",true],
+["HN-UNI-001","Universidad Nacional Autónoma de Honduras — Lenguas Extranjeras","university","Tegucigalpa","Honduras",14.0723,-87.1921,"https://www.unah.edu.hn/",true],
+["SV-UNI-001","Universidad de El Salvador — Foreign Languages","university","San Salvador","El Salvador",13.6929,-89.2182,"https://www.ues.edu.sv/",true],
+["NI-UNI-001","Universidad Nacional Autónoma de Nicaragua — Lenguas","university","Managua","Nicaragua",12.114,-86.2362,"https://www.unan.edu.ni/",true],
+["JM-UNI-001","University of the West Indies Mona — Spanish","university","Kingston","Jamaica",18.0179,-76.8099,"https://www.mona.uwi.edu/",true],
+["TT-UNI-001","University of the West Indies St Augustine — Spanish","university","St. Augustine","Trinidad and Tobago",10.6418,-61.4004,"https://sta.uwi.edu/",true],
+["SG-UNI-001","National University of Singapore — Spanish Language Programme","university","Singapore","Singapore",1.2966,103.7764,"https://www.nus.edu.sg/",true],
+["TH-UNI-001","Chulalongkorn University — Spanish","university","Bangkok","Thailand",13.7384,100.5321,"https://www.chula.ac.th/",true],
+["LK-UNI-001","University of Kelaniya — Spanish","university","Kelaniya","Sri Lanka",6.9746,79.9157,"https://www.kln.ac.lk/",true],
+["QA-UNI-001","Qatar University — Spanish / Languages","university","Doha","Qatar",25.3753,51.4891,"https://www.qu.edu.qa/",true],
+["KW-UNI-001","Kuwait University — Spanish / Language Centre","university","Kuwait City","Kuwait",29.3759,47.9774,"https://www.ku.edu.kw/",true],
+["BH-UNI-001","University of Bahrain — Spanish / Language Studies","university","Sakhir","Bahrain",26.0514,50.5189,"https://www.uob.edu.bh/",true],
+["OM-UNI-001","Sultan Qaboos University — Spanish / Language Centre","university","Muscat","Oman",23.588,58.3829,"https://www.squ.edu.om/",true],
+["FJ-UNI-001","University of the South Pacific — Spanish","university","Suva","Fiji",-18.1416,178.4419,"https://www.usp.ac.fj/",true]
 ]);
