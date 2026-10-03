@@ -85,4 +85,7 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["NP-LANG-001","ELE USAL Nepal","language","Kathmandu","Nepal",27.7172,85.324,"https://nepal.eleusal.com/",true],
 ["ET-SCH-001","Sandford International School — Spanish","school","Addis Ababa","Ethiopia",9.03,38.74,"",true],
 ["CM-UNI-001","University of Yaoundé I — Spanish / Hispanic Studies","university","Yaoundé","Cameroon",3.848,11.5021,"https://www.uy1.uninet.cm/",true]
+,["AO-UNI-001","Universidade Agostinho Neto — ESHOTUR Spanish","university","Luanda","Angola",-8.839,13.2894,"https://www.uan.ao/",true],
+["MZ-UNI-001","Universidade Joaquim Chissano — Spanish","university","Maputo","Mozambique",-25.9692,32.5732,"",true],
+["CI-UNI-001","Université Félix Houphouët-Boigny — Spanish / Hispanic Studies","university","Abidjan","Côte d’Ivoire",5.35995,-4.00826,"",true]
 ]);
