@@ -116,4 +116,16 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ,["MT-UNI-001","University of Malta — Department of Spanish & Latin American Studies","university","Msida","Malta",35.9029,14.4833,"https://www.um.edu.mt/arts/spanish/",true],
 ["SA-UNI-001","King Saud University — Spanish Language and Translation","university","Riyadh","Saudi Arabia",24.7136,46.6753,"https://cols.ksu.edu.sa/en/node/325",true],
 ["IQ-UNI-001","University of Baghdad — Department of Spanish Language","university","Baghdad","Iraq",33.3152,44.3661,"https://colang.uobaghdad.edu.iq/",true]
+,["LU-UNI-001","University of Luxembourg — Spanish","university","Esch-sur-Alzette","Luxembourg",49.5047,5.9487,"https://www.uni.lu/",true],
+["MK-UNI-001","Ss. Cyril and Methodius University — Spanish / Romance Studies","university","Skopje","North Macedonia",41.9981,21.4254,"https://www.ukim.edu.mk/",true],
+["KG-UNI-001","Kyrgyz National University — Spanish","university","Bishkek","Kyrgyzstan",42.8746,74.5698,"https://www.knu.kg/",true],
+["TJ-UNI-001","Tajik State Institute of Languages — Spanish","university","Dushanbe","Tajikistan",38.5598,68.787,"",true],
+["KH-UNI-001","Royal University of Phnom Penh — Spanish / Foreign Languages","university","Phnom Penh","Cambodia",11.5564,104.9282,"https://www.rupp.edu.kh/",true],
+["LA-UNI-001","National University of Laos — Spanish / Foreign Languages","university","Vientiane","Laos",17.9757,102.6331,"https://www.nuol.edu.la/",true],
+["PS-UNI-001","Bethlehem University — Spanish","university","Bethlehem","Palestine",31.7054,35.2024,"https://www.bethlehem.edu/",true],
+["BZ-UNI-001","University of Belize — Spanish","university","Belmopan","Belize",17.251,-88.759,"https://www.ub.edu.bz/",true],
+["BS-UNI-001","University of The Bahamas — Spanish","university","Nassau","Bahamas",25.0443,-77.3504,"https://www.ub.edu.bs/",true],
+["BB-UNI-001","University of the West Indies Cave Hill — Spanish","university","Bridgetown","Barbados",13.106,-59.6132,"https://www.cavehill.uwi.edu/",true],
+["GY-UNI-001","University of Guyana — Spanish","university","Georgetown","Guyana",6.8013,-58.1551,"https://www.uog.edu.gy/",true],
+["SR-UNI-001","Anton de Kom University of Suriname — Spanish","university","Paramaribo","Suriname",5.852,-55.2038,"https://www.uvs.edu/",true]
 ]);
