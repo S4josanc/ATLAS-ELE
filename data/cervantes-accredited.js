@@ -1,0 +1,20 @@
+window.ATLAS_ACCREDITED=window.ATLAS_ACCREDITED||[];window.ATLAS_ACCREDITED.push(...[
+["ES-ACC-001","CLIC International House Cádiz","language","Cádiz","Spain",36.5297,-6.2927,"https://www.clic.es/cadiz-es",true,"C/ Acacias, 25, 2º, 11007 Cádiz"],
+["ES-ACC-002","K2 Internacional","language","Cádiz","Spain",36.5348,-6.3018,"https://www.k2internacional.com",true,"Plaza Mentidero, 19, 11003 Cádiz"],
+["ES-ACC-003","Spanish in Cadiz (SIC)","language","Cádiz","Spain",36.5206,-6.2835,"https://www.spanishincadiz.com",true,"C/ Pérgolas, 5, 11007 Cádiz"],
+["ES-ACC-004","Academia Atlántika","language","Conil de la Frontera","Spain",36.2777,-6.088,"https://www.atlantika.net",true,"C/ Bodegueros, 5, 11140 Conil de la Frontera"],
+["ES-ACC-005","Tenidiomas","language","Jerez de la Frontera","Spain",36.685, -6.1261,"https://www.tenidiomas.com",true,"C/ Caracuel, 15, 11402 Jerez de la Frontera"],
+["ES-ACC-006","Escuela Hispalense","language","Tarifa","Spain",36.0143,-5.6044,"https://www.hispalense.com",true,"Avda. Fuerzas Armadas, 1, 11380 Tarifa"],
+["ES-ACC-007","Academia Británica - International House Córdoba","language","Córdoba","Spain",37.8846,-4.7794,"https://acabri.com/destino-cordoba/",true,"C/ Rodríguez Sánchez, 13, 14003 Córdoba"],
+["ES-ACC-008","UCOIdiomas - Universidad de Córdoba","university","Córdoba","Spain",37.8882,-4.7794,"https://www.uco.es/idiomas",true,"Edificio Vial Norte-Uco, Dña. Berenguela s/n, 14006 Córdoba"],
+["ES-ACC-009","Academia Guiu - Cursos de Español","language","Barcelona","Spain",41.3895,2.1649,"https://www.academiaguiu.com",true,"C/ Balmes, 58, 08007 Barcelona"],
+["ES-ACC-010","AIL Barcelona","language","Barcelona","Spain",41.3915,2.1581,"https://www.olelanguages.com",true,"C/ Mallorca, 201, 08036 Barcelona"],
+["ES-ACC-011","Barcelona Escuela Mediterráneo Tandem","language","Barcelona","Spain",41.3774,2.1762,"https://www.escuelamediterraneo.com",true,"C/ Santa Mónica, 2, 08001 Barcelona"],
+["ES-ACC-012","BCN Languages","language","Barcelona","Spain",41.4005,2.1523,"https://www.bcnlanguages.com",true,"Plaza Gal·la Placidia 22, 08006 Barcelona"],
+["ES-ACC-013","BCNLIP Idiomas","language","Barcelona","Spain",41.3819,2.1754,"https://www.bcnlip.com",true,"C/ Aviñón, 50, 08002 Barcelona"],
+["ES-ACC-014","Pamplona Learning Spanish Institute","language","Pamplona","Spain",42.8156,-1.6365,"https://www.pamplonaspanishinstitute.com",true,"Avda. Baja Navarra 47, 31002 Pamplona"],
+["ES-ACC-015","Colegio Internacional Alicante","language","Alicante","Spain",38.3427,-0.4908,"https://www.colegiointernacionalalicante.com",true,"C/ Pintor Aparicio, 18, 1º A, 03003 Alicante"],
+["ES-ACC-016","Enforex Alicante","language","Alicante","Spain",38.3453,-0.4788,"https://www.enforex.com/espanol/escuela-alicante.html",true,"Carrer Gravina, 17, 03002 Alicante"],
+["ES-ACC-017","Escuela Elcano","language","Alicante","Spain",38.3452,-0.4851,"https://www.escuela-elcano.com",true,"C/ Bazán, 20, 03001 Alicante"],
+["ES-ACC-018","Estudio Sampere Alicante","language","Alicante","Spain",38.3392,-0.4938,"https://www.sampere.com",true,"Avda. Óscar Esplá, 4, 03003 Alicante"]
+]);
