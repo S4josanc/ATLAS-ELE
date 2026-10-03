@@ -59,7 +59,7 @@ function initGlobe(){
   .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
   .pointsData(getGlobePoints())
   .pointLat(d=>d.lat).pointLng(d=>d.lng).pointColor(d=>typeColors[d.type]||'#0878d1')
-  .pointAltitude(d=>.012+Math.min(d.count||1,20)*.0012).pointRadius(d=>.25+Math.min(Math.sqrt(d.count||1)*.12,.55))
+  .pointAltitude(d=>.004+Math.min(d.count||1,20)*.00035).pointRadius(d=>.09+Math.min(Math.sqrt(d.count||1)*.035,.16))
   .pointResolution(10)
   .pointLabel(d=>'<div class="globe-tooltip"><b>'+((d.count||1)>1?(d.count+' places'):d.name)+'</b><small>📍 '+d.city+', '+d.country+((d.count||1)>1?'<br>Click to explore this cluster':'<br>🇪🇸 '+d.program)+'</small></div>')
   .onPointClick(d=>{if((d.count||1)>1){setViewMode('2d');map.flyTo([d.lat,d.lng],12,{duration:1.1})}else show(d)});
