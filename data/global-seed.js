@@ -135,4 +135,22 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["ZM-UNI-001","University of Zambia — Language Centre / Spanish","university","Lusaka","Zambia",-15.3944,28.3322,"https://www.unza.zm/",true]
 ,["MW-UNI-001","University of Malawi — Foreign Languages / Spanish programme development","university","Zomba","Malawi",-15.3833,35.3333,"https://www.unima.ac.mw/",true]
 ,["HT-LANG-001","UNIR-Haiti — Spanish Course","language","Port-au-Prince","Haiti",18.5392,-72.335,"https://unir-haiti.org/en/spanish-course/",true]
+,["CU-UNI-001","Universidad de La Habana — Facultad de Lenguas Extranjeras","university","Havana","Cuba",23.1367,-82.3816,"http://www.uh.cu/",true],
+["CU-UNI-002","Universidad Central Marta Abreu de Las Villas — Lenguas","university","Santa Clara","Cuba",22.4361,-79.9922,"https://www.uclv.edu.cu/",true],
+["US-IC-003","Instituto Cervantes de Albuquerque","official","Albuquerque","United States",35.0844,-106.6504,"https://albuquerque.cervantes.es/",true],
+["US-IC-004","Instituto Cervantes de Los Ángeles","official","Los Angeles","United States",34.0522,-118.2437,"https://cervantes.org/us/los-angeles/",true],
+["US-IC-005","Aula Cervantes de Seattle","official","Seattle","United States",47.6062,-122.3321,"https://seattle.cervantes.es/",true],
+["US-DELE-001","Instituto Cervantes at Harvard","official","Cambridge","United States",42.3736,-71.1097,"https://nyork.cervantes.es/",true],
+["US-DELE-002","Florida International University — DELE / Spanish","university","Miami","United States",25.7617,-80.1918,"https://www.fiu.edu/",true],
+["US-DELE-003","Woodward Academy — Spanish / DELE","school","College Park","United States",33.6534,-84.4494,"https://www.woodward.edu/",true],
+["US-DELE-004","Case Western Reserve University — Spanish / DELE","university","Cleveland","United States",41.4993,-81.6944,"https://case.edu/",true],
+["US-DELE-005","University of Virginia — Spanish / DELE","university","Charlottesville","United States",38.0293,-78.4767,"https://www.virginia.edu/",true],
+["US-DELE-006","Global School Brooklyn — Spanish / DELE","school","Brooklyn","United States",40.6782,-73.9442,"",true],
+["US-DELE-007","Casanola Language Academy — Spanish / DELE","language","New Orleans","United States",29.9511,-90.0715,"",true],
+["US-ACC-001","Conchita Espinosa Academy","school","Miami","United States",25.7617,-80.1918,"https://www.conchitaespinosa.com/",true],
+["US-ACC-002","International School of Arizona","school","Scottsdale","United States",33.4942,-111.9261,"https://www.isaz.org/",true],
+["US-UNI-010","University of Miami — Spanish","university","Coral Gables","United States",25.7215,-80.2684,"https://www.miami.edu/",true],
+["US-DELE-008","Allendale Columbia School — Spanish / DELE","school","Rochester","United States",43.1566,-77.6088,"https://www.allendalecolumbia.org/",true],
+["US-DELE-009","Phyllis E. Williams Spanish Immersion School","school","Upper Marlboro","United States",38.8159,-76.7497,"",true],
+["US-DELE-010","Isabella and Ferdinand Academia de Español","language","Washington, D.C.","United States",38.9072,-77.0369,"",true]
 ]);
