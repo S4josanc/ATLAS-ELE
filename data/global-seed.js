@@ -128,4 +128,6 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["BB-UNI-001","University of the West Indies Cave Hill — Spanish","university","Bridgetown","Barbados",13.106,-59.6132,"https://www.cavehill.uwi.edu/",true],
 ["GY-UNI-001","University of Guyana — Spanish","university","Georgetown","Guyana",6.8013,-58.1551,"https://www.uog.edu.gy/",true],
 ["SR-UNI-001","Anton de Kom University of Suriname — Spanish","university","Paramaribo","Suriname",5.852,-55.2038,"https://www.uvs.edu/",true]
+,["RW-UNI-001","INES-Ruhengeri — Language Center Spanish","university","Musanze","Rwanda",-1.4998,29.63497,"https://www.ines.ac.rw/languages-center/course-duration/",true],
+["GQ-UNI-001","Universidad Nacional de Guinea Ecuatorial — Español / Filología","university","Malabo","Equatorial Guinea",3.7504,8.7371,"https://ungecampus.com/",true]
 ]);
