@@ -94,4 +94,8 @@ window.ATLAS_GLOBAL=window.ATLAS_GLOBAL||[];window.ATLAS_GLOBAL.push(...[
 ["ZW-LANG-001","Spanish language programme — Harare","language","Harare","Zimbabwe",-17.8252,31.0335,"",true],
 ["MU-LANG-001","Spanish language programme — Mauritius","language","Moka","Mauritius",-20.219,57.496,"",true],
 ["NA-UNI-001","University of Namibia — Spanish","university","Windhoek","Namibia",-22.5609,17.0658,"https://www.unam.edu.na/",true]
+,["TG-UNI-001","Université de Lomé — Département d'Études Ibériques","university","Lomé","Togo",6.1725,1.2314,"https://univ-lome.tg/",true],
+["MG-UNI-001","Université d'Antananarivo — Département d'Études Hispaniques","university","Antananarivo","Madagascar",-18.8792,47.5079,"https://www.univ-antananarivo.mg/",true],
+["CV-UNI-001","Universidade de Cabo Verde — Spanish / Lectorado","university","Praia","Cabo Verde",14.9331,-23.5133,"https://www.unicv.edu.cv/",true],
+["GA-UNI-001","Université Omar Bongo — Spanish / Hispanic Studies","university","Libreville","Gabon",0.4162,9.4673,"",true]
 ]);
