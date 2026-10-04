@@ -88,3 +88,11 @@
 .myAtlasAction .headerUtilityIcon{font-family:Arial,sans-serif!important;font-size:27px!important;font-weight:400!important}
 .myAtlasAction b,#myAtlasCount,.pendingCount{display:none!important}
 .headerUtilityAction:hover{background:rgba(255,255,255,.08)!important;border-radius:11px!important}
+
+/* Header utility trio — stable visual-only refinement */
+.headerUtilityAction{width:68px!important;min-width:68px!important;height:62px!important;padding:5px 4px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;border:0!important;background:transparent!important;color:#fff!important}
+.headerUtilityAction>span{font-size:25px!important;line-height:1!important;color:#fff!important;font-weight:400!important}
+.headerUtilityAction small{display:block!important;font-size:10px!important;line-height:1!important;font-weight:750!important;color:#fff!important;white-space:nowrap!important}
+.myAtlasAction .headerUtilityIcon{font-family:Arial,sans-serif!important;font-size:29px!important;font-weight:400!important}
+#myAtlasCount,.myAtlasAction b{display:none!important}
+.headerUtilityAction:hover{background:rgba(255,255,255,.09)!important;border-radius:12px!important}
