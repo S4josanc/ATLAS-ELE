@@ -96,3 +96,14 @@
 .myAtlasAction .headerUtilityIcon{font-family:Arial,sans-serif!important;font-size:29px!important;font-weight:400!important}
 #myAtlasCount,.myAtlasAction b{display:none!important}
 .headerUtilityAction:hover{background:rgba(255,255,255,.09)!important;border-radius:12px!important}
+
+/* Homepage live-stat cards — visual only */
+.worldStatsTitle{margin-top:18px!important;margin-bottom:9px!important;color:#718b9b!important;font-size:9px!important;letter-spacing:.15em!important;font-weight:900!important}
+.liveWorldStats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important}
+.liveWorldStats button{min-width:0!important;padding:10px 5px 9px!important;border:1px solid #e2eaf0!important;border-radius:11px!important;background:rgba(255,255,255,.72)!important;text-align:center!important;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease!important}
+.liveWorldStats button:hover{transform:translateY(-2px)!important;box-shadow:0 6px 16px rgba(25,66,92,.08)!important;border-color:#ccdce6!important}
+.liveWorldStats button strong{display:block!important;font-size:18px!important;line-height:1!important;color:#125f93!important}
+.liveWorldStats button small{display:block!important;margin-top:5px!important;font-size:8px!important;line-height:1.1!important;color:#6f8291!important;white-space:normal!important}
+.liveWorldStats button:nth-child(3){border-top:3px solid #d92525!important}.liveWorldStats button:nth-child(3) strong{color:#d92525!important}
+.liveWorldStats button:nth-child(4){border-top:3px solid #e58b19!important}.liveWorldStats button:nth-child(4) strong{color:#d97c0d!important}
+@media(max-width:700px){.liveWorldStats{grid-template-columns:repeat(2,1fr)!important}}
