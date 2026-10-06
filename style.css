@@ -131,3 +131,21 @@ html,body{width:100%;height:100%;overflow:hidden}
 @media(max-width:390px){
 .headerUtilityAction{width:38px!important;min-width:38px!important}.headerUtilityAction small{font-size:6.5px!important}.langSwitch{width:34px!important;min-width:34px!important}.world-card{padding:13px!important}.world-card h1{font-size:21px!important}.liveWorldStats{grid-template-columns:repeat(2,1fr)!important}
 }
+
+/* ===== MOBILE COMPACT PASS 2 — visual only ===== */
+@media(max-width:700px){
+#map,#globeView{top:119px!important;height:calc(100dvh - 119px)!important}
+.topbar{height:78px!important;min-height:78px!important;padding:5px 9px!important;grid-template-rows:34px 34px!important;gap:3px 6px!important}
+.brandGlobe{width:25px!important;height:25px!important;min-width:25px!important;transform:scale(.88)!important}.brand{gap:7px!important}.wordmark b{font-size:15px!important;letter-spacing:.02em!important}
+.topActions{height:34px!important}.headerUtilityAction{width:40px!important;min-width:40px!important;height:34px!important;padding:1px!important;gap:1px!important}.headerUtilityAction>span{font-size:16px!important}.myAtlasAction .headerUtilityIcon{font-size:19px!important}.headerUtilityAction small{font-size:7.2px!important;font-weight:800!important}.langSwitch{width:34px!important;min-width:34px!important;height:32px!important;font-size:8px!important}
+.search{height:34px!important}.search input{height:34px!important;font-size:10.5px!important;padding-left:31px!important;padding-right:86px!important}.searchIcon{left:10px!important;font-size:15px!important}.search #searchBtn{height:28px!important;right:3px!important;top:3px!important;min-width:78px!important;padding:0 10px!important;font-size:9px!important}
+.categoryBar{top:78px!important;height:41px!important;min-height:41px!important;padding:4px 7px 3px!important;position:relative!important}.categoryBar:after{content:"";position:absolute;right:0;top:0;bottom:0;width:24px;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.96))}.chips{gap:4px!important;padding-bottom:3px!important}.chips button{height:29px!important;padding:0 9px!important;font-size:8.5px!important;border-radius:8px!important}
+.world-card{top:130px!important;max-height:calc(100dvh - 144px)!important}
+.viewToggle{top:129px!important;right:9px!important;left:auto!important;transform:scale(.82)!important;transform-origin:top right!important}
+.searchSuggest{top:76px!important}
+.teacher-card,.contactPanel,.myAtlasPanel,.adminPanel,.countryBrowser,.cityBrowser,.comparePanel,.advancedFilters{max-height:82dvh!important}
+.bottomStatus{bottom:7px!important;padding:7px 11px!important;font-size:7.5px!important}
+}
+@media(max-width:390px){
+.wordmark b{font-size:14px!important}.brandGlobe{width:23px!important;height:23px!important;min-width:23px!important}.headerUtilityAction{width:36px!important;min-width:36px!important}.headerUtilityAction small{font-size:6.7px!important}.search #searchBtn{min-width:70px!important}.search input{padding-right:77px!important}.chips button{padding:0 8px!important}
+}
