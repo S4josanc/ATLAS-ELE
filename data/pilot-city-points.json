@@ -139,14 +139,21 @@
       "precision": "city"
     },
     {
-      "id": "SK-000011",
+      "id": "SK-DELE-BB-001",
       "name": "Gymnázium Mikuláša Kováča",
       "type": "school",
       "city": "Banská Bystrica",
       "country": "Slovakia",
       "lat": 48.7363,
       "lng": 19.1462,
-      "precision": "city"
+      "precision": "address",
+      "address": "Mládežnícka 51, 974 04 Banská Bystrica",
+      "web": "https://gmkbb.edupage.org/",
+      "email": "katasvihlik@gmail.com",
+      "phone": "+421 48 423 0061",
+      "verified": true,
+      "program": "Spanish · DELE Exam Centre",
+      "dele": true
     },
     {
       "id": "SK-000012",
@@ -280,6 +287,74 @@
       "web": "https://www.nordangliaeducation.com/bisb-bratislava",
       "verified": true,
       "program": "Spanish · Secondary / IB"
+    },
+    {
+      "id": "SK-DELE-ZA-001",
+      "name": "Gymnázium bilingválne Žilina",
+      "type": "school",
+      "city": "Žilina",
+      "country": "Slovakia",
+      "lat": 49.2231,
+      "lng": 18.7394,
+      "address": "Tomáša Ružičku 3, 010 01 Žilina",
+      "web": "https://www.gbza.eu/",
+      "email": "gbza@gbza.edu.sk",
+      "phone": "+421 41 764 55 68",
+      "verified": true,
+      "precision": "address",
+      "program": "Spanish · DELE Exam Centre",
+      "dele": true
+    },
+    {
+      "id": "SK-DELE-KE-001",
+      "name": "Gymnázium Park mládeže",
+      "type": "school",
+      "city": "Košice",
+      "country": "Slovakia",
+      "lat": 48.721,
+      "lng": 21.2578,
+      "address": "Park mládeže 5, 040 01 Košice",
+      "web": "https://gpm.edupage.org/",
+      "email": "office@gpm.sk",
+      "phone": "+421 55 633 54 70",
+      "verified": true,
+      "precision": "address",
+      "program": "Spanish · DELE Exam Centre",
+      "dele": true
+    },
+    {
+      "id": "SK-DELE-TR-001",
+      "name": "Gymnázium Martina Hattalu",
+      "type": "school",
+      "city": "Trstená",
+      "country": "Slovakia",
+      "lat": 49.3615,
+      "lng": 19.612,
+      "address": "Železničiarov 278, 028 01 Trstená",
+      "web": "https://gmhtrstena.edupage.org/",
+      "email": "bgtrstena@gmail.com",
+      "phone": "+421 43 539 2212",
+      "verified": true,
+      "precision": "address",
+      "program": "Spanish · DELE Exam Centre",
+      "dele": true
+    },
+    {
+      "id": "SK-DELE-NR-001",
+      "name": "Gymnázium Párovská",
+      "type": "school",
+      "city": "Nitra",
+      "country": "Slovakia",
+      "lat": 48.3076,
+      "lng": 18.0864,
+      "address": "Párovská 1, 950 50 Nitra",
+      "web": "https://www.gpnr.sk/",
+      "email": "delegpnr@gmail.com",
+      "phone": "+421 37 693 3011",
+      "verified": true,
+      "precision": "address",
+      "program": "Spanish · DELE Exam Centre",
+      "dele": true
     }
   ]
 }
