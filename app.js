@@ -46,9 +46,9 @@ setPh('#adminSearch','Search institutions…','Buscar instituciones…');setPh('
 setTxt('#myAtlasIntro','Your saved institutions.','Tus instituciones guardadas.');setTxt('#myAtlasClear','Clear','Limpiar');
 const tj=tc.querySelectorAll('.teacherJoinForm label');const tjLabels=lang==='es'?['Nombre','Correo electrónico (privado)','Institución','Ciudad','País','Visibilidad pública','Perfil profesional / web']:['Name','Email (private)','Institution','City','Country','Public visibility','Professional profile / website'];tj.forEach((e,i)=>{if(tjLabels[i]){const input=e.querySelector('input,select');e.childNodes[0].nodeValue=tjLabels[i]+' ';}});const tjBtn=tc.querySelector('.teacherJoinForm>button');if(tjBtn)tjBtn.textContent=lang==='es'?'Enviar para revisión →':'Submit for review →';const reg=document.getElementById('teacherRegisterBtn');if(reg)reg.textContent=lang==='es'?'Únete a ATLAS ELE →':'Join ATLAS ELE →';
 const stats=document.querySelector('.stats');if(stats)stats.innerHTML='<span class="live"></span><b id="count">5,338</b> '+t.mapped+' <span>·</span> <b id="countries">20+</b> '+t.countries+' <span>·</span> '+t.community;
- // Selector shows the language you can switch TO.
- document.getElementById('langFlag').textContent=lang==='en'?'🇪🇸':'🇬🇧';document.getElementById('langCode').textContent=lang==='en'?'ES':'EN';
- document.getElementById('langSwitch').title=lang==='en'?'Cambiar a español':'Switch to English';
+ // Selector shows the ACTIVE language.
+ document.getElementById('langFlag').textContent=lang==='es'?'🇪🇸':'🇬🇧';document.getElementById('langCode').textContent=lang==='es'?'ES':'EN';
+ document.getElementById('langSwitch').title=lang==='es'?'Switch to English':'Cambiar a español';
  document.title=lang==='es'?'ATLAS ELE — El mapa mundial de la enseñanza del español':'ATLAS ELE — The global map of Spanish teaching';
 }
 document.getElementById('langSwitch').onclick=()=>applyLanguage(currentLang==='en'?'es':'en');applyLanguage(currentLang);
