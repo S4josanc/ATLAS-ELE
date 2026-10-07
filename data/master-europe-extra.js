@@ -50,5 +50,19 @@ window.ATLAS_MASTER_EUROPE=window.ATLAS_MASTER_EUROPE||[];window.ATLAS_MASTER_EU
 ["CZ-INTL-001","International School of Prague","school","Prague","Czechia",50.0755,14.4378,"https://www.isp.cz/",true],
 ["HR-INTL-001","American International School of Zagreb","school","Zagreb","Croatia",45.815,15.9819,"https://www.aisz.hr/",true],
 ["RO-INTL-001","American International School of Bucharest","school","Bucharest","Romania",44.4268,26.1025,"https://www.aisb.ro/",true],
-["LT-INTL-001","American International School of Vilnius","school","Vilnius","Lithuania",54.6872,25.2797,"https://www.aisv.lt/",true]
+["LT-INTL-001","American International School of Vilnius","school","Vilnius","Lithuania",54.6872,25.2797,"https://www.aisv.lt/",true],
+["NO-INTL-001","Norlights International School Oslo","school","Oslo","Norway",59.9139,10.7522,"https://internationalschool-oslo.no/",true],
+["NO-INTL-002","UWC Red Cross Nordic","school","Flekke","Norway",61.3186,5.3455,"https://uwcrcn.no/",true],
+["NO-INTL-003","Oslo International School","school","Bekkestua","Norway",59.917,10.587,"https://www.oslointernationalschool.no/",true],
+["NO-INTL-004","International School of Stavanger","school","Hafrsfjord","Norway",58.969,5.603,"https://www.isstavanger.no/",true],
+["NO-INTL-005","Vardafjell videregående skole","school","Haugesund","Norway",59.4138,5.268,"https://www.vardafjell.vgs.no/",true],
+["EE-INTL-001","Audentes International School","school","Tallinn","Estonia",59.437,24.7536,"https://audentes.ee/",true],
+["EE-INTL-002","International School of Estonia","school","Tallinn","Estonia",59.437,24.7536,"https://www.ise.edu.ee/",true],
+["LV-INTL-001","International School of Riga","school","Riga","Latvia",56.9496,24.1052,"https://www.isriga.lv/",true],
+["LV-INTL-002","International School of Latvia","school","Pinki","Latvia",56.941,23.912,"https://www.isl.edu.lv/",true],
+["RS-INTL-001","International School of Belgrade","school","Belgrade","Serbia",44.7866,20.4489,"https://www.isb.rs/",true],
+["MT-INTL-001","Verdala International School","school","Pembroke","Malta",35.93,14.476,"https://www.verdala.org/",true],
+["GR-INTL-001","International School of Athens","school","Athens","Greece",37.9838,23.7275,"https://www.isa.edu.gr/",true],
+["GR-INTL-002","Pinewood American International School","school","Thessaloniki","Greece",40.6401,22.9444,"https://www.pinewood.gr/",true],
+["PT-INTL-001","Saint Dominic's International School","school","São Domingos de Rana","Portugal",38.701,-9.327,"https://www.dominics-int.org/",true]
 ]);
