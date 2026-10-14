@@ -33,6 +33,14 @@ const { chromium } = require('playwright');
   const persisted = await page.evaluate(() => JSON.parse(localStorage.getItem('atlasSaved') || '[]'));
   if (!persisted.includes(recordId)) throw new Error('My Atlas favorite did not persist across reload');
 
+  // Verify that the evidence registry is present and attached to matching loaded records.
+  const evidenceCheck = await page.evaluate(() => {
+    const registry = window.ATLAS_VERIFICATION_EVIDENCE || {};
+    const expected = ['UK-MASTER-0011', 'UK-MASTER-0013', 'UK-MASTER-0014'];
+    return expected.every(id => registry[id]?.spanishProgramEvidenceUrl?.startsWith('https://'));
+  });
+  if (!evidenceCheck) throw new Error('Evidence registry missing expected school references');
+
   await page.setViewportSize({ width: 375, height: 812 });
   await page.screenshot({ path: '/tmp/atlas-mobile.png', fullPage: true });
   if (errors.length) throw new Error('JavaScript errors: ' + errors.join(' | '));
