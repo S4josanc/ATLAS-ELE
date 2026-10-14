@@ -1,0 +1,26 @@
+name: ATLAS ELE audit smoke tests
+on:
+  push:
+    branches:
+      - audit/geolocation-2026-10-13
+  workflow_dispatch:
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check data/verification-evidence.js
+      - name: Serve preview and run browser tests
+        run: |
+          python3 -m http.server 8765 > /tmp/atlas-http.log 2>&1 &
+          node tests/browser-smoke.cjs
