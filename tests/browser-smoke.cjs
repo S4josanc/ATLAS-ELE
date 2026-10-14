@@ -24,10 +24,14 @@ const { chromium } = require('playwright');
 
   const save = page.locator('#detail [data-save-id]');
   if (!(await save.count())) throw new Error('My Atlas button missing');
+  const recordId = await save.getAttribute('data-save-id');
   await save.click();
-  if (!(await page.locator('#detail [data-save-id]').count())) {
-    throw new Error('My Atlas button disappeared after saving');
-  }
+  const savedIds = await page.evaluate(() => JSON.parse(localStorage.getItem('atlasSaved') || '[]'));
+  if (!savedIds.includes(recordId)) throw new Error('My Atlas did not save record ID');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('#map .leaflet-marker-icon', { timeout: 20000 });
+  const persisted = await page.evaluate(() => JSON.parse(localStorage.getItem('atlasSaved') || '[]'));
+  if (!persisted.includes(recordId)) throw new Error('My Atlas favorite did not persist across reload');
 
   await page.setViewportSize({ width: 375, height: 812 });
   await page.screenshot({ path: '/tmp/atlas-mobile.png', fullPage: true });
