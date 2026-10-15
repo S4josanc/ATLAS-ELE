@@ -18,6 +18,9 @@ const summary = {
   missingAddress: rows.filter(x=>!x.address).length,
   missingWebsite: rows.filter(x=>!x.web).length,
   exactWithoutAddress: rows.filter(x=>x.precision==='exact'&&!x.address).length,
+  precisionCounts: Object.fromEntries([...new Set(rows.map(x=>x.precision||'unknown'))].map(p=>[p,rows.filter(x=>(x.precision||'unknown')===p).length])),
+  repeatedCoordinateGroups: [...rows.reduce((m,x)=>{const k=x.lat+','+x.lng;m.set(k,(m.get(k)||0)+1);return m},new Map()).entries()].filter(([,n])=>n>1).length,
+  countryCounts: Object.fromEntries([...new Set(rows.map(x=>x.country))].sort().map(c=>[c,rows.filter(x=>x.country===c).length])),
   issues
 };
 fs.mkdirSync('audit-output',{recursive:true});
