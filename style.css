@@ -181,3 +181,19 @@ html,body{width:100%;height:100%;overflow:hidden}
 .atlasEmptySearch{padding:26px 18px;text-align:center;border-radius:18px;background:linear-gradient(145deg,#f1f8ff,#fff);border:1px solid #d8e9f4;margin:8px 0}
 .atlasEmptySearch h2{font-size:22px;line-height:1.2;color:#153b59;margin:0 0 12px}
 .atlasEmptySearch p{font-size:14px;color:#536f84;line-height:1.6;max-width:360px;margin:0 auto}
+
+
+/* ATLAS ELE — search results usability refresh */
+.searchSuggest{border-radius:18px!important;box-shadow:0 22px 50px rgba(10,42,70,.24)!important;max-height:min(64vh,510px);overflow-y:auto!important;overscroll-behavior:contain}
+.searchSuggest button{grid-template-columns:32px minmax(0,1fr) auto!important;min-height:58px;padding:12px 14px!important;gap:12px!important;transition:background .15s ease}
+.searchSuggest button:hover,.searchSuggest button:focus-visible{background:#eaf6ff!important;outline:2px solid #56b8ef;outline-offset:-2px}
+.searchSuggest button>b{font-size:19px!important}
+.searchSuggest strong{font-size:13px!important;line-height:1.35;white-space:normal!important;overflow-wrap:anywhere}
+.searchSuggest small{font-size:11px!important;line-height:1.35;color:#59758b!important}
+.searchSuggest em{font-size:10px!important;font-weight:800!important;color:#44718f!important}
+.placeDirectory .dirList{display:flex;flex-direction:column;gap:7px;padding-top:10px}
+.placeDirectory .dirList button{border:1px solid #e1eaf2!important;border-radius:12px!important;background:#fff;padding:13px!important;min-height:66px;box-shadow:0 2px 7px rgba(16,57,87,.05);transition:background .15s,border-color .15s}
+.placeDirectory .dirList button:hover,.placeDirectory .dirList button:focus-visible{background:#f0f9ff!important;border-color:#8bc8eb!important;outline:none}
+.placeDirectory .dirList strong{font-size:13px!important;white-space:normal!important;overflow:visible!important;line-height:1.35}
+.placeDirectory .dirList small{font-size:11px!important;line-height:1.4}
+@media(max-width:760px){.searchSuggest{max-height:48vh;border-radius:14px!important}.searchSuggest button{min-height:58px;padding:10px!important}.searchSuggest em{max-width:65px;text-align:right}.placeDirectory .dirList button{padding:12px!important}}
