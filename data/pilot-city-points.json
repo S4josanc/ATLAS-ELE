@@ -14,7 +14,10 @@
       "country": "Germany",
       "lat": 52.52,
       "lng": 13.405,
-      "precision": "city"
+      "precision": "city",
+      "address": "Weichselstraße 38, 12045 Berlin",
+      "web": "https://www.sprachsalon-berlin.de/",
+      "addressSource": "https://www.sprachsalon-berlin.de/en/contact/"
     },
     {
       "id": "DE-000002",
@@ -24,7 +27,10 @@
       "country": "Germany",
       "lat": 52.52,
       "lng": 13.405,
-      "precision": "city"
+      "precision": "city",
+      "address": "Hardenbergstraße 16–18, 10623 Berlin (ZEMS administrative office)",
+      "web": "https://www.tu.berlin/zems/",
+      "addressSource": "https://www.tu.berlin/en/zems/about-us"
     },
     {
       "id": "AT-000001",
