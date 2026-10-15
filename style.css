@@ -149,3 +149,29 @@ html,body{width:100%;height:100%;overflow:hidden}
 @media(max-width:390px){
 .wordmark b{font-size:14px!important}.brandGlobe{width:23px!important;height:23px!important;min-width:23px!important}.headerUtilityAction{width:36px!important;min-width:36px!important}.headerUtilityAction small{font-size:6.7px!important}.search #searchBtn{min-width:70px!important}.search input{padding-right:77px!important}.chips button{padding:0 8px!important}
 }
+
+
+/* ATLAS ELE — institution profile & search visual refresh, October 2026 */
+.institutionProfile{padding:12px 8px 22px!important}
+.institutionProfile .profileType{padding:7px 12px;background:color-mix(in srgb,var(--pc) 10%,white);border:1px solid color-mix(in srgb,var(--pc) 22%,white);border-radius:99px;margin:4px 0 16px!important}
+.institutionProfile h2{font-size:clamp(25px,2.5vw,32px)!important;line-height:1.18!important;letter-spacing:-.025em;margin-bottom:14px!important}
+.institutionProfile .profilePlace{font-size:14px!important;font-weight:650;color:#34566e!important}
+.institutionProfile .profileAddress{padding:15px!important;border:1px solid #dceaf2;background:linear-gradient(135deg,#f3f9ff,#fff)!important;font-size:13px!important}
+.institutionProfile .profileBadges{margin:18px 0!important;gap:8px!important}
+.institutionProfile .profileProgram{border-radius:14px!important;padding:17px!important}
+.institutionProfile .profileContactActions a{min-height:42px;font-size:12px!important;border-radius:12px!important}
+.institutionProfile .profileSave{min-height:46px;border-radius:12px!important}
+.institutionProfile .profileDirections,.institutionProfile .profileCopyAddress,.institutionProfile .profileShare{font-weight:750!important;font-size:13px!important;transition:transform .15s,box-shadow .15s}
+.institutionProfile .profileDirections:hover,.institutionProfile .profileCopyAddress:hover,.institutionProfile .profileShare:hover{transform:translateY(-1px);box-shadow:0 5px 16px #10354c20}
+.search:focus-within{box-shadow:0 0 0 3px #74d6ff,0 12px 26px #00143235}
+.search input[aria-invalid=true]{color:#b83a3a}
+.placeDirectory .dirList button{min-height:54px}
+@media(max-width:760px){
+ .institutionProfile{padding:8px 4px 20px!important}
+ .institutionProfile h2{font-size:25px!important}
+ .institutionProfile .profileContactActions a{font-size:12px!important}
+ .search{max-width:none!important;min-width:0}
+ .search input{min-width:0;font-size:16px}
+ .search button{min-width:76px}
+ .institutionProfile .profileDirections,.institutionProfile .profileCopyAddress,.institutionProfile .profileShare{min-height:44px}
+}
