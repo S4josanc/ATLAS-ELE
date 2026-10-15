@@ -20,6 +20,16 @@ jobs:
         run: |
           node --check app.js
           node --check data/verification-evidence.js
+      - name: Generate data quality report
+        run: node tests/data-quality.cjs
+      - name: Upload data quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-ele-data-quality
+          path: audit-output/pilot-quality.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Serve preview and run browser tests
         run: |
           python3 -m http.server 8765 > /tmp/atlas-http.log 2>&1 &
