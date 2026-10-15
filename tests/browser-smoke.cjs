@@ -35,13 +35,25 @@ const { chromium } = require('playwright');
   const persisted = await page.evaluate(() => JSON.parse(localStorage.getItem('atlasSaved') || '[]'));
   if (!persisted.includes(recordId)) throw new Error('My Atlas favorite did not persist across reload');
 
-  // Verify that the evidence registry is present and attached to matching loaded records.
+  // Validate the *actual loaded records*, not just the existence of the evidence file.
   const evidenceCheck = await page.evaluate(() => {
     const registry = window.ATLAS_VERIFICATION_EVIDENCE || {};
     const expected = ['UK-MASTER-0011', 'UK-MASTER-0013', 'UK-MASTER-0014'];
-    return expected.every(id => registry[id]?.spanishProgramEvidenceUrl?.startsWith('https://'));
+    return {
+      count: data.length,
+      missing: expected.filter(id => {
+        const record = data.find(item => item.id === id);
+        return !record ||
+          record.spanishProgramEvidenceUrl !== registry[id]?.spanishProgramEvidenceUrl ||
+          record.spanishProgramVerification !== 'needs_review';
+      })
+    };
   });
-  if (!evidenceCheck) throw new Error('Evidence registry missing expected school references');
+  if (evidenceCheck.count < 1) throw new Error('Loaded institution data is empty');
+  if (evidenceCheck.missing.length) {
+    throw new Error('Evidence not attached to loaded institutions: ' + evidenceCheck.missing.join(', '));
+  }
+  console.log('Loaded institution records:', evidenceCheck.count);
 
   await page.setViewportSize({ width: 375, height: 812 });
   await page.screenshot({ path: '/tmp/atlas-mobile.png', fullPage: true });
