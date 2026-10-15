@@ -15,7 +15,9 @@ const { chromium } = require('playwright');
   const markerCount = await page.locator('#map .leaflet-marker-icon').count();
   if (markerCount < 1) throw new Error('No map markers loaded');
 
-  const firstMarker = page.locator('#map .leaflet-marker-icon').first();
+  // Cluster icons may represent multiple institutions; choose a single marker.
+  const individual = page.locator('#map .leaflet-marker-icon:not(.marker-cluster)');
+  const firstMarker = (await individual.count()) ? individual.first() : page.locator('#map .leaflet-marker-icon').first();
   await firstMarker.click({ force: true });
   await page.waitForTimeout(500);
   if (!(await page.locator('#detail .institutionProfile').count())) {
