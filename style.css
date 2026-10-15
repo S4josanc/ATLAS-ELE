@@ -175,3 +175,9 @@ html,body{width:100%;height:100%;overflow:hidden}
  .search button{min-width:76px}
  .institutionProfile .profileDirections,.institutionProfile .profileCopyAddress,.institutionProfile .profileShare{min-height:44px}
 }
+
+
+/* Helpful search empty state */
+.atlasEmptySearch{padding:26px 18px;text-align:center;border-radius:18px;background:linear-gradient(145deg,#f1f8ff,#fff);border:1px solid #d8e9f4;margin:8px 0}
+.atlasEmptySearch h2{font-size:22px;line-height:1.2;color:#153b59;margin:0 0 12px}
+.atlasEmptySearch p{font-size:14px;color:#536f84;line-height:1.6;max-width:360px;margin:0 auto}
