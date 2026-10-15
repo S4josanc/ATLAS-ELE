@@ -55,6 +55,14 @@ const { chromium } = require('playwright');
   }
   console.log('Loaded institution records:', evidenceCheck.count);
 
+  // Check that the documented postal address is rendered for a real record.
+  const berlinAddress = await page.evaluate(() => {
+    const x = data.find(item => item.id === 'DE-000001');
+    return x?.verifiedPostalAddress === 'Weichselstraße 38, 12045 Berlin' &&
+      x?.locationVerification === 'needs_review';
+  });
+  if (!berlinAddress) throw new Error('Berlin address evidence was not merged');
+
   await page.setViewportSize({ width: 375, height: 812 });
   await page.screenshot({ path: '/tmp/atlas-mobile.png', fullPage: true });
   if (errors.length) throw new Error('JavaScript errors: ' + errors.join(' | '));
