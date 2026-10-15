@@ -1,9 +1,9 @@
 {
   "meta": {
     "status": "pilot",
-    "precision": "city-centroid",
-    "records": 25,
-    "note": "Public-safe pilot. Coordinates are city-level and must not be presented as exact institution locations."
+    "precision": "mixed-unverified",
+    "records": 200,
+    "note": "Public-safe dataset with mixed claimed precision (city, address, exact). Precision labels are legacy claims, not independent location verification. Validate each address and coordinate before presenting it as exact."
   },
   "institutions": [
     {
