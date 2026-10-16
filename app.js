@@ -30,13 +30,19 @@ function showPlaceDirectory(title,rows,kind){
  const desc=document.createElement('span');desc.textContent=(es?'instituciones':'institutions')+(cities!==null?' · '+cities+' '+(es?'ciudades':'cities'):'');
  headline.append(total,desc);
  const stats=document.createElement('div');stats.className='dirStats';
+ const sortRow=document.createElement('div');sortRow.className='dirSortRow';
+ const sortLabel=document.createElement('label');sortLabel.textContent=es?'Ordenar por':'Sort by';
+ const sortSelect=document.createElement('select');sortSelect.setAttribute('aria-label',sortLabel.textContent);
+ const sortOptions=[['default',kind==='search'?(es?'Relevancia':'Relevance'):(es?'Ciudad':'City')],['name',es?'Nombre A–Z':'Name A–Z'],['city',es?'Ciudad A–Z':'City A–Z'],['country',es?'País A–Z':'Country A–Z']];
+ sortOptions.forEach(([value,label])=>{const option=document.createElement('option');option.value=value;option.textContent=label;sortSelect.append(option)});
+ sortRow.append(sortLabel,sortSelect);
  const results=document.createElement('div');results.className='dirList';
  const nav=document.createElement('div');nav.className='dirPagination';
  const prev=document.createElement('button');prev.type='button';prev.textContent=es?'← Anterior':'← Previous';
  const status=document.createElement('span');status.setAttribute('aria-live','polite');
  const next=document.createElement('button');next.type='button';next.textContent=es?'Siguiente →':'Next →';
  nav.append(prev,status,next);
- root.append(eyebrow,heading,headline,stats,results,nav);detail.append(root);panel.style.display='block';
+ root.append(eyebrow,heading,headline,stats,sortRow,results,nav);detail.append(root);panel.style.display='block';
  let selectedType=null,page=0;
  order.filter(t=>counts[t]).forEach(t=>{
    const btn=document.createElement('button');btn.type='button';btn.className='dirStat type-'+t;
@@ -45,7 +51,8 @@ function showPlaceDirectory(title,rows,kind){
    btn.dataset.type=t;stats.append(btn);
  });
  function update(){
-   const visible=selectedType?list.filter(x=>x.type===selectedType):list;
+   const visible=selectedType?list.filter(x=>x.type===selectedType):[...list];
+   if(sortSelect.value!=='default'){const field=sortSelect.value;visible.sort((a,b)=>String(a[field]||'').localeCompare(String(b[field]||''),currentLang==='es'?'es':'en',{sensitivity:'base'})||String(a.name||'').localeCompare(String(b.name||'')))};
    const pages=Math.max(1,Math.ceil(visible.length/pageSize));page=Math.min(page,pages-1);
    results.replaceChildren();
    visible.slice(page*pageSize,(page+1)*pageSize).forEach(x=>{
@@ -61,6 +68,7 @@ function showPlaceDirectory(title,rows,kind){
    status.textContent=(es?'Página ':'Page ')+(page+1)+' / '+pages+' · '+visible.length.toLocaleString()+' '+(es?'resultados':'results');
    prev.disabled=page===0;next.disabled=page>=pages-1;nav.hidden=pages<=1;
  }
+ sortSelect.onchange=()=>{page=0;update()};
  prev.onclick=()=>{if(page>0){page--;update();results.scrollIntoView({block:'nearest'})}};
  next.onclick=()=>{page++;update();results.scrollIntoView({block:'nearest'})};
  update();
