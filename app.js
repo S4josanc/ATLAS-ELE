@@ -40,7 +40,9 @@ function showPlaceDirectory(title,rows,kind){
  const summaryRow=document.createElement('div');summaryRow.className='dirResultsSummary';
  const matching=document.createElement('span');matching.setAttribute('aria-live','polite');
  const clear=document.createElement('button');clear.type='button';clear.className='dirClearFilters';clear.textContent=es?'Limpiar filtros':'Clear filters';
- summaryRow.append(matching,clear);
+ const mapResults=document.createElement('button');mapResults.type='button';mapResults.className='dirMapResults';mapResults.textContent=es?'⌖ Centrar mapa':'⌖ Focus map';
+ const actions=document.createElement('div');actions.className='dirSummaryActions';actions.append(mapResults,clear);
+ summaryRow.append(matching,actions);
  const results=document.createElement('div');results.className='dirList';
  const nav=document.createElement('div');nav.className='dirPagination';
  const prev=document.createElement('button');prev.type='button';prev.textContent=es?'← Anterior':'← Previous';
@@ -62,6 +64,8 @@ function showPlaceDirectory(title,rows,kind){
    const pages=Math.max(1,Math.ceil(visible.length/pageSize));page=Math.min(page,pages-1);
    matching.textContent=visible.length.toLocaleString()+' '+(es?'resultados encontrados':'matching results');
    clear.hidden=!selectedType&&!filterInput.value&&sortSelect.value==='default';
+   mapResults.disabled=visible.length===0;
+   mapResults.onclick=()=>{if(visible.length)fitRecords(visible,visible.length===1?14:10)};
    results.replaceChildren();
    if(!visible.length){const empty=document.createElement('p');empty.className='dirNoMatches';empty.textContent=es?'No hay centros con estos filtros. Prueba otra búsqueda o pulsa Limpiar filtros.':'No institutions match these filters. Try another search or clear the filters.';results.append(empty)}
 
