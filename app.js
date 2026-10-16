@@ -70,11 +70,11 @@ function showPlaceDirectory(title,rows,kind){
    exportResults.disabled=visible.length===0;
    exportResults.onclick=()=>{
      const headers=['Name','Type','City','Country','Address','Website','Program'];
-     const safeCell=value=>{let v=String(value??'');if(/^[\\s]*[=+@\\-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
-     const csv=[headers,...visible.map(x=>[x.name,x.type,x.city,x.country,x.address,x.web,x.program])].map(row=>row.map(safeCell).join(',')).join('\\r\\n');
-     const blob=new Blob(['\\uFEFF',csv],{type:'text/csv;charset=utf-8'});
+     const safeCell=value=>{let v=String(value??'');if(/^\s*[=+@-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
+     const csv=[headers,...visible.map(x=>[x.name,x.type,x.city,x.country,x.address,x.web,x.program])].map(row=>row.map(safeCell).join(',')).join('\r\n');
+     const blob=new Blob(['\uFEFF',csv],{type:'text/csv;charset=utf-8'});
      const url=URL.createObjectURL(blob),link=document.createElement('a');
-     link.href=url;link.download='ATLAS-ELE-'+String(title).normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9-]+/gi,'-').slice(0,40)+'.csv';
+     link.href=url;link.download='ATLAS-ELE-'+String(title).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9-]+/gi,'-').slice(0,40)+'.csv';
      document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
    };
    results.replaceChildren();
