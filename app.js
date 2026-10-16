@@ -30,6 +30,7 @@ function showPlaceDirectory(title,rows,kind){
  const desc=document.createElement('span');desc.textContent=(es?'instituciones':'institutions')+(cities!==null?' · '+cities+' '+(es?'ciudades':'cities'):'');
  headline.append(total,desc);
  const stats=document.createElement('div');stats.className='dirStats';
+ const filterInput=document.createElement('input');filterInput.className='dirQuickFilter';filterInput.type='search';filterInput.placeholder=es?'Filtrar estos resultados…':'Filter these results…';filterInput.setAttribute('aria-label',filterInput.placeholder);filterInput.autocomplete='off';
  const sortRow=document.createElement('div');sortRow.className='dirSortRow';
  const sortLabel=document.createElement('label');sortLabel.textContent=es?'Ordenar por':'Sort by';
  const sortSelect=document.createElement('select');sortSelect.setAttribute('aria-label',sortLabel.textContent);
@@ -42,7 +43,7 @@ function showPlaceDirectory(title,rows,kind){
  const status=document.createElement('span');status.setAttribute('aria-live','polite');
  const next=document.createElement('button');next.type='button';next.textContent=es?'Siguiente →':'Next →';
  nav.append(prev,status,next);
- root.append(eyebrow,heading,headline,stats,sortRow,results,nav);detail.append(root);panel.style.display='block';
+ root.append(eyebrow,heading,headline,stats,filterInput,sortRow,results,nav);detail.append(root);panel.style.display='block';
  let selectedType=null,page=0;
  order.filter(t=>counts[t]).forEach(t=>{
    const btn=document.createElement('button');btn.type='button';btn.className='dirStat type-'+t;
@@ -51,7 +52,8 @@ function showPlaceDirectory(title,rows,kind){
    btn.dataset.type=t;stats.append(btn);
  });
  function update(){
-   const visible=selectedType?list.filter(x=>x.type===selectedType):[...list];
+   const q=normSearch(filterInput.value);
+   const visible=list.filter(x=>(!selectedType||x.type===selectedType)&&(!q||[x.name,x.city,x.country,x.address,x.program].some(v=>normSearch(v).includes(q))));
    if(sortSelect.value!=='default'){const field=sortSelect.value;visible.sort((a,b)=>String(a[field]||'').localeCompare(String(b[field]||''),currentLang==='es'?'es':'en',{sensitivity:'base'})||String(a.name||'').localeCompare(String(b.name||'')))};
    const pages=Math.max(1,Math.ceil(visible.length/pageSize));page=Math.min(page,pages-1);
    results.replaceChildren();
@@ -68,6 +70,7 @@ function showPlaceDirectory(title,rows,kind){
    status.textContent=(es?'Página ':'Page ')+(page+1)+' / '+pages+' · '+visible.length.toLocaleString()+' '+(es?'resultados':'results');
    prev.disabled=page===0;next.disabled=page>=pages-1;nav.hidden=pages<=1;
  }
+ filterInput.oninput=()=>{page=0;update()};
  sortSelect.onchange=()=>{page=0;update()};
  prev.onclick=()=>{if(page>0){page--;update();results.scrollIntoView({block:'nearest'})}};
  next.onclick=()=>{page++;update();results.scrollIntoView({block:'nearest'})};
