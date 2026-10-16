@@ -67,11 +67,14 @@ function showPlaceDirectory(title,rows,kind){
    clear.hidden=!selectedType&&!filterInput.value&&sortSelect.value==='default';
    mapResults.disabled=visible.length===0;
    mapResults.onclick=()=>{if(visible.length)fitRecords(visible,visible.length===1?14:10)};
-   exportResults.disabled=visible.length===0;
+   // Teacher profiles are voluntary community records, not bulk-exportable institution data.
+   const exportable=visible.filter(x=>x.type!=='teacher');
+   exportResults.disabled=exportable.length===0;
+   exportResults.title=es?'Exportar '+exportable.length+' instituciones (sin perfiles personales)':'Export '+exportable.length+' institutions (excluding personal profiles)';
    exportResults.onclick=()=>{
      const headers=['Name','Type','City','Country','Address','Website','Program'];
      const safeCell=value=>{let v=String(value??'');if(/^\s*[=+@-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
-     const csv=[headers,...visible.map(x=>[x.name,x.type,x.city,x.country,x.address,x.web,x.program])].map(row=>row.map(safeCell).join(',')).join('\r\n');
+     const csv=[headers,...exportable.map(x=>[x.name,x.type,x.city,x.country,x.address,x.web,x.program])].map(row=>row.map(safeCell).join(',')).join('\r\n');
      const blob=new Blob(['\uFEFF',csv],{type:'text/csv;charset=utf-8'});
      const url=URL.createObjectURL(blob),link=document.createElement('a');
      link.href=url;link.download='ATLAS-ELE-'+String(title).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9-]+/gi,'-').slice(0,40)+'.csv';
