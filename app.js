@@ -37,13 +37,17 @@ function showPlaceDirectory(title,rows,kind){
  const sortOptions=[['default',kind==='search'?(es?'Relevancia':'Relevance'):(es?'Ciudad':'City')],['name',es?'Nombre A–Z':'Name A–Z'],['city',es?'Ciudad A–Z':'City A–Z'],['country',es?'País A–Z':'Country A–Z']];
  sortOptions.forEach(([value,label])=>{const option=document.createElement('option');option.value=value;option.textContent=label;sortSelect.append(option)});
  sortRow.append(sortLabel,sortSelect);
+ const summaryRow=document.createElement('div');summaryRow.className='dirResultsSummary';
+ const matching=document.createElement('span');matching.setAttribute('aria-live','polite');
+ const clear=document.createElement('button');clear.type='button';clear.className='dirClearFilters';clear.textContent=es?'Limpiar filtros':'Clear filters';
+ summaryRow.append(matching,clear);
  const results=document.createElement('div');results.className='dirList';
  const nav=document.createElement('div');nav.className='dirPagination';
  const prev=document.createElement('button');prev.type='button';prev.textContent=es?'← Anterior':'← Previous';
  const status=document.createElement('span');status.setAttribute('aria-live','polite');
  const next=document.createElement('button');next.type='button';next.textContent=es?'Siguiente →':'Next →';
  nav.append(prev,status,next);
- root.append(eyebrow,heading,headline,stats,filterInput,sortRow,results,nav);detail.append(root);panel.style.display='block';
+ root.append(eyebrow,heading,headline,stats,filterInput,sortRow,summaryRow,results,nav);detail.append(root);panel.style.display='block';
  let selectedType=null,page=0;
  order.filter(t=>counts[t]).forEach(t=>{
    const btn=document.createElement('button');btn.type='button';btn.className='dirStat type-'+t;
@@ -56,7 +60,11 @@ function showPlaceDirectory(title,rows,kind){
    const visible=list.filter(x=>(!selectedType||x.type===selectedType)&&(!q||[x.name,x.city,x.country,x.address,x.program].some(v=>normSearch(v).includes(q))));
    if(sortSelect.value!=='default'){const field=sortSelect.value;visible.sort((a,b)=>String(a[field]||'').localeCompare(String(b[field]||''),currentLang==='es'?'es':'en',{sensitivity:'base'})||String(a.name||'').localeCompare(String(b.name||'')))};
    const pages=Math.max(1,Math.ceil(visible.length/pageSize));page=Math.min(page,pages-1);
+   matching.textContent=visible.length.toLocaleString()+' '+(es?'resultados encontrados':'matching results');
+   clear.hidden=!selectedType&&!filterInput.value&&sortSelect.value==='default';
    results.replaceChildren();
+   if(!visible.length){const empty=document.createElement('p');empty.className='dirNoMatches';empty.textContent=es?'No hay centros con estos filtros. Prueba otra búsqueda o pulsa Limpiar filtros.':'No institutions match these filters. Try another search or clear the filters.';results.append(empty)}
+
    visible.slice(page*pageSize,(page+1)*pageSize).forEach(x=>{
      const btn=document.createElement('button');btn.type='button';
      const dot=document.createElement('i');dot.className='dirDot type-'+x.type;
@@ -70,6 +78,7 @@ function showPlaceDirectory(title,rows,kind){
    status.textContent=(es?'Página ':'Page ')+(page+1)+' / '+pages+' · '+visible.length.toLocaleString()+' '+(es?'resultados':'results');
    prev.disabled=page===0;next.disabled=page>=pages-1;nav.hidden=pages<=1;
  }
+ clear.onclick=()=>{selectedType=null;filterInput.value='';sortSelect.value='default';page=0;update()};
  filterInput.oninput=()=>{page=0;update()};
  sortSelect.onchange=()=>{page=0;update()};
  prev.onclick=()=>{if(page>0){page--;update();results.scrollIntoView({block:'nearest'})}};
