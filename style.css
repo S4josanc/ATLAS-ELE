@@ -197,3 +197,18 @@ html,body{width:100%;height:100%;overflow:hidden}
 .placeDirectory .dirList strong{font-size:13px!important;white-space:normal!important;overflow:visible!important;line-height:1.35}
 .placeDirectory .dirList small{font-size:11px!important;line-height:1.4}
 @media(max-width:760px){.searchSuggest{max-height:48vh;border-radius:14px!important}.searchSuggest button{min-height:58px;padding:10px!important}.searchSuggest em{max-width:65px;text-align:right}.placeDirectory .dirList button{padding:12px!important}}
+
+
+/* ATLAS ELE — Institution profile 2.0 visual layout */
+.institutionProfile{padding:0 0 22px!important;overflow:hidden;border-radius:18px;background:#fff}
+.institutionProfile .profileHero{position:relative;padding:25px 21px 24px;margin-bottom:17px;background:linear-gradient(135deg,#0b304b,#145a7f 78%,#187fa4);border-radius:16px;color:#fff}
+.institutionProfile .profileHero:after{content:"";position:absolute;right:-25px;top:-50px;width:170px;height:170px;border:1px solid #ffffff2a;border-radius:50%;pointer-events:none}
+.institutionProfile .profileHero .profileType{color:#e8f8ff!important;background:#ffffff22!important;border:1px solid #ffffff44!important;padding:7px 12px;border-radius:30px;margin-bottom:15px!important}
+.institutionProfile .profileHero .profileType i{background:#8ee9fa;box-shadow:0 0 0 4px #ffffff24}
+.institutionProfile .profileHero h2{font-size:clamp(24px,2.7vw,32px)!important;color:#fff!important;line-height:1.16!important;letter-spacing:-.02em;margin:0 0 12px!important;overflow-wrap:anywhere}
+.institutionProfile .profileHero .profilePlace{color:#d8edf8!important;font-size:13px!important}
+.institutionProfile>.profileAddress,.institutionProfile>.profileBadges,.institutionProfile>.profileProgram,.institutionProfile>.profileContact,.institutionProfile>.profileSave,.institutionProfile>.profileShare,.institutionProfile>.profileCopyAddress,.institutionProfile>.profileDirections,.institutionProfile>.profileAccuracyNote{margin-left:16px!important;margin-right:16px!important}
+.institutionProfile>.profileSave,.institutionProfile>.profileShare,.institutionProfile>.profileCopyAddress,.institutionProfile>.profileDirections{width:calc(100% - 32px)!important;box-sizing:border-box}
+.institutionProfile .profileContact{padding:15px;border:1px solid #e0eaf0;border-radius:14px;background:#f7fafc;margin-bottom:14px}
+.institutionProfile .profileAccuracyNote{margin-top:18px;padding:12px 14px;border-radius:12px;background:#eff7fc;color:#45677d;font-size:12px;line-height:1.5}
+@media(max-width:760px){.institutionProfile .profileHero{padding:23px 17px;border-radius:14px}.institutionProfile .profileHero h2{font-size:25px!important}.institutionProfile .profileContact{padding:12px}}
