@@ -280,3 +280,11 @@ html,body{width:100%;height:100%;overflow:hidden}
 .dirQuickFilter::placeholder{color:#7293a8}
 .dirQuickFilter:focus{border-color:#188fcd;box-shadow:0 0 0 3px #1e9ad522;background:#fff}
 @media(max-width:760px){.dirQuickFilter{font-size:16px;min-height:46px}}
+
+
+/* Directory result feedback and one-click reset */
+.dirResultsSummary{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:9px 0 7px;color:#526f82;font-size:12px;font-weight:700}
+.dirClearFilters{border:1px solid #bcd7e8;background:#eff8ff;color:#15587b;padding:8px 11px;border-radius:9px;font-size:12px;font-weight:800;cursor:pointer}
+.dirClearFilters:hover,.dirClearFilters:focus-visible{background:#d9f0ff;outline:2px solid #168de1}
+.dirClearFilters[hidden]{display:none!important}
+.dirNoMatches{padding:24px 14px;text-align:center;background:#f4f9fd;border:1px dashed #b6d4e5;border-radius:12px;color:#466b82;font-size:13px;line-height:1.6}
