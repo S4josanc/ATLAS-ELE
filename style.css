@@ -248,3 +248,10 @@ html,body{width:100%;height:100%;overflow:hidden}
 .langSwitch #langFlag svg{width:28px;height:19px;border-radius:2px;box-shadow:0 0 0 1px #ffffff60}
 .langSwitch #langCode{font-size:11px!important;font-weight:850!important}
 @media(max-width:760px){.langSwitch{min-width:62px!important;padding:3px 7px!important}.langSwitch #langFlag svg{width:24px;height:16px}.join .peopleIcon{flex-basis:22px}.join .peopleIcon svg{width:21px;height:21px}}
+
+
+/* Interactive institution category filters in directory */
+.placeDirectory .dirStat{cursor:pointer;font:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .15s,transform .15s}
+.placeDirectory .dirStat:hover,.placeDirectory .dirStat:focus-visible{outline:2px solid #168de1;outline-offset:2px;transform:translateY(-1px)}
+.placeDirectory .dirStat.selected{background:#123d5a!important;color:#fff!important;border-color:#123d5a!important}
+.placeDirectory .dirList [hidden]{display:none!important}
