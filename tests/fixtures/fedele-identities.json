@@ -1,0 +1,919 @@
+[
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000102",
+    "name": "Malaca Instituto",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000045",
+    "name": "Debla",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000143",
+    "name": "CLIC International House Málaga",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000017",
+    "name": "AIL Málaga",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000032",
+    "name": "Cervantes Escuela Internacional",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-FEDELE-A-2344",
+    "name": "Enforex Málaga",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-FEDELE-A-2345",
+    "name": "Enforex Granada",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA",
+    "id": "ES-000026",
+    "name": "CastiLa",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000034",
+    "name": "CLIC International House Cádiz",
+    "city": "Cádiz",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2346",
+    "name": "Escuela Hispalense",
+    "city": "Cádiz",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000093",
+    "name": "K2 Internacional",
+    "city": "Cádiz",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000114",
+    "name": "Spanish in Cádiz",
+    "city": "Cádiz",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2347",
+    "name": "Tenidiomas",
+    "city": "Cádiz",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000005",
+    "name": "International House Córdoba",
+    "city": "Córdoba",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000056",
+    "name": "Carmen de las Cuevas",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000060",
+    "name": "Escuela Montalbán",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2348",
+    "name": "Linguaschools Granada",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2349",
+    "name": "Proyecto Español Granada",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000157",
+    "name": "CLIC International House Sevilla",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2350",
+    "name": "Enforex Sevilla",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000156",
+    "name": "Saint Gabriel International",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-FEDELE-B-2351",
+    "name": "Idiomas Carlos V Sevilla",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000111",
+    "name": "Sevilla Habla",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000115",
+    "name": "Spanish Institute for Global Education",
+    "city": "Sevilla",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_ANDALUCIA_2",
+    "id": "ES-000154",
+    "name": "International House Huelva",
+    "city": "Huelva",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000022",
+    "name": "BCN Languages",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-FEDELE-BCN-2352",
+    "name": "BCN Lip",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000024",
+    "name": "Camino Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-FEDELE-BCN-2353",
+    "name": "don Quijote Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000054",
+    "name": "Enforex Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-FEDELE-BCN-2354",
+    "name": "Escuela Mediterráneo IH Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000076",
+    "name": "Idealog",
+    "city": "Castelldefels",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000172",
+    "name": "Linguaschools Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-FEDELE-BCN-2355",
+    "name": "Olé Languages Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000066",
+    "name": "FreeDa Language Space",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-FEDELE-BCN-2356",
+    "name": "Speakeasy BCN",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_BARCELONA",
+    "id": "ES-000106",
+    "name": "Oxford House Barcelona",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000025",
+    "name": "Camino Castellano",
+    "city": "Ávila",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000004",
+    "name": "Academia Berceo Salamanca",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000010",
+    "name": "Academia Mester",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000036",
+    "name": "Colegio de España",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000037",
+    "name": "Colegio Delibes",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000038",
+    "name": "Colegio Ibérico",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-FEDELE-CYL-2357",
+    "name": "DICE Salamanca",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-FEDELE-CYL-2358",
+    "name": "don Quijote Salamanca",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000063",
+    "name": "Estudio Sampere Salamanca",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000055",
+    "name": "Enforex Salamanca",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000075",
+    "name": "Hispano Continental",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000125",
+    "name": "Tía Tula",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000113",
+    "name": "Spanish Courses Unamuno",
+    "city": "Salamanca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000089",
+    "name": "International House Valladolid",
+    "city": "Valladolid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000148",
+    "name": "FIT Spain",
+    "city": "Burgos",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_CYL",
+    "id": "ES-000031",
+    "name": "Centro Internacional Antonio Machado",
+    "city": "Soria",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000007",
+    "name": "Academia Contacto",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000016",
+    "name": "AIL Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-ACC-052",
+    "name": "don Quijote Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-ACC-054",
+    "name": "Enforex Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000150",
+    "name": "Estudio Sampere Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-ACC-056",
+    "name": "Eureka Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000088",
+    "name": "International House Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000081",
+    "name": "Inhispania",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000095",
+    "name": "LAE Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000121",
+    "name": "TANDEM Escuela Internacional Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-FEDELE-MAD-2359",
+    "name": "VAMOS Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000073",
+    "name": "Hablamos Escuela de Español",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_MADRID",
+    "id": "ES-000042",
+    "name": "Cronopios Idiomas",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000039",
+    "name": "Colegio Internacional Alicante",
+    "city": "Alicante",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000062",
+    "name": "Estudio Sampere Alicante",
+    "city": "Alicante",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000109",
+    "name": "Proyecto Español Alicante",
+    "city": "Alicante",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-FEDELE-CV-2360",
+    "name": "TLCdénia",
+    "city": "Dénia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-FEDELE-CV-2361",
+    "name": "TOP School",
+    "city": "Alicante",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000053",
+    "name": "Enforex Alicante",
+    "city": "Alicante",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000013",
+    "name": "Ágil Spanish Institute",
+    "city": "Castellón",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000009",
+    "name": "Academia La Pagoda",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000152",
+    "name": "AIP Language Institute",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000041",
+    "name": "Costa de Valencia",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-FEDELE-CV-2362",
+    "name": "don Quijote Valencia",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000074",
+    "name": "Hispania, escuela de español",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000086",
+    "name": "Intereuropa",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000122",
+    "name": "Taronja School",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000064",
+    "name": "EUROACE",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000050",
+    "name": "El Carmen Spanish School",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000155",
+    "name": "Vive Spanish",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_VALENCIA",
+    "id": "ES-000018",
+    "name": "AIL Valencia",
+    "city": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-FEDELE-INT-2363",
+    "name": "Pamplona Spanish Institute",
+    "city": "Pamplona",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-FEDELE-INT-2364",
+    "name": "El Aula Azul",
+    "city": "San Sebastián",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-FEDELE-INT-2365",
+    "name": "Lacunza IH San Sebastián",
+    "city": "San Sebastián",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000151",
+    "name": "Tandem San Sebastián",
+    "city": "San Sebastián",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000153",
+    "name": "Academia Iria Flavia",
+    "city": "Santiago de Compostela",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000046",
+    "name": "Desilena",
+    "city": "Tenerife",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-FEDELE-INT-2366",
+    "name": "don Quijote Tenerife",
+    "city": "Tenerife",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000067",
+    "name": "FU International Academy Tenerife",
+    "city": "Tenerife",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000020",
+    "name": "Aula Toledo",
+    "city": "Toledo",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000098",
+    "name": "Language Campus Gran Canaria",
+    "city": "Las Palmas de Gran Canaria",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000141",
+    "name": "Instituto de Idiomas Ibiza",
+    "city": "Ibiza",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000083",
+    "name": "Instituto Hemingway",
+    "city": "Bilbao",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000128",
+    "name": "Trivium Cuenca",
+    "city": "Cuenca",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERPROVINCIAL",
+    "id": "ES-000097",
+    "name": "La Rioja Spanish School",
+    "city": "Logroño",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000149",
+    "name": "iNMSOL",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-ACC-023",
+    "name": "Tropical Coast Languages",
+    "city": "Almuñécar",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000011",
+    "name": "Academia Puerta Real",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000168",
+    "name": "Academia Teba Languages",
+    "city": "Granada",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2367",
+    "name": "Academia AIFP",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000142",
+    "name": "Maravillas Programas Internacionales",
+    "city": "Benalmádena",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2368",
+    "name": "Enforex Marbella",
+    "city": "Marbella",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2369",
+    "name": "III Language Schools",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000103",
+    "name": "Academia Málaga Plus Andalusí",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2370",
+    "name": "MaestroMío",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2371",
+    "name": "Spanish Language Center Marbella",
+    "city": "Marbella",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000078",
+    "name": "Idiomas Carlos V Málaga",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2372",
+    "name": "Centro de Estudios Plaza de las Flores",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2373",
+    "name": "Academia Avenida al Español",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-FEDELE-AUD-2374",
+    "name": "Hablantis Centro Internacional de Idiomas",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_AUDIT_MISSING",
+    "id": "ES-000077",
+    "name": "Idiomas Carlos V Madrid",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2375",
+    "name": "Hispanic Horizons",
+    "city": "Mumbai",
+    "country": "India"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2376",
+    "name": "Sin Fronteras",
+    "city": "Almaty",
+    "country": "Kazakhstan"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2377",
+    "name": "Espoir Langues",
+    "city": "Casablanca",
+    "country": "Morocco"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2378",
+    "name": "Instituto Alborz",
+    "city": "Tehran",
+    "country": "Iran"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2379",
+    "name": "ESP Club Moscú",
+    "city": "Moscow",
+    "country": "Russia"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2380",
+    "name": "Instituto Hispano Brasileiro",
+    "city": "São Paulo",
+    "country": "Brazil"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2381",
+    "name": "Cultura Española",
+    "city": "São Paulo",
+    "country": "Brazil"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2382",
+    "name": "Modern School of Languages",
+    "city": "New Delhi",
+    "country": "India"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2383",
+    "name": "La Mancha",
+    "city": "Warsaw",
+    "country": "Poland"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2384",
+    "name": "Diálogo",
+    "city": "Warsaw",
+    "country": "Poland"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2385",
+    "name": "Academia de Español",
+    "city": "New Delhi",
+    "country": "India"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2386",
+    "name": "La Española Taalinstituut",
+    "city": "The Hague",
+    "country": "Netherlands"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2387",
+    "name": "Casa de España",
+    "city": "Warsaw",
+    "country": "Poland"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2388",
+    "name": "Spanish & Arabic World Center",
+    "city": "Manama",
+    "country": "Bahrain"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2389",
+    "name": "Centro de estudios hispánicos Maria Barbero",
+    "city": "Athens",
+    "country": "Greece"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2390",
+    "name": "Picasso Academy",
+    "city": "Casablanca",
+    "country": "Morocco"
+  },
+  {
+    "source": "ATLAS_FEDELE_INTERNATIONAL",
+    "id": "FEDELE-INTL-2391",
+    "name": "I.T.E. Tecnico Economico A. De Viti De Marco",
+    "city": "Triggiano",
+    "country": "Italy"
+  }
+]
