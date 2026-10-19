@@ -1,0 +1,18 @@
+name: Stable institution links
+on:
+  push:
+    branches:
+      - fix/stable-institution-links-20261019
+  workflow_dispatch:
+jobs:
+  stable-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Verify institution link stability
+        run: node tests/stable-links.cjs
