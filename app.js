@@ -137,7 +137,7 @@ const tj=tc.querySelectorAll('.teacherJoinForm label');const tjLabels=lang==='es
 const stats=document.querySelector('.stats');if(stats)stats.innerHTML='<span class="live"></span><b id="count">5,338</b> '+t.mapped+' <span>·</span> <b id="countries">20+</b> '+t.countries+' <span>·</span> '+t.community;
  // Selector shows the ACTIVE language.
  document.getElementById('flagES').style.display=lang==='es'?'block':'none';document.getElementById('flagEN').style.display=lang==='en'?'block':'none';document.getElementById('langCode').textContent=lang==='es'?'ES':'EN';
- document.getElementById('langSwitch').title=lang==='es'?'Switch to English':'Cambiar a español';
+ document.getElementById('langSwitch').title=lang==='es'?'Switch to English':'Cambiar a español';document.getElementById('langSwitch').setAttribute('aria-label',lang==='es'?'Cambiar idioma: inglés':'Switch language: Spanish');document.getElementById('q').setAttribute('aria-label',lang==='es'?'Buscar instituciones, países y ciudades':'Search institutions, countries and cities');
  document.title=lang==='es'?'ATLAS ELE — El mapa mundial de la enseñanza del español':'ATLAS ELE — The global map of Spanish teaching';
 }
 document.getElementById('langSwitch').onclick=()=>applyLanguage(currentLang==='en'?'es':'en');applyLanguage(currentLang);
