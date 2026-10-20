@@ -302,3 +302,36 @@ html,body{width:100%;height:100%;overflow:hidden}
 .dirExportResults:hover,.dirExportResults:focus-visible{background:#d3f1e4;outline:2px solid #47b18d;outline-offset:2px}
 .dirExportResults:disabled{opacity:.45;cursor:default}
 @media(max-width:480px){.dirExportResults{min-height:39px}}
+
+
+/* ATLAS ELE 2.0 — October visual release: editorial map experience */
+@media(min-width:761px){
+ .world-card{width:min(440px,calc(100vw - 64px))!important;padding:31px!important;border-radius:25px!important;background:linear-gradient(155deg,rgba(6,34,61,.97),rgba(8,66,99,.94))!important;border:1px solid rgba(171,231,255,.28)!important;box-shadow:0 25px 70px rgba(0,25,46,.36)!important;backdrop-filter:blur(16px)}
+ .world-card .eyebrow{display:inline-flex;align-items:center;letter-spacing:.16em!important;font-weight:850!important;color:#8be5ff!important}
+ .world-card h1{font-size:clamp(29px,2.8vw,40px)!important;line-height:1.13!important;letter-spacing:-.035em!important;color:#fff!important;margin:16px 0!important}
+ .world-card p{font-size:13px!important;line-height:1.75!important;color:#d0e8f6!important}
+ .world-card .worldStatsTitle{color:#9fdaee!important;letter-spacing:.14em!important}
+ .world-card .mini-stats{gap:8px!important}
+ .world-card .mini-stats button{border-radius:13px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.16)!important;min-height:72px}
+ .world-card .mini-stats strong{color:#fff!important;font-size:22px!important}
+ .world-card .mini-stats small{color:#c3e6f4!important}
+ .world-card #explore{border-radius:12px!important;min-height:48px!important;font-weight:850!important;box-shadow:0 10px 22px rgba(0,18,35,.2)}
+}
+.topbar{background:linear-gradient(110deg,#062c4c,#084b7a 55%,#073a62)!important;border-bottom:1px solid rgba(255,255,255,.13)}
+.search{border:1px solid rgba(255,255,255,.48)!important;box-shadow:0 9px 24px rgba(0,20,45,.23)!important}
+.search:focus-within{outline:3px solid rgba(117,218,255,.75);outline-offset:2px}
+.categoryBar{backdrop-filter:blur(14px);border-bottom:1px solid #dce9f2}
+.chips button{transition:background .16s,transform .16s,box-shadow .16s}
+.chips button:hover{transform:translateY(-1px)}
+#panel{border:1px solid #d6e5ef;box-shadow:0 22px 60px rgba(6,35,60,.27)!important}
+#panel #close{cursor:pointer}
+@media(max-width:760px){
+ .world-card{background:linear-gradient(150deg,rgba(7,40,70,.97),rgba(8,73,107,.95))!important;border:1px solid #ffffff3b!important;box-shadow:0 14px 42px #00203a50!important;border-radius:20px!important}
+ .world-card h1{color:#fff!important;line-height:1.18!important}
+ .world-card p{color:#d7edf7!important}
+ .world-card .eyebrow{color:#9fe8ff!important}
+ .world-card .mini-stats button{background:#ffffff16!important;border-radius:11px!important}
+ .world-card .mini-stats strong{color:#fff!important}
+ .world-card .mini-stats small{color:#d5e9f4!important}
+ .search:focus-within{outline-width:2px}
+}
