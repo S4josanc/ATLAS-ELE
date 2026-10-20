@@ -14,9 +14,10 @@ const dynamicPrefixes=['ES-FEDELE-A','ES-FEDELE-B','ES-FEDELE-BCN','ES-FEDELE-CY
 for(const prefix of dynamicPrefixes){
  const line=app.split('\n').find(line=>line.includes("id:'"+prefix+"-'+"));
  assert.ok(line,'ID generator missing for '+prefix);
- assert.ok(line.includes("id:'"+prefix+"-'+atlasStableInstitutionKey("),'Unstable ID for '+prefix);
+ assert.ok(line.includes("id:'"+prefix+"-'+(data.length+1),publicId:'"+prefix+"-'+atlasStableInstitutionKey("),'Legacy ID or stable public ID missing for '+prefix);
 }
 assert.equal(key(a),key({...a,address:'Calle Nueva 2',web:'https://example.org'}),'Changing address or website must not change the key');
 assert.equal(new Set(keys).size,keys.length,'Pilot stable keys must be unique');
-assert.ok(app.includes('x.id===requestedId')&&app.includes('atlasStableInstitutionKey(x)===requestedId'),'Both legacy and stable URLs must resolve');
-console.log('PASS: legacy ID independence, location differentiation, unique pilot keys, backward-compatible lookup');
+assert.ok(app.includes('x.id===requestedId||x.publicId===requestedId')&&app.includes('atlasStableInstitutionKey(x)===requestedId'),'Both legacy and stable URLs must resolve');
+assert.ok(app.includes('encodeURIComponent(x.publicId||x.id)'), 'Share links must prefer public IDs');
+console.log('PASS: stable public IDs, legacy IDs retained, backward-compatible lookup');
