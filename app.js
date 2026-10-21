@@ -30,7 +30,7 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    if(hero)hero.insertBefore(mark,hero.querySelector('.profileType'));
    const tabs=document.createElement('nav');tabs.className='premiumTabs';tabs.setAttribute('aria-label',es?'Secciones de la ficha':'Profile sections');
    const tabDefs=[[es?'Resumen':'Overview','premiumFacts'],[es?'Programa':'Program','profileProgram'],[es?'Ubicación':'Location','premiumLocation'],[es?'Contacto':'Contact','profileContact']];
-   tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||cls==='premiumLocation'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target)target.scrollIntoView({behavior:'smooth',block:'nearest'})};tabs.append(btn)}});
+   tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||cls==='premiumLocation'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target){tabs.querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',b===btn);b.setAttribute('aria-current',b===btn?'true':'false')});target.scrollIntoView({behavior:'smooth',block:'start'})}};if(!tabs.children.length){btn.classList.add('selected');btn.setAttribute('aria-current','true')}tabs.append(btn)}});
    if(hero)hero.insertAdjacentElement('afterend',tabs);
    const facts=document.createElement('section');facts.className='premiumFacts';
    const heading=document.createElement('h3');heading.textContent=es?'Información del centro':'Institution information';facts.append(heading);
@@ -47,7 +47,7 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    const statusBody=document.createElement('p');statusBody.textContent=es?'La inclusión en ATLAS ELE no implica una verificación independiente de la institución ni de sus coordenadas. Consulta su web oficial antes de desplazarte.':'Listing on ATLAS ELE does not imply independent verification of the institution or its coordinates. Check the official website before visiting.';
    status.append(statusTitle,statusBody);
    const badges=profile.querySelector('.profileBadges');
-   if(badges){badges.insertAdjacentElement('afterend',facts);facts.insertAdjacentElement('afterend',status);status.insertAdjacentElement('afterend',locationSection)}else profile.append(facts,status);
+   if(badges){badges.insertAdjacentElement('afterend',facts);facts.insertAdjacentElement('afterend',status);status.insertAdjacentElement('afterend',locationSection)}else profile.append(facts,status,locationSection);
  }
  const sb=detail.querySelector('[data-save-id]');if(sb)sb.onclick=()=>{toggleSaved(x.id);show(x)};const copyButton=detail.querySelector('.profileCopyAddress');if(copyButton)copyButton.onclick=()=>atlasCopyAddress(x.address);const shareButton=detail.querySelector('.profileShare');if(shareButton)shareButton.onclick=()=>atlasShareInstitution(x)}
 document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()});
