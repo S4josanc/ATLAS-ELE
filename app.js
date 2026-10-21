@@ -36,12 +36,18 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    const heading=document.createElement('h3');heading.textContent=es?'Información del centro':'Institution information';facts.append(heading);
    const fields=[[es?'Tipo':'Type',type],[es?'Ciudad':'City',x.city],[es?'País':'Country',x.country],[es?'Programa':'Program',x.program]];
    fields.filter(([,v])=>v).forEach(([label,value])=>{const row=document.createElement('div');row.className='premiumFact';const key=document.createElement('span');key.textContent=label;const val=document.createElement('strong');val.textContent=String(value);row.append(key,val);facts.append(row)});
+   const locationSection=document.createElement('section');locationSection.className='premiumLocation';
+   const locationTitle=document.createElement('h3');locationTitle.textContent=es?'Ubicación y cómo llegar':'Location and directions';locationSection.append(locationTitle);
+   const locationText=document.createElement('p');locationText.textContent=x.address?String(x.address)+', '+[x.city,x.country].filter(Boolean).join(', '):[x.city,x.country].filter(Boolean).join(', ');
+   locationSection.append(locationText);
+   if(x.address){const link=document.createElement('a');link.className='premiumLocationLink';link.target='_blank';link.rel='noopener noreferrer';link.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([x.address,x.city,x.country].filter(Boolean).join(', '));link.textContent=es?'↗ Consultar dirección en Google Maps':'↗ Look up address on Google Maps';locationSection.append(link)}
+   const locationNote=document.createElement('small');locationNote.textContent=es?'El marcador del mapa puede ser aproximado; confirma la dirección antes de viajar.':'The map marker may be approximate; confirm the address before travelling.';locationSection.append(locationNote);
    const status=document.createElement('div');status.className='premiumTrust';
    const statusTitle=document.createElement('strong');statusTitle.textContent=es?'Transparencia de los datos':'Data transparency';
    const statusBody=document.createElement('p');statusBody.textContent=es?'La inclusión en ATLAS ELE no implica una verificación independiente de la institución ni de sus coordenadas. Consulta su web oficial antes de desplazarte.':'Listing on ATLAS ELE does not imply independent verification of the institution or its coordinates. Check the official website before visiting.';
    status.append(statusTitle,statusBody);
    const badges=profile.querySelector('.profileBadges');
-   if(badges){badges.insertAdjacentElement('afterend',facts);facts.insertAdjacentElement('afterend',status)}else profile.append(facts,status);
+   if(badges){badges.insertAdjacentElement('afterend',facts);facts.insertAdjacentElement('afterend',status);status.insertAdjacentElement('afterend',locationSection)}else profile.append(facts,status);
  }
  const sb=detail.querySelector('[data-save-id]');if(sb)sb.onclick=()=>{toggleSaved(x.id);show(x)};const copyButton=detail.querySelector('.profileCopyAddress');if(copyButton)copyButton.onclick=()=>atlasCopyAddress(x.address);const shareButton=detail.querySelector('.profileShare');if(shareButton)shareButton.onclick=()=>atlasShareInstitution(x)}
 document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()});
