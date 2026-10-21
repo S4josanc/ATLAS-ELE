@@ -394,3 +394,18 @@ html,body{width:100%;height:100%;overflow:hidden}
 .institutionProfile .premiumTabs button.selected{background:#0a4675!important;color:#fff!important;box-shadow:0 3px 10px #092f4b24}
 .institutionProfile .premiumTabs button:not(.selected){background:transparent!important;color:#365f78!important;box-shadow:none!important}
 .institutionProfile .premiumFacts,.institutionProfile .premiumLocation,.institutionProfile .profileProgram,.institutionProfile .profileContact{scroll-margin-top:16px}
+
+
+/* ATLAS ELE premium compact — approved all-in-one layout */
+.institutionProfile .premiumCompactGrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);gap:14px;padding:15px;background:#f5f9fc}
+.institutionProfile .premiumMainColumn,.institutionProfile .premiumSideColumn{display:flex;flex-direction:column;gap:13px;min-width:0}
+.institutionProfile .premiumCompactGrid .profileBadges{margin:0!important;padding:10px 12px;border:1px solid #e0eaf1;border-radius:13px;background:white}
+.institutionProfile .premiumCompactGrid .premiumFacts,.institutionProfile .premiumCompactGrid .premiumTrust,.institutionProfile .premiumCompactGrid .premiumLocation,.institutionProfile .premiumCompactGrid .profileProgram,.institutionProfile .premiumCompactGrid .profileContact{margin:0!important;width:100%;box-sizing:border-box}
+.institutionProfile .premiumCompactGrid .premiumFacts{padding:16px!important}
+.institutionProfile .premiumCompactGrid .premiumFact{padding:8px 0}
+.institutionProfile .premiumCompactGrid .premiumLocation{padding:15px!important}
+.institutionProfile .premiumCompactGrid .premiumTrust{padding:12px 14px}
+.institutionProfile .premiumCompactGrid .premiumTrust p{font-size:11px}
+.institutionProfile .premiumCompactGrid .profileContact{padding:15px}
+.institutionProfile .profileHero{min-height:145px!important}
+@media(max-width:560px){.institutionProfile .premiumCompactGrid{grid-template-columns:1fr;padding:11px}.institutionProfile .premiumMainColumn,.institutionProfile .premiumSideColumn{gap:10px}}
