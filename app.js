@@ -15,6 +15,19 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    const hero=profile.querySelector('.profileHero');
    const eyebrow=document.createElement('div');eyebrow.className='premiumEyebrow';eyebrow.textContent='ATLAS ELE  ·  '+(es?'PERFIL INSTITUCIONAL':'INSTITUTION PROFILE');
    if(hero)hero.prepend(eyebrow);
+   // Authentic media only: no generated or inferred institution photographs.
+   const photoUrl=typeof x.photoUrl==='string'?x.photoUrl.trim():'';
+   if(hero&&/^https:\/\//i.test(photoUrl)){
+     try{const url=new URL(photoUrl);if(['https:'].includes(url.protocol)){
+       const image=document.createElement('img');image.className='premiumHeroPhoto';image.alt=es?'Fotografía de '+x.name:'Photograph of '+x.name;
+       image.loading='lazy';image.referrerPolicy='no-referrer';image.src=url.href;
+       image.onerror=()=>{image.remove();hero.classList.remove('hasPremiumPhoto')};
+       hero.prepend(image);hero.classList.add('hasPremiumPhoto');
+     }}catch(e){}
+   }
+   const mark=document.createElement('div');mark.className='premiumInstitutionMark';mark.setAttribute('aria-hidden','true');
+   mark.textContent=String(x.name||'?').trim().split(/\s+/).slice(0,2).map(v=>v.charAt(0)).join('').toUpperCase();
+   if(hero)hero.insertBefore(mark,hero.querySelector('.profileType'));
    const tabs=document.createElement('nav');tabs.className='premiumTabs';tabs.setAttribute('aria-label',es?'Secciones de la ficha':'Profile sections');
    const tabDefs=[[es?'Resumen':'Overview','premiumFacts'],[es?'Programa':'Program','profileProgram'],[es?'Contacto':'Contact','profileContact']];
    tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target)target.scrollIntoView({behavior:'smooth',block:'nearest'})};tabs.append(btn)}});
