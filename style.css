@@ -342,3 +342,70 @@ html,body{width:100%;height:100%;overflow:hidden}
 .world-card .atlasEyebrowDot{display:inline-block;width:7px;height:7px;background:#5ae2ba;border-radius:50%;margin-right:7px;box-shadow:0 0 0 4px #5ae2ba26}
 .world-card h1{max-width:440px;overflow-wrap:normal}
 @media(max-width:760px){.world-card h1{font-size:clamp(23px,6vw,30px)!important}.world-card .atlasAccent{line-height:1.22}}
+
+
+/* ATLAS ELE premium institution profile pilot */
+.institutionProfile .premiumEyebrow{font-size:10px;font-weight:850;letter-spacing:.17em;color:#9ce7ff;margin-bottom:15px}
+.institutionProfile .premiumFacts{margin:16px!important;padding:19px 18px;background:#f6fafd;border:1px solid #dceaf3;border-radius:16px}
+.institutionProfile .premiumFacts h3{font-size:14px;letter-spacing:-.01em;color:#123d5b;margin:0 0 12px}
+.institutionProfile .premiumFact{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #e2ecf3}
+.institutionProfile .premiumFact:last-child{border-bottom:0}
+.institutionProfile .premiumFact span{font-size:12px;color:#6a8395;flex:0 0 34%}
+.institutionProfile .premiumFact strong{font-size:12px;color:#173f5b;text-align:right;overflow-wrap:anywhere}
+.institutionProfile .premiumTrust{margin:0 16px 18px;padding:14px 16px;border:1px solid #d5e8f3;border-left:4px solid #3a9cc6;border-radius:12px;background:#eef8fc}
+.institutionProfile .premiumTrust strong{font-size:12px;color:#195674}
+.institutionProfile .premiumTrust p{margin:6px 0 0;font-size:12px;line-height:1.6;color:#496c80}
+@media(max-width:760px){.institutionProfile .premiumFacts{padding:15px 13px}.institutionProfile .premiumFact{gap:8px}.institutionProfile .premiumFact span{flex-basis:38%}}
+
+
+/* Premium profile: editorial layout and functional section navigation */
+.institutionProfile .premiumTabs{display:flex;gap:7px;margin:0 16px 15px;padding:6px;background:#f0f6fa;border:1px solid #deebf3;border-radius:14px;overflow-x:auto}
+.institutionProfile .premiumTabs button{border:0;background:transparent;color:#365f78;border-radius:10px;white-space:nowrap;padding:10px 13px;font-size:12px;font-weight:800;cursor:pointer}
+.institutionProfile .premiumTabs button:first-child{background:#0a4675;color:#fff;box-shadow:0 3px 10px #092f4b24}
+.institutionProfile .premiumTabs button:hover,.institutionProfile .premiumTabs button:focus-visible{outline:2px solid #60b6e4;outline-offset:-2px;background:#dceefa;color:#0a4675}
+.institutionProfile .premiumTabs button:first-child:hover{color:#0a4675}
+.institutionProfile .profileHero{min-height:160px!important;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 95% 10%,#2b94bf70,transparent 46%),linear-gradient(125deg,#062945,#0b4b73 74%,#126a91)!important}
+.institutionProfile .premiumFacts{box-shadow:0 7px 24px #163e5b0b}
+.institutionProfile .premiumFact strong{font-weight:800}
+@media(max-width:760px){.institutionProfile .premiumTabs{margin-left:12px;margin-right:12px}.institutionProfile .premiumTabs button{padding:10px 11px}}
+
+
+/* Premium institution identity — real media, beautiful fallback */
+.institutionProfile .profileHero{position:relative;isolation:isolate;overflow:hidden;padding:28px 22px 24px!important}
+.institutionProfile .premiumHeroPhoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.institutionProfile .profileHero.hasPremiumPhoto:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,24,45,.92),rgba(6,38,65,.66));z-index:-1}
+.institutionProfile .premiumInstitutionMark{display:grid;place-items:center;width:62px;height:62px;border-radius:17px;background:linear-gradient(145deg,#fff,#dff4ff);border:1px solid #ffffffb0;color:#0a4b75;font-size:23px;font-weight:900;letter-spacing:-.05em;box-shadow:0 10px 25px #001c3545;margin-bottom:16px}
+.institutionProfile .profileHero.hasPremiumPhoto .premiumInstitutionMark{background:#fffffff2}
+.institutionProfile .profileHero h2{position:relative;z-index:1}
+.institutionProfile .premiumEyebrow{position:relative;z-index:1}
+@media(max-width:760px){.institutionProfile .premiumInstitutionMark{width:55px;height:55px;font-size:21px}.institutionProfile .profileHero{padding:23px 17px!important}}
+
+
+/* Premium profile: location panel */
+.institutionProfile .premiumLocation{margin:0 16px 18px;padding:17px 18px;border:1px solid #d8e9f3;border-radius:16px;background:linear-gradient(135deg,#f1f8fc,#fff)}
+.institutionProfile .premiumLocation h3{font-size:14px;margin:0 0 10px;color:#153e5a}
+.institutionProfile .premiumLocation p{font-size:13px;line-height:1.55;color:#355f78;margin:0 0 13px}
+.institutionProfile .premiumLocationLink{display:inline-flex;align-items:center;justify-content:center;background:#0c78b4;color:#fff!important;text-decoration:none;padding:11px 14px;border-radius:10px;font-size:12px;font-weight:800;margin-bottom:11px}
+.institutionProfile .premiumLocationLink:hover{background:#075a88}
+.institutionProfile .premiumLocation small{display:block;color:#647e90;font-size:11px;line-height:1.5}
+@media(max-width:760px){.institutionProfile .premiumLocation{margin-left:12px;margin-right:12px;padding:15px}}
+
+
+.institutionProfile .premiumTabs button.selected{background:#0a4675!important;color:#fff!important;box-shadow:0 3px 10px #092f4b24}
+.institutionProfile .premiumTabs button:not(.selected){background:transparent!important;color:#365f78!important;box-shadow:none!important}
+.institutionProfile .premiumFacts,.institutionProfile .premiumLocation,.institutionProfile .profileProgram,.institutionProfile .profileContact{scroll-margin-top:16px}
+
+
+/* ATLAS ELE premium compact — approved all-in-one layout */
+.institutionProfile .premiumCompactGrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);gap:14px;padding:15px;background:#f5f9fc}
+.institutionProfile .premiumMainColumn,.institutionProfile .premiumSideColumn{display:flex;flex-direction:column;gap:13px;min-width:0}
+.institutionProfile .premiumCompactGrid .profileBadges{margin:0!important;padding:10px 12px;border:1px solid #e0eaf1;border-radius:13px;background:white}
+.institutionProfile .premiumCompactGrid .premiumFacts,.institutionProfile .premiumCompactGrid .premiumTrust,.institutionProfile .premiumCompactGrid .premiumLocation,.institutionProfile .premiumCompactGrid .profileProgram,.institutionProfile .premiumCompactGrid .profileContact{margin:0!important;width:100%;box-sizing:border-box}
+.institutionProfile .premiumCompactGrid .premiumFacts{padding:16px!important}
+.institutionProfile .premiumCompactGrid .premiumFact{padding:8px 0}
+.institutionProfile .premiumCompactGrid .premiumLocation{padding:15px!important}
+.institutionProfile .premiumCompactGrid .premiumTrust{padding:12px 14px}
+.institutionProfile .premiumCompactGrid .premiumTrust p{font-size:11px}
+.institutionProfile .premiumCompactGrid .profileContact{padding:15px}
+.institutionProfile .profileHero{min-height:145px!important}
+@media(max-width:560px){.institutionProfile .premiumCompactGrid{grid-template-columns:1fr;padding:11px}.institutionProfile .premiumMainColumn,.institutionProfile .premiumSideColumn{gap:10px}}

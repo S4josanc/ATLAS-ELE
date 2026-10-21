@@ -1,0 +1,22 @@
+name: Premium institution cards
+on:
+  push:
+    branches:
+      - feature/premium-institution-cards-20261021
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: node --check app.js
+      - name: Verify premium profile sections
+        run: |
+          node -e "const fs=require('fs'),s=fs.readFileSync('app.js','utf8');for(const x of ['premiumFacts','premiumTrust','textContent=String(value)'])if(!s.includes(x))throw Error(x)"
