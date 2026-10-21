@@ -342,3 +342,17 @@ html,body{width:100%;height:100%;overflow:hidden}
 .world-card .atlasEyebrowDot{display:inline-block;width:7px;height:7px;background:#5ae2ba;border-radius:50%;margin-right:7px;box-shadow:0 0 0 4px #5ae2ba26}
 .world-card h1{max-width:440px;overflow-wrap:normal}
 @media(max-width:760px){.world-card h1{font-size:clamp(23px,6vw,30px)!important}.world-card .atlasAccent{line-height:1.22}}
+
+
+/* ATLAS ELE premium institution profile pilot */
+.institutionProfile .premiumEyebrow{font-size:10px;font-weight:850;letter-spacing:.17em;color:#9ce7ff;margin-bottom:15px}
+.institutionProfile .premiumFacts{margin:16px!important;padding:19px 18px;background:#f6fafd;border:1px solid #dceaf3;border-radius:16px}
+.institutionProfile .premiumFacts h3{font-size:14px;letter-spacing:-.01em;color:#123d5b;margin:0 0 12px}
+.institutionProfile .premiumFact{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #e2ecf3}
+.institutionProfile .premiumFact:last-child{border-bottom:0}
+.institutionProfile .premiumFact span{font-size:12px;color:#6a8395;flex:0 0 34%}
+.institutionProfile .premiumFact strong{font-size:12px;color:#173f5b;text-align:right;overflow-wrap:anywhere}
+.institutionProfile .premiumTrust{margin:0 16px 18px;padding:14px 16px;border:1px solid #d5e8f3;border-left:4px solid #3a9cc6;border-radius:12px;background:#eef8fc}
+.institutionProfile .premiumTrust strong{font-size:12px;color:#195674}
+.institutionProfile .premiumTrust p{margin:6px 0 0;font-size:12px;line-height:1.6;color:#496c80}
+@media(max-width:760px){.institutionProfile .premiumFacts{padding:15px 13px}.institutionProfile .premiumFact{gap:8px}.institutionProfile .premiumFact span{flex-basis:38%}}
