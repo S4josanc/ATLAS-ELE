@@ -15,6 +15,10 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    const hero=profile.querySelector('.profileHero');
    const eyebrow=document.createElement('div');eyebrow.className='premiumEyebrow';eyebrow.textContent='ATLAS ELE  ·  '+(es?'PERFIL INSTITUCIONAL':'INSTITUTION PROFILE');
    if(hero)hero.prepend(eyebrow);
+   const tabs=document.createElement('nav');tabs.className='premiumTabs';tabs.setAttribute('aria-label',es?'Secciones de la ficha':'Profile sections');
+   const tabDefs=[[es?'Resumen':'Overview','premiumFacts'],[es?'Programa':'Program','profileProgram'],[es?'Contacto':'Contact','profileContact']];
+   tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target)target.scrollIntoView({behavior:'smooth',block:'nearest'})};tabs.append(btn)}});
+   if(hero)hero.insertAdjacentElement('afterend',tabs);
    const facts=document.createElement('section');facts.className='premiumFacts';
    const heading=document.createElement('h3');heading.textContent=es?'Información del centro':'Institution information';facts.append(heading);
    const fields=[[es?'Tipo':'Type',type],[es?'Ciudad':'City',x.city],[es?'País':'Country',x.country],[es?'Programa':'Program',x.program]];
