@@ -356,3 +356,15 @@ html,body{width:100%;height:100%;overflow:hidden}
 .institutionProfile .premiumTrust strong{font-size:12px;color:#195674}
 .institutionProfile .premiumTrust p{margin:6px 0 0;font-size:12px;line-height:1.6;color:#496c80}
 @media(max-width:760px){.institutionProfile .premiumFacts{padding:15px 13px}.institutionProfile .premiumFact{gap:8px}.institutionProfile .premiumFact span{flex-basis:38%}}
+
+
+/* Premium profile: editorial layout and functional section navigation */
+.institutionProfile .premiumTabs{display:flex;gap:7px;margin:0 16px 15px;padding:6px;background:#f0f6fa;border:1px solid #deebf3;border-radius:14px;overflow-x:auto}
+.institutionProfile .premiumTabs button{border:0;background:transparent;color:#365f78;border-radius:10px;white-space:nowrap;padding:10px 13px;font-size:12px;font-weight:800;cursor:pointer}
+.institutionProfile .premiumTabs button:first-child{background:#0a4675;color:#fff;box-shadow:0 3px 10px #092f4b24}
+.institutionProfile .premiumTabs button:hover,.institutionProfile .premiumTabs button:focus-visible{outline:2px solid #60b6e4;outline-offset:-2px;background:#dceefa;color:#0a4675}
+.institutionProfile .premiumTabs button:first-child:hover{color:#0a4675}
+.institutionProfile .profileHero{min-height:160px!important;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 95% 10%,#2b94bf70,transparent 46%),linear-gradient(125deg,#062945,#0b4b73 74%,#126a91)!important}
+.institutionProfile .premiumFacts{box-shadow:0 7px 24px #163e5b0b}
+.institutionProfile .premiumFact strong{font-weight:800}
+@media(max-width:760px){.institutionProfile .premiumTabs{margin-left:12px;margin-right:12px}.institutionProfile .premiumTabs button{padding:10px 11px}}
