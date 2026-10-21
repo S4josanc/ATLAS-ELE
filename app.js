@@ -29,8 +29,8 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    mark.textContent=String(x.name||'?').trim().split(/\s+/).slice(0,2).map(v=>v.charAt(0)).join('').toUpperCase();
    if(hero)hero.insertBefore(mark,hero.querySelector('.profileType'));
    const tabs=document.createElement('nav');tabs.className='premiumTabs';tabs.setAttribute('aria-label',es?'Secciones de la ficha':'Profile sections');
-   const tabDefs=[[es?'Resumen':'Overview','premiumFacts'],[es?'Programa':'Program','profileProgram'],[es?'Contacto':'Contact','profileContact']];
-   tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target)target.scrollIntoView({behavior:'smooth',block:'nearest'})};tabs.append(btn)}});
+   const tabDefs=[[es?'Resumen':'Overview','premiumFacts'],[es?'Programa':'Program','profileProgram'],[es?'Ubicación':'Location','premiumLocation'],[es?'Contacto':'Contact','profileContact']];
+   tabDefs.forEach(([label,cls])=>{if(cls==='premiumFacts'||cls==='premiumLocation'||profile.querySelector('.'+cls)){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.onclick=()=>{const target=profile.querySelector('.'+cls);if(target)target.scrollIntoView({behavior:'smooth',block:'nearest'})};tabs.append(btn)}});
    if(hero)hero.insertAdjacentElement('afterend',tabs);
    const facts=document.createElement('section');facts.className='premiumFacts';
    const heading=document.createElement('h3');heading.textContent=es?'Información del centro':'Institution information';facts.append(heading);
