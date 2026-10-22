@@ -373,3 +373,10 @@ html,body{width:100%;height:100%;overflow:hidden}
 .institutionProfile>.profileShare,.institutionProfile>.profileCopyAddress,.institutionProfile>.profileDirections{min-width:0;box-sizing:border-box;min-height:44px;display:flex!important;align-items:center;justify-content:center;text-align:center;line-height:1.3}
 .institutionProfile>.profileCopyAddress,.institutionProfile>.profileDirections{width:auto!important}
 @media(max-width:480px){.institutionProfile{column-gap:8px}.institutionProfile>.profileCopyAddress,.institutionProfile>.profileDirections{font-size:11px!important;padding:9px 7px!important}}
+
+/* Category-specific institution identity: decorative only, keeps existing markup */
+.institutionProfile .profileHero{background:linear-gradient(125deg,#102e48 0%,color-mix(in srgb,var(--pc) 55%,#102e48) 100%)!important;border:1px solid color-mix(in srgb,var(--pc) 38%,#fff);box-shadow:0 9px 24px #0b29431c;isolation:isolate;overflow:hidden}
+.institutionProfile .profileHero::after{right:-32px;top:-48px;width:155px;height:155px;border:1px solid #ffffff35;box-shadow:0 0 0 26px #ffffff0a,0 0 0 53px #ffffff08}
+.institutionProfile .profileHero .profileType{display:inline-flex;align-items:center;max-width:100%;font-size:11px!important;letter-spacing:.06em;text-transform:uppercase}
+.institutionProfile .profileHero h2{position:relative;z-index:1;text-wrap:balance}
+@media(prefers-reduced-motion:reduce){.institutionProfile .profileHero *{transition:none!important}}
