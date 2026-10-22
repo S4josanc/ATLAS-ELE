@@ -15,17 +15,19 @@ const arrays=[
 ];
 const parts=w.ATLAS_PACKED_PARTS||[];
 const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
-const seen=new Map(),invalid=[],collisions=[];
+const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
+const seen=new Map(),invalid=[],collisions=[],identityMatches=[];
+
 for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missing source:',source);continue}
  for(const a of rows){if(!Array.isArray(a))continue;
   const [id,name,type,city,country,lat,lng]=a;
   if(!id||!name||!city||!country||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lng))||Math.abs(Number(lat))>90||Math.abs(Number(lng))>180)invalid.push({source,id,name});
-  if(seen.has(id))collisions.push({id,first:seen.get(id),second:source});
-  else seen.set(id,source);
+  if(seen.has(id))collisions.push({id,first:seen.get(id).source,second:source,firstName:seen.get(id).name,secondName:name,samePlace:seen.get(id).city===city&&seen.get(id).country===country});
+  else seen.set(id,{source,name,city,country});
  }
  console.log(source,rows.length,'records');
 }
-console.log(JSON.stringify({scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,invalidRecords:invalid.length,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
+console.log(JSON.stringify({scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
 if(collisions.length||invalid.length)process.exitCode=1;
 // Exclusions: FEDELE enrichment added dynamically by app.js; pilot JSON; runtime merges.
 // Review duplicated IDs manually: the app can intentionally enrich a pre-existing record.
