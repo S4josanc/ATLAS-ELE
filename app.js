@@ -34,6 +34,9 @@ function show(x){const es=currentLang==='es',type=publicTypeLabel(x.type),addr=x
    const address=profile.querySelector('.profileAddress');if(address)secondary.append(address);
    const accuracy=profile.querySelector('.profileAccuracyNote');if(accuracy)secondary.append(accuracy);
    grid.append(primary,secondary);hero.insertAdjacentElement('afterend',grid);
+   const actions=document.createElement('div');actions.className='premiumLiveActions';
+   ['.profileSave','.profileShare','.profileCopyAddress','.profileDirections'].forEach(selector=>{const button=profile.querySelector(selector);if(button)actions.append(button)});
+   profile.append(actions);
  }
  const sb=detail.querySelector('[data-save-id]');if(sb)sb.onclick=()=>{toggleSaved(x.id);show(x)};const copyButton=detail.querySelector('.profileCopyAddress');if(copyButton)copyButton.onclick=()=>atlasCopyAddress(x.address);const shareButton=detail.querySelector('.profileShare');if(shareButton)shareButton.onclick=()=>atlasShareInstitution(x)}
 document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chips button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()});
