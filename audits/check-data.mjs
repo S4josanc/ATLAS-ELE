@@ -14,7 +14,7 @@ const arrays=[
  ['europe',w.ATLAS_MASTER_EUROPE],['recovery',w.ATLAS_RECOVERY_20261006]
 ];
 const parts=w.ATLAS_PACKED_PARTS||[];
-if(parts.length>=8){try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(parts.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
+const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
 const seen=new Map(),invalid=[],collisions=[];
 for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missing source:',source);continue}
  for(const a of rows){if(!Array.isArray(a))continue;
