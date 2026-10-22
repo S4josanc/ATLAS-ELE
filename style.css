@@ -403,3 +403,6 @@ html,body{width:100%;height:100%;overflow:hidden}
 /* My Atlas sorting */
 #myAtlasSort{cursor:pointer;appearance:auto}
 #myAtlasSort:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
+
+/* My Atlas dynamic result count */
+.myAtlasResultCount{font-size:12px;font-weight:700;color:#37627c;margin:0 0 10px;padding:0 2px;font-variant-numeric:tabular-nums}
