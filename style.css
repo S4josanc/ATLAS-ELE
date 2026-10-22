@@ -427,3 +427,14 @@ html,body{width:100%;height:100%;overflow:hidden}
 .myAtlasItem .maCategory{display:inline-block;margin-top:6px;padding:3px 7px;border-radius:20px;background:#eaf4f9;color:#28617f;font-size:10px;font-style:normal;font-weight:750}
 .myAtlasItem>button:first-child:hover strong{text-decoration:underline}
 .myAtlasItem .maRemove{font-size:20px;line-height:1}
+
+/* My Atlas final layout polish: actions stay visually secondary */
+.myAtlasPanel .myAtlasExport{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #e4edf2}
+.myAtlasPanel .myAtlasExport button{font-size:11px;min-height:38px;padding:9px 11px;border-radius:10px}
+.myAtlasPanel .myAtlasExport button:first-child{background:#eaf5fa;color:#195a7c;border-color:#c6dfea}
+.myAtlasPanel #myAtlasClear{margin-left:auto;color:#8b3c44;border-color:#f0d7dc;background:#fff8f9}
+.myAtlasPanel #myAtlasClear:hover{background:#ffeef1}
+.myAtlasPanel .myAtlasCompareBar{margin-top:10px;padding:9px 11px}
+.myAtlasPanel .myAtlasResultCount{margin-bottom:8px}
+.myAtlasPanel .myAtlasList{gap:7px}
+.myAtlasPanel .myAtlasExport button:focus-visible,.myAtlasPanel .myAtlasCompareBar button:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
