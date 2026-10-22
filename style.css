@@ -399,3 +399,7 @@ html,body{width:100%;height:100%;overflow:hidden}
 /* My Atlas category selector */
 #myAtlasCategory{cursor:pointer;appearance:auto;margin-top:0}
 #myAtlasCategory:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
+
+/* My Atlas sorting */
+#myAtlasSort{cursor:pointer;appearance:auto}
+#myAtlasSort:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
