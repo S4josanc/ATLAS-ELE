@@ -422,3 +422,8 @@ html,body{width:100%;height:100%;overflow:hidden}
 .myAtlasControls>.myAtlasResetFilters{grid-column:1/-1;justify-self:end;border:0;background:transparent;color:#176b91;font-size:12px;font-weight:750;padding:7px 5px;cursor:pointer}
 .myAtlasResetFilters:hover{text-decoration:underline}
 .myAtlasResetFilters:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
+
+/* My Atlas informative favorites */
+.myAtlasItem .maCategory{display:inline-block;margin-top:6px;padding:3px 7px;border-radius:20px;background:#eaf4f9;color:#28617f;font-size:10px;font-style:normal;font-weight:750}
+.myAtlasItem>button:first-child:hover strong{text-decoration:underline}
+.myAtlasItem .maRemove{font-size:20px;line-height:1}
