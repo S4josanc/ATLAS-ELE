@@ -20,3 +20,10 @@ jobs:
           node-version: '22'
       - name: Audit all locally available source files
         run: node audits/check-data.mjs
+      - name: Save audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-data-audit
+          path: audits/data-audit-results.json
+          if-no-files-found: warn
