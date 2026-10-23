@@ -21,7 +21,7 @@ const seen=new Map(),invalid=[],collisions=[];
 for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missing source:',source);continue}
  for(const a of rows){if(!Array.isArray(a))continue;
   const [id,name,type,city,country,lat,lng]=a;
-  if(!id||!name||!city||!country||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lng))||Math.abs(Number(lat))>90||Math.abs(Number(lng))>180)invalid.push({source,id,name});
+  if(!id||!name||!type||!city||!country||lat===null||lng===null||lat===''||lng===''||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lng))||Math.abs(Number(lat))>90||Math.abs(Number(lng))>180||(Number(lat)===0&&Number(lng)===0))invalid.push({source,id,name});
   if(seen.has(id))collisions.push({id,first:seen.get(id).source,second:source,firstName:seen.get(id).name,secondName:name,samePlace:seen.get(id).city===city&&seen.get(id).country===country});
   else seen.set(id,{source,name,city,country});
  }
