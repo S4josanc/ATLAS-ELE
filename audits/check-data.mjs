@@ -28,7 +28,7 @@ for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missin
  console.log(source,rows.length,'records');
 }
 const report={scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
-writeFileSync('audits/data-audit-results.json',JSON.stringify(report,null,2)+'\\n');
+writeFileSync('audits/data-audit-results.json',JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({...report,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
 if(report.conflictingPlaces||invalid.length)process.exitCode=1;
 // Duplicate IDs may intentionally enrich existing institutions. Review them manually.
