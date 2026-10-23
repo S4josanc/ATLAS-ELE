@@ -6,6 +6,9 @@ on:
     paths:
       - 'audits/**'
       - '.github/workflows/atlas-data-audit.yml'
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   verify-data:
