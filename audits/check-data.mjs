@@ -1,5 +1,5 @@
 // Read-only source audit. Run locally: node audits/check-data.mjs
-import {readFileSync} from 'node:fs';
+import {readFileSync, writeFileSync} from 'node:fs';
 import {inflateSync} from 'node:zlib';
 import vm from 'node:vm';
 const html=readFileSync('index.html','utf8');
@@ -16,7 +16,7 @@ const arrays=[
 const parts=w.ATLAS_PACKED_PARTS||[];
 const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
-const seen=new Map(),invalid=[],collisions=[],identityMatches=[];
+const seen=new Map(),invalid=[],collisions=[];
 
 for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missing source:',source);continue}
  for(const a of rows){if(!Array.isArray(a))continue;
@@ -27,7 +27,9 @@ for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missin
  }
  console.log(source,rows.length,'records');
 }
-console.log(JSON.stringify({scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
-if(collisions.length||invalid.length)process.exitCode=1;
-// Exclusions: FEDELE enrichment added dynamically by app.js; pilot JSON; runtime merges.
-// Review duplicated IDs manually: the app can intentionally enrich a pre-existing record.
+const report={scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
+writeFileSync('audits/data-audit-results.json',JSON.stringify(report,null,2)+'\\n');
+console.log(JSON.stringify({...report,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
+if(report.conflictingPlaces||invalid.length)process.exitCode=1;
+// Duplicate IDs may intentionally enrich existing institutions. Review them manually.
+// Not covered: runtime FEDELE additions and full browser merges.
