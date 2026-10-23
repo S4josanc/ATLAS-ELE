@@ -16,13 +16,16 @@ const arrays=[
 const parts=w.ATLAS_PACKED_PARTS||[];
 const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
+const placeKey=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const cityAliases={viena:'vienna',wien:'vienna'};
+const canonicalCity=v=>cityAliases[placeKey(v)]||placeKey(v);
 const seen=new Map(),invalid=[],collisions=[];
 
 for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missing source:',source);continue}
  for(const a of rows){if(!Array.isArray(a))continue;
   const [id,name,type,city,country,lat,lng]=a;
   if(!id||!name||!type||!city||!country||lat===null||lng===null||lat===''||lng===''||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lng))||Math.abs(Number(lat))>90||Math.abs(Number(lng))>180||(Number(lat)===0&&Number(lng)===0))invalid.push({source,id,name});
-  if(seen.has(id))collisions.push({id,first:seen.get(id).source,second:source,firstName:seen.get(id).name,secondName:name,samePlace:seen.get(id).city===city&&seen.get(id).country===country});
+  if(seen.has(id))collisions.push({id,first:seen.get(id).source,second:source,firstName:seen.get(id).name,secondName:name,samePlace:canonicalCity(seen.get(id).city)===canonicalCity(city)&&placeKey(seen.get(id).country)===placeKey(country)});
   else seen.set(id,{source,name,city,country});
  }
  console.log(source,rows.length,'records');
