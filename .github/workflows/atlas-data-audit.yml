@@ -1,0 +1,22 @@
+name: ATLAS ELE data audit (development)
+on:
+  push:
+    branches:
+      - fix/stable-shares-legacy-compatible-20261022
+    paths:
+      - 'audits/**'
+      - '.github/workflows/atlas-data-audit.yml'
+  workflow_dispatch:
+jobs:
+  verify-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit all locally available source files
+        run: node audits/check-data.mjs
