@@ -1,6 +1,6 @@
 // Read-only source audit. Run locally: node audits/check-data.mjs
 import {readFileSync, writeFileSync} from 'node:fs';
-import {inflateSync} from 'node:zlib';
+import {inflateSync, inflateRawSync, gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 const html=readFileSync('index.html','utf8');
 const scripts=[...html.matchAll(/<script\s+src=['"]([^'"]+)['"]/g)].map(m=>m[1].split('?')[0]).filter(p=>p.startsWith('data/'));
@@ -14,7 +14,7 @@ const arrays=[
  ['europe',w.ATLAS_MASTER_EUROPE],['recovery',w.ATLAS_RECOVERY_20261006]
 ];
 const parts=w.ATLAS_PACKED_PARTS||[];
-const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse(inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'))])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
+const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse((()=>{const bytes=Buffer.from(fragments.join(''),'base64');for(const decode of [inflateSync,inflateRawSync,gunzipSync]){try{return decode(bytes).toString('utf8')}catch{}}throw new Error('Unrecognized compressed format')})())])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
 const placeKey=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const cityAliases={viena:'vienna',wien:'vienna'};
