@@ -1,0 +1,42 @@
+[
+  {
+    "name": "University of Malta — Department of Spanish and Latin American Studies",
+    "city": "Msida",
+    "country": "Malta",
+    "type": "university",
+    "source": "https://www.um.edu.mt/arts/spanish/aboutus/",
+    "status": "official_address_verified_pending_coordinates_and_full_dedup",
+    "note": "Official department page confirms Spanish teaching; verify existing institution and coordinates",
+    "address": "Department of Spanish & Latin American Studies, Faculty of Arts, University of Malta, Msida MSD 2080, Malta"
+  },
+  {
+    "name": "Ġ. F. Abela Junior College — Spanish",
+    "city": "Msida",
+    "country": "Malta",
+    "type": "school",
+    "source": "https://www.jc.um.edu.mt/foreignlanguages/aboutus/spanish/",
+    "status": "official_address_verified_pending_coordinates_and_full_dedup",
+    "note": "Official Spanish course page",
+    "address": "Ġ.F. Abela Junior College, Ġużè Debono Square, Msida MSD 1252, Malta"
+  },
+  {
+    "name": "Azerbaijan University of Languages — Spanish Language Centre",
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "type": "university",
+    "source": "https://adu.edu.az/en/bim/Centers/SpanishCenter/",
+    "status": "official_address_verified_pending_coordinates_and_full_dedup",
+    "note": "Official June 2026 report identifies Spanish Language Center",
+    "address": "Spanish Center, Azerbaijan University of Languages, Tabriz Street 81, Building 3, Floor 3, Room 312, Baku, Azerbaijan"
+  },
+  {
+    "name": "Western Caspian University — School of Philology and Translation",
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "type": "university",
+    "source": "https://wcu.edu.az/en/faculties/xarici-diller",
+    "status": "official_address_verified_pending_coordinates_and_full_dedup",
+    "note": "Official faculty page explicitly includes Spanish",
+    "address": "Western Caspian University, 4A Izzeddin Hasanoglu, Baku AZ1001, Azerbaijan"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Instituto Cervantes de Los Ángeles",
+    "city": "Los Angeles",
+    "country": "United States",
+    "type": "cervantes",
+    "web": "https://cervantes.org/us/los-angeles/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Aula Cervantes de Seattle",
+    "city": "Seattle",
+    "country": "United States",
+    "type": "cervantes",
+    "web": "https://seattle.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Instituto Cervantes de Leeds",
+    "city": "Leeds",
+    "country": "United Kingdom",
+    "type": "cervantes",
+    "web": "https://leeds.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Instituto Cervantes de Dakar",
+    "city": "Dakar",
+    "country": "Senegal",
+    "type": "cervantes",
+    "web": "https://dakar.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Aula Cervantes de Hanói",
+    "city": "Hanoi",
+    "country": "Vietnam",
+    "type": "cervantes",
+    "web": "https://hanoi.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Aula Cervantes de Seúl",
+    "city": "Seoul",
+    "country": "South Korea",
+    "type": "cervantes",
+    "web": "https://seul.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Aula Cervantes de Zagreb",
+    "city": "Zagreb",
+    "country": "Croatia",
+    "type": "cervantes",
+    "web": "https://zagreb.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Aula Cervantes de Liubliana",
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "type": "cervantes",
+    "web": "https://liubliana.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Instituto Cervantes de Curitiba",
+    "city": "Curitiba",
+    "country": "Brazil",
+    "type": "cervantes",
+    "web": "https://curitiba.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  },
+  {
+    "name": "Instituto Cervantes de Porto Alegre",
+    "city": "Porto Alegre",
+    "country": "Brazil",
+    "type": "cervantes",
+    "web": "https://portoalegre.cervantes.es/",
+    "source": "https://cervantes.org/es/centros-ensenanza",
+    "status": "candidate_needs_dedup_and_geocoding"
+  }
+]

@@ -1,0 +1,52 @@
+name: ATLAS ELE data audit (development)
+on:
+  push:
+    branches:
+      - fix/stable-shares-legacy-compatible-20261022
+    paths:
+      - 'audits/**'
+      - '.github/workflows/atlas-data-audit.yml'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  verify-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check new-centre validator (empty batch)
+        run: |
+          echo '[]' > /tmp/atlas-new-centres.json
+          node audits/validate-new-centres.mjs /tmp/atlas-new-centres.json
+          printf '[{"id":"ES-000001","name":"Duplicate","type":"school","city":"Madrid","country":"Spain","lat":40,"lng":-3}]' > /tmp/atlas-invalid-centres.json
+          printf '[{"id":"ZZ-PILOT-UNIQUE-2026","name":"Pilot Example","type":"school","city":"Test City","country":"Testland","lat":40,"lng":10}]' > /tmp/atlas-unique-centres.json
+          if node audits/validate-new-centres.mjs /tmp/atlas-unique-centres.json; then
+            echo 'ERROR: incomplete reference data was incorrectly accepted'
+            exit 1
+          fi
+          if node audits/validate-new-centres.mjs /tmp/atlas-invalid-centres.json; then
+            echo 'ERROR: duplicate ID was incorrectly accepted'
+            exit 1
+          fi
+      - name: Review ten candidate institutions
+        run: |
+          node audits/check-pilot-candidates.mjs
+          node audits/check-pilot-candidates.mjs audits/pilot-candidates-europe-2026-10-24.json
+      - name: Audit all locally available source files
+        run: node audits/check-data.mjs
+      - name: Save audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-data-audit
+          path: |
+            audits/data-audit-results.json
+            audits/pilot-candidate-review.json
+          if-no-files-found: warn
