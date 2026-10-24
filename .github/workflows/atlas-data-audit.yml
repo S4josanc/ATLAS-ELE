@@ -31,7 +31,9 @@ jobs:
             exit 1
           fi
       - name: Review ten candidate institutions
-        run: node audits/check-pilot-candidates.mjs
+        run: |
+          node audits/check-pilot-candidates.mjs
+          node audits/check-pilot-candidates.mjs audits/pilot-candidates-europe-2026-10-24.json
       - name: Audit all locally available source files
         run: node audits/check-data.mjs
       - name: Save audit results
