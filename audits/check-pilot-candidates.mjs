@@ -14,7 +14,7 @@ const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLo
 const result=candidates.map(x=>{
  const sameName=known.filter(y=>norm(y.name)===norm(x.name));
  const sameCity=known.filter(y=>norm(y.city)===norm(x.city)&&norm(y.country)===norm(x.country));
- const sameUrl=known.filter(y=>y.web&&norm(y.web.replace(/^https?:\/\//,'').replace(/\/$/,''))===norm(x.web.replace(/^https?:\/\//,'').replace(/\/$/,'')));
+ const sameUrl=known.filter(y=>y.web&&norm(y.web.replace(/^https?:\/\//,'').replace(/\/$/,''))===norm(String(x.web||'').replace(/^https?:\/\//,'').replace(/\/$/,'')));
  return {name:x.name,city:x.city,country:x.country,status:sameName.length||sameUrl.length?'possible_existing':'manual_review',nameMatches:sameName.map(y=>y.id),urlMatches:sameUrl.map(y=>y.id),sameCityRecords:sameCity.length};
 });
 writeFileSync('audits/pilot-candidate-review.json',JSON.stringify(result,null,2)+'\n');
