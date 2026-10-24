@@ -30,6 +30,8 @@ jobs:
             echo 'ERROR: duplicate ID was incorrectly accepted'
             exit 1
           fi
+      - name: Review ten candidate institutions
+        run: node audits/check-pilot-candidates.mjs
       - name: Audit all locally available source files
         run: node audits/check-data.mjs
       - name: Save audit results
@@ -37,5 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: atlas-data-audit
-          path: audits/data-audit-results.json
+          path: |
+            audits/data-audit-results.json
+            audits/pilot-candidate-review.json
           if-no-files-found: warn
