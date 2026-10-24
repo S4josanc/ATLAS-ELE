@@ -14,7 +14,9 @@ const arrays=[
  ['europe',w.ATLAS_MASTER_EUROPE],['recovery',w.ATLAS_RECOVERY_20261006]
 ];
 const parts=w.ATLAS_PACKED_PARTS||[];
-const expectedParts=7;const fragments=parts.slice(1,expectedParts+1);if(fragments.length!==expectedParts||fragments.some(p=>typeof p!=='string'||!p.length)){console.error('Packed data incomplete: expected parts 1–7');process.exitCode=1}else{try{arrays.push(['packed',JSON.parse((()=>{const bytes=Buffer.from(fragments.join(''),'base64');for(const decode of [inflateSync,inflateRawSync,gunzipSync]){try{return decode(bytes).toString('utf8')}catch{}}throw new Error('Unrecognized compressed format')})())])}catch(e){console.error('Packed data decode failed:',e.message);process.exitCode=1}}
+const packedStatus={availableIndices:Object.keys(parts).filter(k=>parts[k]),decoded:false,error:null,records:0};
+if(!parts[0]){packedStatus.error='Missing fragment index 0: supplied files contain indices 1–7 only';}
+else {try{const b64=parts.join('');const bytes=Buffer.from(b64,'base64');let decoded;for(const fn of [inflateSync,inflateRawSync,gunzipSync]){try{decoded=fn(bytes).toString('utf8');break}catch{}}if(!decoded)throw new Error('Unsupported compression');const rows=JSON.parse(decoded);if(!Array.isArray(rows))throw new Error('Decoded result is not an array');arrays.push(['packed',rows]);packedStatus.decoded=true;packedStatus.records=rows.length}catch(e){packedStatus.error=e.message}}
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
 const placeKey=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const cityAliases={viena:'vienna',wien:'vienna'};
@@ -30,9 +32,9 @@ for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missin
  }
  console.log(source,rows.length,'records');
 }
-const report={scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
+const report={packedStatus,scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
 writeFileSync('audits/data-audit-results.json',JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({...report,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
-if(report.conflictingPlaces||invalid.length)process.exitCode=1;
+if(packedStatus.error||report.conflictingPlaces||invalid.length)process.exitCode=1;
 // Duplicate IDs may intentionally enrich existing institutions. Review them manually.
 // Not covered: runtime FEDELE additions and full browser merges.
