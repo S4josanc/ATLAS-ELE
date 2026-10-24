@@ -25,6 +25,11 @@ jobs:
         run: |
           echo '[]' > /tmp/atlas-new-centres.json
           node audits/validate-new-centres.mjs /tmp/atlas-new-centres.json
+          printf '[{"id":"ES-000001","name":"Duplicate","type":"school","city":"Madrid","country":"Spain","lat":40,"lng":-3}]' > /tmp/atlas-invalid-centres.json
+          if node audits/validate-new-centres.mjs /tmp/atlas-invalid-centres.json; then
+            echo 'ERROR: duplicate ID was incorrectly accepted'
+            exit 1
+          fi
       - name: Audit all locally available source files
         run: node audits/check-data.mjs
       - name: Save audit results
