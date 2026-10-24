@@ -1,0 +1,38 @@
+[
+  {
+    "name": "University of Malta — Department of Spanish and Latin American Studies",
+    "city": "Msida",
+    "country": "Malta",
+    "type": "university",
+    "source": "https://www.um.edu.mt/arts/spanish/study/",
+    "status": "verification_pending",
+    "note": "Official department page confirms Spanish teaching; verify existing institution and coordinates"
+  },
+  {
+    "name": "Ġ. F. Abela Junior College — Spanish",
+    "city": "Msida",
+    "country": "Malta",
+    "type": "school",
+    "source": "https://www.jc.um.edu.mt/foreignlanguages/aboutus/spanish/",
+    "status": "verification_pending",
+    "note": "Official Spanish course page"
+  },
+  {
+    "name": "Azerbaijan University of Languages — Spanish Language Centre",
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "type": "university",
+    "source": "https://adu.edu.az/en/xeberler/xeberler/14638.html",
+    "status": "verification_pending",
+    "note": "Official June 2026 report identifies Spanish Language Center"
+  },
+  {
+    "name": "Western Caspian University — School of Philology and Translation",
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "type": "university",
+    "source": "https://wcu.edu.az/en/faculties/school-of-philology-and-translation",
+    "status": "verification_pending",
+    "note": "Official faculty page explicitly includes Spanish"
+  }
+]
