@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check new-centre validator (empty batch)
+        run: |
+          echo '[]' > /tmp/atlas-new-centres.json
+          node audits/validate-new-centres.mjs /tmp/atlas-new-centres.json
       - name: Audit all locally available source files
         run: node audits/check-data.mjs
       - name: Save audit results
