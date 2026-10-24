@@ -17,6 +17,9 @@ const normalize=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
 const ids=new Set([...raw.map(x=>x[0]),...pilot.map(x=>x.id)]);
 const identity=new Set([...raw.map(x=>[x[1],x[3],x[4]]),...pilot.map(x=>[x.name,x.city,x.country])].map(a=>a.map(normalize).join('|')));
 const errors=[],seenIds=new Set(),seenIdentity=new Set();
+// Fail closed for publication: the seven packed fragments cannot currently be verified.
+// Empty batches remain valid for smoke tests, but non-empty additions require a complete baseline.
+if(batch.length)errors.push('BASELINE_INCOMPLETE: packed institution data not decoded; new centres cannot be certified against all existing IDs');
 for(const [i,x] of batch.entries()){
  const at=i+1;
  if(!x||typeof x!=='object'||Array.isArray(x)){errors.push('row '+at+': expected object');continue}
