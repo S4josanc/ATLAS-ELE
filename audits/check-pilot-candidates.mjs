@@ -15,7 +15,7 @@ const result=candidates.map(x=>{
  const sameName=known.filter(y=>norm(y.name)===norm(x.name));
  const sameCity=known.filter(y=>norm(y.city)===norm(x.city)&&norm(y.country)===norm(x.country));
  const sameUrl=known.filter(y=>y.web&&norm(y.web.replace(/^https?:\/\//,'').replace(/\/$/,''))===norm(String(x.web||'').replace(/^https?:\/\//,'').replace(/\/$/,'')));
- return {name:x.name,city:x.city,country:x.country,status:sameName.length||sameUrl.length?'possible_existing':'manual_review',nameMatches:sameName.map(y=>y.id),urlMatches:sameUrl.map(y=>y.id),sameCityRecords:sameCity.length};
+ const nameParts=norm(x.name).split(' ').filter(v=>v.length>3);const institutionMatches=sameCity.filter(y=>{const words=norm(y.name).split(' ').filter(v=>v.length>3);return words.length>0&&nameParts.filter(v=>words.includes(v)).length>=Math.min(2,words.length)});return {name:x.name,city:x.city,country:x.country,status:sameName.length||sameUrl.length||institutionMatches.length?'possible_existing':'manual_review',nameMatches:sameName.map(y=>y.id),urlMatches:sameUrl.map(y=>y.id),institutionMatches:institutionMatches.map(y=>({id:y.id,name:y.name})),sameCityRecords:sameCity.length,fullyCleared:false};
 });
 writeFileSync('audits/pilot-candidate-review.json',JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify(result,null,2));
