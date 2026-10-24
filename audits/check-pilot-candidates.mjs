@@ -1,7 +1,7 @@
 // Read-only candidate preflight. Run: node audits/check-pilot-candidates.mjs
 import {readFileSync,writeFileSync} from 'node:fs';
 import vm from 'node:vm';
-const candidates=JSON.parse(readFileSync('audits/pilot-candidates-2026-10-24.json','utf8'));
+const candidates=JSON.parse(readFileSync(process.argv[2]||'audits/pilot-candidates-2026-10-24.json','utf8'));
 const html=readFileSync('index.html','utf8');
 const files=[...html.matchAll(/<script\s+src=['"]([^'"]+)['"]/g)].map(m=>m[1].split('?')[0]).filter(p=>p.startsWith('data/')&&!p.includes('master-pack'));
 const ctx={window:{}};vm.createContext(ctx);
