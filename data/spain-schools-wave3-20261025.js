@@ -1,0 +1,3 @@
+window.ATLAS_SPAIN=window.ATLAS_SPAIN||[];
+// NABSS directory; approximate locality coordinates.
+window.ATLAS_SPAIN.push(...[["ES-SCH-2026-025","O Castro British School","school","Mos","Spain",42.215,-8.62,"http://www.ocastrobritishschool.com",true],["ES-SCH-2026-026","El Limonar International School Murcia","school","Murcia","Spain",37.9922,-1.1307,"https://elismurcia.com/",true],["ES-SCH-2026-027","Thames British School","school","Majadahonda","Spain",40.4735,-3.8718,"http://thamesbritishschool.es",true],["ES-SCH-2026-028","Novaschool Sunland International","school","Cártama","Spain",36.7108,-4.6322,"https://sunland.novaschool.es/",true],["ES-SCH-2026-029","Holy Mary British Catholic School","school","Madrid","Spain",40.4168,-3.7038,"http://www.holymary.es",true]]);
