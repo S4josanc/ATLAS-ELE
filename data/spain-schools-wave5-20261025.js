@@ -1,0 +1,3 @@
+window.ATLAS_SPAIN=window.ATLAS_SPAIN||[];
+// Approximate city markers; schools listed by NABSS.
+window.ATLAS_SPAIN.push(...[["ES-SCH-2026-057","King's College, The British School of Murcia","school","Murcia","Spain",37.9922,-1.1307,"https://murcia.kingscollegeschools.org/",true],["ES-SCH-2026-058","British School of Cordoba","school","Córdoba","Spain",37.8882,-4.7794,"https://www.colegiobritanicodecordoba.com",true],["ES-SCH-2026-059","Oak House School","school","Barcelona","Spain",41.3874,2.1686,"https://oakhouseschool.com/",true],["ES-SCH-2026-060","King's College School La Moraleja","school","Alcobendas","Spain",40.5475,-3.642,"https://madrid-lamoraleja.kingscollegeschools.org/",true]]);
