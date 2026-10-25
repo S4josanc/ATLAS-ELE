@@ -1,0 +1,213 @@
+window.ATLAS_SPAIN=window.ATLAS_SPAIN||[];
+// NABSS directory (nabss.org); coordinates are approximate locality centres, not verified school addresses.
+window.ATLAS_SPAIN.push(...[
+  [
+    "ES-SCH-2026-006",
+    "Swans International School",
+    "school",
+    "Marbella",
+    "Spain",
+    36.5101,
+    -4.8824,
+    "https://www.swansschool.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-007",
+    "Calpe School",
+    "school",
+    "Marbella",
+    "Spain",
+    36.5101,
+    -4.8824,
+    "https://www.calpeschool.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-008",
+    "Laude San Pedro International College",
+    "school",
+    "Marbella",
+    "Spain",
+    36.5101,
+    -4.8824,
+    "https://www.laudesanpedro.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-009",
+    "The English International College",
+    "school",
+    "Marbella",
+    "Spain",
+    36.5101,
+    -4.8824,
+    "https://www.eic.edu/",
+    true
+  ],
+  [
+    "ES-SCH-2026-010",
+    "The British School of Málaga",
+    "school",
+    "Málaga",
+    "Spain",
+    36.7213,
+    -4.4214,
+    "https://britishschoolmalaga.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-011",
+    "The British College of Benalmádena",
+    "school",
+    "Benalmádena",
+    "Spain",
+    36.5988,
+    -4.5168,
+    "http://www.thebritishcollege.com",
+    true
+  ],
+  [
+    "ES-SCH-2026-012",
+    "Newton College",
+    "school",
+    "Elche",
+    "Spain",
+    38.2699,
+    -0.7126,
+    "https://newtoncollege.es/en/",
+    true
+  ],
+  [
+    "ES-SCH-2026-013",
+    "King's College British School of Alicante",
+    "school",
+    "Alicante",
+    "Spain",
+    38.3452,
+    -0.481,
+    "https://alicante.kingscollegeschools.org/",
+    true
+  ],
+  [
+    "ES-SCH-2026-014",
+    "International English School of Castellón",
+    "school",
+    "Castellón",
+    "Spain",
+    39.9864,
+    -0.0513,
+    "https://international-english-school-castellon.dukeseducation.es/",
+    true
+  ],
+  [
+    "ES-SCH-2026-015",
+    "Dallington School",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://dallingtonschool.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-016",
+    "International School of Madrid",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://internationalschoolofmadrid.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-017",
+    "St. George Madrid",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://stgeorgemadrid.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-018",
+    "The English Montessori School",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://www.englishmontessorischool.com/",
+    true
+  ],
+  [
+    "ES-SCH-2026-019",
+    "King's Infant School Chamartín",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://kingscollegeschools.org/",
+    true
+  ],
+  [
+    "ES-SCH-2026-020",
+    "Maxwell School",
+    "school",
+    "Madrid",
+    "Spain",
+    40.4168,
+    -3.7038,
+    "https://maxwellschool.es/",
+    true
+  ],
+  [
+    "ES-SCH-2026-021",
+    "Kensington School Barcelona",
+    "school",
+    "Barcelona",
+    "Spain",
+    41.3874,
+    2.1686,
+    "http://www.kensingtonschoolbcn.com",
+    true
+  ],
+  [
+    "ES-SCH-2026-022",
+    "St. George School Barcelona",
+    "school",
+    "Barcelona",
+    "Spain",
+    41.3874,
+    2.1686,
+    "https://www.stgeorgeinternational.es/",
+    true
+  ],
+  [
+    "ES-SCH-2026-023",
+    "El Plantio International School of Valencia",
+    "school",
+    "Valencia",
+    "Spain",
+    39.4699,
+    -0.3763,
+    "http://www.plantiointernational.com",
+    true
+  ],
+  [
+    "ES-SCH-2026-024",
+    "The International School Estepona",
+    "school",
+    "Estepona",
+    "Spain",
+    36.4276,
+    -5.1459,
+    "https://marbellaschool.com/",
+    true
+  ]
+]);
