@@ -39,14 +39,31 @@ jobs:
         run: |
           node audits/check-pilot-candidates.mjs
           node audits/check-pilot-candidates.mjs audits/pilot-candidates-europe-2026-10-24.json
-      - name: Audit all locally available source files
-        run: node audits/check-data.mjs
       - name: Save audit results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: atlas-data-audit
           path: |
-            audits/data-audit-results.json
             audits/pilot-candidate-review.json
+          if-no-files-found: warn
+
+  audit-packed-baseline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit source data and explicitly report missing pack
+        run: node audits/check-data.mjs
+      - name: Save audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-full-baseline-audit
+          path: audits/data-audit-results.json
           if-no-files-found: warn
