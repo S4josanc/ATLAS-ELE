@@ -1,0 +1,3 @@
+window.ATLAS_SPAIN=window.ATLAS_SPAIN||[];
+// Official Fomento directory; approximate locality coordinates.
+window.ATLAS_SPAIN.push(...[["ES-SCH-2026-120","Colegio Montespiño","school","A Coruña","Spain",43.3623,-8.4115,"https://www.fomento.edu/los-colegios/",true],["ES-SCH-2026-121","Colegio Peñarredonda","school","A Coruña","Spain",43.3623,-8.4115,"https://www.fomento.edu/los-colegios/",true],["ES-SCH-2026-122","Colegio Aitana","school","Elche","Spain",38.2699,-0.7126,"https://www.fomento.edu/los-colegios/",true],["ES-SCH-2026-123","Colegio Altozano","school","Alicante","Spain",38.3452,-0.481,"https://www.fomento.edu/los-colegios/",true]]);
