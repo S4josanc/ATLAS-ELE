@@ -8,7 +8,7 @@ try{
  const page=await browser.newPage();
  const errors=[];
  page.on('pageerror',error=>errors.push(error.message));
- await page.goto('http://127.0.0.1:8765/?atlasAuditExport=1',{waitUntil:'domcontentloaded',timeout:30000});
+ let loaded=false;for(let attempt=0;attempt<15&&!loaded;attempt++){try{await page.goto('http://127.0.0.1:8765/?atlasAuditExport=1',{waitUntil:'domcontentloaded',timeout:10000});loaded=true}catch(e){if(attempt===14)throw e;await new Promise(resolve=>setTimeout(resolve,300))}}
  await page.waitForFunction(()=>Array.isArray(window.ATLAS_AUDIT_SNAPSHOT),{timeout:45000});
  const rows=await page.evaluate(()=>window.ATLAS_AUDIT_SNAPSHOT);
  const ids=new Set(),duplicates=[];
