@@ -32,6 +32,11 @@ jobs:
             echo 'ERROR: incomplete reference data was incorrectly accepted'
             exit 1
           fi
+          printf '[{"id":"ZZ-TEST-2026","name":"Missing Location","type":"school","city":"Test","country":"Testland","lat":null,"lng":null,"web":"javascript:alert(1)"}]' > /tmp/atlas-bad-fields.json
+          if node audits/validate-new-centres.mjs /tmp/atlas-bad-fields.json; then
+            echo 'ERROR: invalid coordinates and URL were accepted'
+            exit 1
+          fi
           if node audits/validate-new-centres.mjs /tmp/atlas-invalid-centres.json; then
             echo 'ERROR: duplicate ID was incorrectly accepted'
             exit 1
