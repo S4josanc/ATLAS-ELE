@@ -2,6 +2,12 @@ name: Effective ATLAS data inventory
 on:
   pull_request:
     branches: [main]
+  push:
+    branches:
+      - fix/stable-shares-legacy-compatible-20261022
+    paths:
+      - 'audits/capture-effective-inventory.mjs'
+      - '.github/workflows/effective-inventory.yml'
   workflow_dispatch:
 jobs:
   inventory:
