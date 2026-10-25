@@ -20,6 +20,10 @@ else {try{const b64=parts.join('');const bytes=Buffer.from(b64,'base64');let dec
 // Inspect separate historic packs without assuming they belong to the main bundle.
 const independentStatus={found:false,decoded:false,records:0,error:null};
 try{const ctx={window:{}};vm.createContext(ctx);vm.runInContext(readFileSync('data/master-pack-6a.js','utf8'),ctx,{filename:'data/master-pack-6a.js',timeout:5000});const fragment=ctx.window.ATLAS_INDEPENDENT_PACKS?.[0];if(fragment){independentStatus.found=true;const bytes=Buffer.from(fragment,'base64');let payload;for(const fn of [inflateSync,inflateRawSync,gunzipSync]){try{payload=fn(bytes).toString('utf8');break}catch{}}if(!payload)throw new Error('Unknown compression or incomplete independent pack');const value=JSON.parse(payload);if(!Array.isArray(value))throw new Error('Decoded payload is not an array');independentStatus.decoded=true;independentStatus.records=value.length;arrays.push(['independent-6a',value])}}catch(e){independentStatus.error=e.message}
+// Byte-level diagnostics only; do not try to synthesize missing pack fragments.
+const inspectBase64=(value)=>{const bytes=Buffer.from(value,'base64');return {encodedChars:value.length,decodedBytes:bytes.length,firstBytesHex:bytes.subarray(0,12).toString('hex'),zlibHeader:bytes[0]===0x78&&[0x01,0x5e,0x9c,0xda].includes(bytes[1]),gzipHeader:bytes[0]===0x1f&&bytes[1]===0x8b}};
+packedStatus.fragmentDiagnostics=Object.fromEntries(Object.entries(parts).filter(([key,v])=>typeof v==='string').map(([key,v])=>[key,{chars:v.length}]));
+packedStatus.availablePayload=inspectBase64(parts.filter(Boolean).join(''));
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
 const placeKey=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const cityAliases={viena:'vienna',wien:'vienna'};
