@@ -1,0 +1,34 @@
+name: ATLAS effective inventory check
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'audits/capture-effective-inventory.mjs'
+      - '.github/workflows/effective-inventory.yml'
+      - 'app.js'
+  workflow_dispatch:
+jobs:
+  inventory:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Capture effective institutions
+        run: node audits/capture-effective-inventory.mjs
+      - name: Save inventory result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-effective-inventory
+          path: audits/effective-inventory.json
+          if-no-files-found: warn
