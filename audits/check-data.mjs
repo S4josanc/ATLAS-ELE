@@ -17,6 +17,9 @@ const parts=w.ATLAS_PACKED_PARTS||[];
 const packedStatus={availableIndices:Object.keys(parts).filter(k=>parts[k]),decoded:false,error:null,records:0};
 if(!parts[0]){packedStatus.error='Missing fragment index 0: supplied files contain indices 1–7 only';}
 else {try{const b64=parts.join('');const bytes=Buffer.from(b64,'base64');let decoded;for(const fn of [inflateSync,inflateRawSync,gunzipSync]){try{decoded=fn(bytes).toString('utf8');break}catch{}}if(!decoded)throw new Error('Unsupported compression');const rows=JSON.parse(decoded);if(!Array.isArray(rows))throw new Error('Decoded result is not an array');arrays.push(['packed',rows]);packedStatus.decoded=true;packedStatus.records=rows.length}catch(e){packedStatus.error=e.message}}
+// Inspect separate historic packs without assuming they belong to the main bundle.
+const independentStatus={found:false,decoded:false,records:0,error:null};
+try{const ctx={window:{}};vm.createContext(ctx);vm.runInContext(readFileSync('data/master-pack-6a.js','utf8'),ctx,{filename:'data/master-pack-6a.js',timeout:5000});const fragment=ctx.window.ATLAS_INDEPENDENT_PACKS?.[0];if(fragment){independentStatus.found=true;const bytes=Buffer.from(fragment,'base64');let payload;for(const fn of [inflateSync,inflateRawSync,gunzipSync]){try{payload=fn(bytes).toString('utf8');break}catch{}}if(!payload)throw new Error('Unknown compression or incomplete independent pack');const value=JSON.parse(payload);if(!Array.isArray(value))throw new Error('Decoded payload is not an array');independentStatus.decoded=true;independentStatus.records=value.length;arrays.push(['independent-6a',value])}}catch(e){independentStatus.error=e.message}
 const pilot=JSON.parse(readFileSync('data/pilot-city-points.json','utf8'));arrays.unshift(['pilot',(pilot.institutions||[]).map(x=>[x.id,x.name,x.type,x.city,x.country,x.lat,x.lng])]);
 const placeKey=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const cityAliases={viena:'vienna',wien:'vienna'};
@@ -32,7 +35,7 @@ for(const [source,rows] of arrays){if(!Array.isArray(rows)){console.warn('Missin
  }
  console.log(source,rows.length,'records');
 }
-const report={packedStatus,scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
+const report={packedStatus,independentStatus,scripts:scripts.length,uniqueIds:seen.size,idCollisions:collisions.length,conflictingPlaces:collisions.filter(x=>!x.samePlace).length,invalidRecords:invalid.length,collisions,invalid};
 writeFileSync('audits/data-audit-results.json',JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({...report,collisions:collisions.slice(0,30),invalid:invalid.slice(0,30)},null,2));
 if(packedStatus.error||report.conflictingPlaces||invalid.length)process.exitCode=1;
