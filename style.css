@@ -438,3 +438,7 @@ html,body{width:100%;height:100%;overflow:hidden}
 .myAtlasPanel .myAtlasResultCount{margin-bottom:8px}
 .myAtlasPanel .myAtlasList{gap:7px}
 .myAtlasPanel .myAtlasExport button:focus-visible,.myAtlasPanel .myAtlasCompareBar button:focus-visible{outline:3px solid #e4a51e;outline-offset:2px}
+
+/* Keyboard-accessible skip navigation */
+.skipLink{position:fixed;z-index:9999;top:8px;left:8px;transform:translateY(-160%);padding:11px 16px;background:#fff;color:#063e65;border:2px solid #086fa9;border-radius:10px;font-weight:800;box-shadow:0 5px 18px #001b3040}
+.skipLink:focus{transform:translateY(0);outline:3px solid #ffc653;outline-offset:2px}
