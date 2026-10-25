@@ -1,0 +1,29 @@
+name: Effective ATLAS data inventory
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Capture post-merge institution IDs
+        run: node audits/capture-effective-inventory.mjs
+      - name: Retain verified inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: effective-atlas-inventory
+          path: audits/effective-inventory.json
+          if-no-files-found: warn
