@@ -1,0 +1,18 @@
+name: Verify new institution batch
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check data/new-centres-20261025.js
+      - name: Verify exact records and city-level pins
+        run: |
+          node -e "const fs=require('fs'),vm=require('vm');const c={window:{}};vm.runInNewContext(fs.readFileSync('data/new-centres-20261025.js','utf8'),c);const a=c.window.ATLAS_GLOBAL;if(a.length!==2||new Set(a.map(x=>x[0])).size!==2||a.some(x=>!x[1]||!x[3]||!x[4]||!Number.isFinite(x[5])||!Number.isFinite(x[6])))process.exit(1)"
