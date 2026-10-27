@@ -6,10 +6,19 @@ on:
       - 'audits/capture-effective-inventory.mjs'
       - '.github/workflows/effective-inventory.yml'
       - 'app.js'
+      - 'index.html'
+      - 'data/**'
+  push:
+    branches: [main]
+    paths:
+      - 'audits/capture-effective-inventory.mjs'
+      - '.github/workflows/effective-inventory.yml'
+      - 'app.js'
+      - 'index.html'
+      - 'data/**'
   workflow_dispatch:
 jobs:
   inventory:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
