@@ -225,6 +225,40 @@ async function loadPublicMapData(){
   for(const a of (window.ATLAS_FEDELE_INTERPROVINCIAL||[])){const [name,type,city,country,lat,lng,web]=a,norm=v=>(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),n=norm(name),ct=norm(city);let hit=data.find(x=>x.country===country&&norm(x.city)===ct&&(norm(x.name)===n||norm(x.name).includes(n)||n.includes(norm(x.name))));if(hit){hit.fedele=true;hit.accreditation=hit.accreditation||'Instituto Cervantes Accredited';hit.web=hit.web||web}else data.push({id:'ES-FEDELE-INT-'+(data.length+1),name,type,city,country,lat,lng,web,verified:true,precision:'city',program:'Spanish / ELE',fedele:true,accreditation:'Instituto Cervantes Accredited'})}
   for(const a of (window.ATLAS_FEDELE_AUDIT_MISSING||[])){const [name,type,city,country,lat,lng,web]=a,norm=v=>(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),n=norm(name),ct=norm(city);let hit=data.find(x=>x.country===country&&norm(x.city)===ct&&(norm(x.name)===n||norm(x.name).includes(n)||n.includes(norm(x.name))));if(hit){hit.fedele=true;hit.accreditation=hit.accreditation||'Instituto Cervantes Accredited';hit.web=hit.web||web}else data.push({id:'ES-FEDELE-AUD-'+(data.length+1),name,type,city,country,lat,lng,web,verified:true,precision:'city',program:'Spanish / ELE',fedele:true,accreditation:'Instituto Cervantes Accredited'})}
   for(const a of (window.ATLAS_FEDELE_INTERNATIONAL||[])){const [name,type,city,country,lat,lng,web]=a,norm=v=>(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),n=norm(name),ct=norm(city);let hit=data.find(x=>norm(x.country)===norm(country)&&norm(x.city)===ct&&(norm(x.name)===n||norm(x.name).includes(n)||n.includes(norm(x.name))));if(hit){hit.fedeleInternational=true;hit.web=hit.web||web}else data.push({id:'FEDELE-INTL-'+(data.length+1),name,type,city,country,lat,lng,web,verified:true,precision:'city',program:'Spanish / ELE',fedeleInternational:true})}
+
+  // School-level addresses and coordinates from the official Aragón government registry.
+  // Keep the existing institution ID if a matching school is already in the map.
+  const verifiedSpain=window.ATLAS_VERIFIED_SPAIN_20261027||[];
+  const normalizedVerified=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const schoolNameVerified=v=>normalizedVerified(v).replace(/^(colegio|centro educativo|escuela|ceip)\s+/,'');
+  const hostVerified=v=>{try{return new URL(v).hostname.toLowerCase().replace(/^www\./,'')}catch{return ''}};
+  let verifiedAdded=0,verifiedEnriched=0,verifiedSkipped=0;
+  for(const a of verifiedSpain){
+    const x={id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7],verified:true,address:a[9],precision:a[10]||'address',sourceURL:a[11],program:'Spanish / MFL'};
+    if(!x.id||!x.name||!x.address||!x.web||!x.sourceURL||!Number.isFinite(x.lat)||!Number.isFinite(x.lng)){
+      verifiedSkipped++;console.warn('[ATLAS] incomplete verified school',x.id);continue
+    }
+    const hits=data.filter(y=>y.country===x.country&&normalizedVerified(y.city)===normalizedVerified(x.city)&&(
+      y.id===x.id||
+      schoolNameVerified(y.name)===schoolNameVerified(x.name)||
+      (y.address&&normalizedVerified(y.address)===normalizedVerified(x.address))||
+      (hostVerified(y.web)&&hostVerified(y.web)===hostVerified(x.web))
+    ));
+    if(hits.length>1){verifiedSkipped++;console.warn('[ATLAS] multiple records match verified school, needs manual review',x.id,hits.map(y=>y.id));continue}
+    if(hits.length===1){
+      const previous=hits[0],sameName=schoolNameVerified(previous.name)===schoolNameVerified(x.name),sameWeb=hostVerified(previous.web)&&hostVerified(previous.web)===hostVerified(x.web);
+      if(!sameName&&!sameWeb){verifiedSkipped++;console.warn('[ATLAS] address-only or ID-only conflict, not merging',x.id,previous.id);continue}
+      // An official school's address and coordinates supersede an approximate city marker.
+      previous.address=x.address;previous.lat=x.lat;previous.lng=x.lng;previous.precision=x.precision;previous.verified=true;
+      if(!previous.web||sameWeb)previous.web=x.web;
+      previous.sourceURL=x.sourceURL;verifiedEnriched++;
+    }else if(data.some(y=>y.id===x.id)){
+      verifiedSkipped++;console.warn('[ATLAS] verified school ID collides with another location',x.id)
+    }else{data.push(x);verifiedAdded++}
+  }
+  window.ATLAS_VERIFIED_SPAIN_STATS={added:verifiedAdded,enriched:verifiedEnriched,skipped:verifiedSkipped,sourceRows:verifiedSpain.length};
+  console.info('[ATLAS] Verified schools',window.ATLAS_VERIFIED_SPAIN_STATS);
+
   render();
   const requestedId=new URLSearchParams(window.location.search).get('institution');
   if(requestedId){const requested=data.find(x=>x.id===requestedId);if(requested){map.flyTo([requested.lat,requested.lng],Math.min(12,requested.precision==='city'?9:12),{duration:1});show(requested)}}
