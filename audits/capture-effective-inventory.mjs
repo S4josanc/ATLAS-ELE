@@ -21,7 +21,7 @@ const server=http.createServer(async(req,res)=>{
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 let browser;
 try{
- browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({headless:true,channel:'chrome',args:['--no-sandbox']});
  const page=await browser.newPage({viewport:{width:1280,height:800}});
  const jsErrors=[],failedRequests=[];
  page.on('pageerror',error=>jsErrors.push(String(error)));
