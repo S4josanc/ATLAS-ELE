@@ -46,10 +46,14 @@ try{
   const byPrecision={};
   for(const x of records)byPrecision[x.precision||'unknown']=(byPrecision[x.precision||'unknown']||0)+1;
   const verified=window.ATLAS_VERIFIED_SPAIN_20261027||[];
+  const schoolName=v=>norm(v).replace(/^(colegio|centro educativo|escuela|ceip)\s+/,'');
+  const domain=v=>String(v||'').replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].toLowerCase();
   const checked=verified.map(a=>{
-   const x=records.filter(y=>norm(y.name)===norm(a[1])&&norm(y.city)===norm(a[3]));
-   const siteMatched=x.filter(y=>norm(y.address)===norm(a[9])&&Math.abs(y.lat-a[5])<0.000001&&Math.abs(y.lng-a[6])<0.000001);
-   return {id:a[0],name:a[1],matched:x.length,correctCoordinatesAndAddress:siteMatched.length===1,finalIds:siteMatched.map(y=>y.id)};
+   const x=records.filter(y=>norm(y.city)===norm(a[3])&&norm(y.country)===norm(a[4])&&(
+    schoolName(y.name)===schoolName(a[1])||(domain(y.web)&&domain(y.web)===domain(a[7]))||(y.address&&norm(y.address)===norm(a[9]))
+   ));
+   const siteMatched=x.filter(y=>norm(y.address)===norm(a[9])&&Math.abs(y.lat-a[5])<0.000001&&Math.abs(y.lng-a[6])<0.000001&&domain(y.web)===domain(a[7]));
+   return {id:a[0],name:a[1],matched:x.length,correctCoordinatesAndAddress:siteMatched.length===1&&x.length===1,finalIds:siteMatched.map(y=>y.id)};
   });
   const mapMarkers=typeof markers==='undefined'?null:markers.length;
   const statText=document.querySelector('[data-live-stat="institutions"] strong')?.textContent||'';
@@ -81,7 +85,8 @@ try{
   jsErrors:jsErrors.slice(0,6),failedRequests:failedRequests.slice(0,6)
  }));
  if(metrics.mapRecords!==metrics.mapMarkers||metrics.mapRecords!==metrics.displayedCount)throw Error('Map marker count does not match the rendered count.');
- if(metrics.verifiedBatch?.sourceRows!==12||metrics.verifiedBatch.skipped!==0||metrics.verifiedBatch.added+metrics.verifiedBatch.enriched!==12)throw Error('Verified school records were missing or ambiguous.');
+ const expectedVerified=metrics.verifiedCoordinatesAndAddresses.length;
+ if(expectedVerified<12||metrics.verifiedBatch?.sourceRows!==expectedVerified||metrics.verifiedBatch.skipped!==0||metrics.verifiedBatch.added+metrics.verifiedBatch.enriched!==expectedVerified)throw Error('Verified school records were missing or ambiguous.');
  if(metrics.verifiedCoordinatesAndAddresses.some(x=>!x.correctCoordinatesAndAddress))throw Error('A verified school is missing or not at its government-supplied coordinates.');
 }finally{
  if(browser)await browser.close();
