@@ -1,0 +1,19 @@
+name: Packed loader safety check
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check app.js
+      - name: Check missing-fragment guard
+        run: |
+          node -e "const fs=require('fs');const s=fs.readFileSync('app.js','utf8');if(!s.includes('parts[0]&&parts.slice(1,8).every'))process.exit(1)"
