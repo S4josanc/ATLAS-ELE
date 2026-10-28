@@ -250,7 +250,7 @@ async function loadPublicMapData(){
       if(!sameName&&!sameWeb){verifiedSkipped++;console.warn('[ATLAS] address-only or ID-only conflict, not merging',x.id,previous.id);continue}
       // An official school's address and coordinates supersede an approximate city marker.
       previous.address=x.address;previous.lat=x.lat;previous.lng=x.lng;previous.precision=x.precision;previous.verified=true;
-      if(!previous.web||sameWeb)previous.web=x.web;
+      if(!previous.web||sameWeb||sameName)previous.web=x.web;
       previous.sourceURL=x.sourceURL;verifiedEnriched++;
     }else if(data.some(y=>y.id===x.id)){
       verifiedSkipped++;console.warn('[ATLAS] verified school ID collides with another location',x.id)
