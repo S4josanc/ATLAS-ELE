@@ -81,7 +81,8 @@ try{
   jsErrors:jsErrors.slice(0,6),failedRequests:failedRequests.slice(0,6)
  }));
  if(metrics.mapRecords!==metrics.mapMarkers||metrics.mapRecords!==metrics.displayedCount)throw Error('Map marker count does not match the rendered count.');
- if(metrics.verifiedBatch?.sourceRows!==12||metrics.verifiedBatch.skipped!==0||metrics.verifiedBatch.added+metrics.verifiedBatch.enriched!==12)throw Error('Verified school records were missing or ambiguous.');
+ const expectedVerified=metrics.verifiedCoordinatesAndAddresses.length;
+ if(expectedVerified<12||metrics.verifiedBatch?.sourceRows!==expectedVerified||metrics.verifiedBatch.skipped!==0||metrics.verifiedBatch.added+metrics.verifiedBatch.enriched!==expectedVerified)throw Error('Verified school records were missing or ambiguous.');
  if(metrics.verifiedCoordinatesAndAddresses.some(x=>!x.correctCoordinatesAndAddress))throw Error('A verified school is missing or not at its government-supplied coordinates.');
 }finally{
  if(browser)await browser.close();
