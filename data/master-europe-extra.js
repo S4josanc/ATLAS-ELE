@@ -50,5 +50,6 @@ window.ATLAS_MASTER_EUROPE=window.ATLAS_MASTER_EUROPE||[];window.ATLAS_MASTER_EU
 ["CZ-INTL-001","International School of Prague","school","Prague","Czechia",50.0755,14.4378,"https://www.isp.cz/",true],
 ["HR-INTL-001","American International School of Zagreb","school","Zagreb","Croatia",45.815,15.9819,"https://www.aisz.hr/",true],
 ["RO-INTL-001","American International School of Bucharest","school","Bucharest","Romania",44.4268,26.1025,"https://www.aisb.ro/",true],
-["LT-INTL-001","American International School of Vilnius","school","Vilnius","Lithuania",54.6872,25.2797,"https://www.aisv.lt/",true]
+["LT-INTL-001","American International School of Vilnius","school","Vilnius","Lithuania",54.6872,25.2797,"https://www.aisv.lt/",true],
+["BE-EUR-EEB3-2026","European School Brussels III (Ixelles)","school","Ixelles","Belgium",50.8213,4.4005,"https://www.eeb3.eu/",true,"Boulevard du Triomphe 135, 1050 Ixelles, Belgium","address","https://www.eeb3.eu/en/contacts-4/"]
 ]);
