@@ -47,12 +47,12 @@ jobs:
           const norm=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
           const host=x=>{try{return new URL(x).hostname.replace(/^www\./,'')}catch{return ''}};
           const joined=JSON.parse(fs.readFileSync('audits/spanish-source-joined.json'));
-          const ready=[],review=[];
+          const ready=[],review=[],alreadyPresent=[],needsEvidence=[];
           for(const c of joined.matches){
             const reasons=[];
             const id='FR-UAI-'+c.uai;
             const matches=existing.filter(x=>norm(x[0])===norm(id)|| (norm(x[1])===norm(c.name)&&norm(x[3])===norm(c.city)&&norm(x[4])==='france')||(c.address&&x[9]&&norm(x[9]).includes(norm(c.address)))||(c.website&&host(x[7])&&host(x[7])===host(c.website)&&norm(x[3])===norm(c.city)));
-            if(matches.length)reasons.push('possible existing institution: '+matches.map(x=>x[0]).join(','));
+            if(matches.length){alreadyPresent.push({...c,matchedIds:matches.map(x=>x[0])});continue;}
             if(!c.name||!c.city||!c.address||!c.postal||!c.website)reasons.push('missing required identity/address/website');
             if(typeof c.latitude!=='number'||typeof c.longitude!=='number')reasons.push('missing numeric coordinates');
             if(!c.precision)reasons.push('location precision not established');
@@ -60,9 +60,9 @@ jobs:
             reasons.push('official website and exact campus geolocation require independent verification');
             (reasons.length?review:ready).push({...c,reasons});
           }
-          const result={existingRowsInspected:existing.length,dataFilesInspected:files.length,parseErrors:errors,joinedCandidates:joined.matches.length,readyForPublication:ready.length,requiresReview:review.length,review};
+          const result={existingRowsInspected:existing.length,dataFilesInspected:files.length,parseErrors:errors,joinedCandidates:joined.matches.length,alreadyPresent:alreadyPresent.length,newCandidatesNeedingVerification:review.length,readyForPublication:ready.length,requiresReview:review.length,review,alreadyPresentRecords:alreadyPresent};
           fs.writeFileSync('audits/spanish-full-map-dedup.json',JSON.stringify(result,null,2));
-          console.log(JSON.stringify({existingRowsInspected:result.existingRowsInspected,dataFilesInspected:result.dataFilesInspected,parseErrors:errors.length,joinedCandidates:result.joinedCandidates,readyForPublication:result.readyForPublication,requiresReview:result.requiresReview}));
+          console.log(JSON.stringify({existingRowsInspected:result.existingRowsInspected,dataFilesInspected:result.dataFilesInspected,parseErrors:errors.length,joinedCandidates:result.joinedCandidates,alreadyPresent:result.alreadyPresent,newCandidatesNeedingVerification:result.newCandidatesNeedingVerification,readyForPublication:result.readyForPublication,requiresReview:result.requiresReview}));
           JS
       - uses: actions/upload-artifact@v4
         if: always()
