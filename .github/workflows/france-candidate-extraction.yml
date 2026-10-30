@@ -1,0 +1,37 @@
+name: French dataset candidate extraction
+on:
+  workflow_dispatch:
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract Spanish-section candidates without publishing
+        run: |
+          mkdir -p audits
+          python3 - <<'PY'
+          import urllib.request,urllib.parse,json,gzip
+          endpoint="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records"
+          candidates=[]
+          for offset in range(0,500,100):
+              query=urllib.parse.urlencode({"limit":100,"offset":offset,"where":"section_internationale is not null"})
+              request=urllib.request.Request(endpoint+"?"+query,headers={"User-Agent":"ATLAS-ELE-research/1.0"})
+              with urllib.request.urlopen(request,timeout=45) as response: raw=response.read()
+              if raw.startswith(bytes([31,139])):raw=gzip.decompress(raw)
+              payload=json.loads(raw.decode("utf-8"))
+              candidates.extend(payload.get("results",[]))
+              if len(candidates)>=payload.get("total_count",0):break
+          fields=("identifiant_de_l_etablissement","nom_etablissement","nom_commune","code_postal","adresse_1","latitude","longitude","web","section_internationale","precision_localisation")
+          compact=[{k:r.get(k) for k in fields} for r in candidates]
+          with open("audits/france-section-candidates.json","w",encoding="utf-8") as f:json.dump({"count":len(compact),"records":compact},f,ensure_ascii=False,indent=2)
+          print("Candidates extracted:",len(compact))
+          print("With web and coordinates:",sum(bool(r.get("web") and r.get("latitude") and r.get("longitude")) for r in compact))
+          PY
+      - name: Upload candidates for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: france-section-candidates
+          path: audits/france-section-candidates.json
