@@ -1,0 +1,72 @@
+name: ATLAS Spanish crossmatch against all map data
+on:
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve official Spanish-section records and UAI directory matches
+        run: |
+          mkdir -p audits
+          python3 - <<'PY'
+          import urllib.request,urllib.parse,json,gzip
+          root="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/"
+          def get(dataset,params):
+              url=root+dataset+"/records?"+urllib.parse.urlencode(params)
+              req=urllib.request.Request(url,headers={"User-Agent":"ATLAS-ELE-audit/1.0"})
+              with urllib.request.urlopen(req,timeout=45) as res: raw=res.read()
+              if raw.startswith(bytes([31,139])):raw=gzip.decompress(raw)
+              return json.loads(raw.decode("utf-8"))
+          sections=get("fr-en-sections-internationales",{"where":"section = 'ESPAGNOLE'","limit":100}).get("results",[])
+          matches=[];pending=[]
+          for s in sections:
+              uai=str(s.get("uai") or s.get("UAI") or "").strip()
+              if not uai:pending.append({"reason":"no UAI","section":s});continue
+              try:
+                  records=get("fr-en-annuaire-education",{"where":"identifiant_de_l_etablissement = '"+uai+"'","limit":1}).get("results",[])
+                  if not records:pending.append({"uai":uai,"reason":"not in directory"});continue
+                  r=records[0]
+                  matches.append({"uai":uai,"name":r.get("nom_etablissement"),"city":r.get("nom_commune"),"address":r.get("adresse_1"),"postal":r.get("code_postal"),"latitude":r.get("latitude"),"longitude":r.get("longitude"),"website":r.get("web"),"precision":r.get("precision_localisation")})
+              except Exception as e:pending.append({"uai":uai,"reason":str(e)})
+          with open("audits/spanish-source-joined.json","w") as f:json.dump({"matches":matches,"pending":pending},f,ensure_ascii=False,indent=2)
+          print("Official Spanish rows:",len(sections),"UAI matches:",len(matches),"unmatched:",len(pending))
+          PY
+      - name: Compare with all JS institution arrays
+        run: |
+          node <<'JS'
+          const fs=require('fs'),vm=require('vm'),path=require('path');
+          const sandbox={window:{}};vm.createContext(sandbox);
+          const files=fs.readdirSync('data').filter(f=>f.endsWith('.js')&&f!=='master-loader.js');
+          const errors=[];
+          for(const f of files){try{vm.runInContext(fs.readFileSync(path.join('data',f),'utf8'),sandbox,{timeout:2000,filename:f});}catch(e){errors.push({file:f,error:String(e)})}}
+          const existing=Object.values(sandbox.window).filter(Array.isArray).flat().filter(x=>Array.isArray(x)&&x.length>=8);
+          const norm=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+          const host=x=>{try{return new URL(x).hostname.replace(/^www\./,'')}catch{return ''}};
+          const joined=JSON.parse(fs.readFileSync('audits/spanish-source-joined.json'));
+          const ready=[],review=[];
+          for(const c of joined.matches){
+            const reasons=[];
+            const id='FR-UAI-'+c.uai;
+            const matches=existing.filter(x=>norm(x[0])===norm(id)|| (norm(x[1])===norm(c.name)&&norm(x[3])===norm(c.city)&&norm(x[4])==='france')||(c.address&&x[9]&&norm(x[9]).includes(norm(c.address)))||(c.website&&host(x[7])&&host(x[7])===host(c.website)&&norm(x[3])===norm(c.city)));
+            if(matches.length)reasons.push('possible existing institution: '+matches.map(x=>x[0]).join(','));
+            if(!c.name||!c.city||!c.address||!c.postal||!c.website)reasons.push('missing required identity/address/website');
+            if(typeof c.latitude!=='number'||typeof c.longitude!=='number')reasons.push('missing numeric coordinates');
+            if(!c.precision)reasons.push('location precision not established');
+            // Domain, source and campus precision must be reviewed before publishing.
+            reasons.push('official website and exact campus geolocation require independent verification');
+            (reasons.length?review:ready).push({...c,reasons});
+          }
+          const result={existingRowsInspected:existing.length,dataFilesInspected:files.length,parseErrors:errors,joinedCandidates:joined.matches.length,readyForPublication:ready.length,requiresReview:review.length,review};
+          fs.writeFileSync('audits/spanish-full-map-dedup.json',JSON.stringify(result,null,2));
+          console.log(JSON.stringify({existingRowsInspected:result.existingRowsInspected,dataFilesInspected:result.dataFilesInspected,parseErrors:errors.length,joinedCandidates:result.joinedCandidates,readyForPublication:result.readyForPublication,requiresReview:result.requiresReview}));
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spanish-full-map-dedup-audit
+          path: audits/spanish-*.json
+          if-no-files-found: warn
