@@ -1,0 +1,3 @@
+// Aragón education government directory verified campuses 2026-10-30.
+window.ATLAS_VERIFIED_SPAIN_20261027=window.ATLAS_VERIFIED_SPAIN_20261027||[];
+window.ATLAS_VERIFIED_SPAIN_20261027.push(...[["ES-AR-50003838","Santa María de la Esperanza","school","Pina de Ebro","Spain",41.4908108,-0.5269893,"http://www.fundacionxafer.org/STA-MARIA-ESPERANZA/",true,"Calle Rosales, 2, 50750 Pina de Ebro (Zaragoza), España","address","https://centrosdocentes.catedu.es/ee/centro/687-santa-maria-de-la-esperanza"],["ES-AR-50006888","Inmaculada Concepción","school","Zaragoza","Spain",41.6473512,-0.8748432,"http://www.colegioinmaculadaconcepcionz.net",true,"Calle Concepción, 8-10, 50008 Zaragoza, España","address","https://centrosdocentes.catedu.es/ee/centro/713-inmaculada-concepcion"]]);
