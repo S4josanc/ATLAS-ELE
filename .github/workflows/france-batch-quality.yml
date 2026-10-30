@@ -1,0 +1,58 @@
+name: ATLAS France batch quality audit
+on:
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract and quality-screen French international sections
+        run: |
+          mkdir -p audits
+          python3 - <<'PY'
+          import urllib.request,urllib.parse,json,gzip,re
+          endpoint="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records"
+          rows=[]
+          for offset in range(0,500,100):
+              query=urllib.parse.urlencode({"limit":100,"offset":offset,"where":"section_internationale is not null"})
+              req=urllib.request.Request(endpoint+"?"+query,headers={"User-Agent":"ATLAS-ELE/1.0"})
+              with urllib.request.urlopen(req,timeout=45) as response: raw=response.read()
+              if raw.startswith(bytes([31,139])):raw=gzip.decompress(raw)
+              data=json.loads(raw.decode("utf-8"))
+              rows.extend(data.get("results",[]))
+              if len(rows)>=data.get("total_count",0):break
+          seen=set();valid=[];pending=[]
+          for r in rows:
+              uai=r.get("identifiant_de_l_etablissement")
+              name=r.get("nom_etablissement")
+              city=r.get("nom_commune")
+              address=r.get("adresse_1")
+              postcode=r.get("code_postal")
+              lat=r.get("latitude");lon=r.get("longitude")
+              web=r.get("web")
+              precision=r.get("precision_localisation")
+              reasons=[]
+              if not uai or uai in seen:reasons.append("missing/duplicate UAI")
+              if not all((name,city,address,postcode)):reasons.append("incomplete address")
+              if not isinstance(lat,(int,float)) or not isinstance(lon,(int,float)):reasons.append("missing coordinates")
+              if not web or not str(web).startswith(("http://","https://")):reasons.append("missing official URL")
+              if not precision:reasons.append("unconfirmed geolocation precision")
+              # The source's section_internationale flag does not prove Spanish teaching.
+              reasons.append("Spanish programme not yet independently verified")
+              item={"uai":uai,"name":name,"city":city,"address":address,"postal_code":postcode,"latitude":lat,"longitude":lon,"website":web,"location_precision":precision,"reasons":reasons}
+              (pending if reasons else valid).append(item)
+              if uai:seen.add(uai)
+          result={"source_records":len(rows),"ready_to_publish":len(valid),"requires_review":len(pending),"candidates":pending}
+          with open("audits/france-batch-quality.json","w",encoding="utf8") as f:json.dump(result,f,ensure_ascii=False,indent=2)
+          print("Source records:",len(rows))
+          print("Ready for publication:",len(valid))
+          print("Pending independent Spanish-programme verification:",len(pending))
+          PY
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: france-batch-quality-audit
+          path: audits/france-batch-quality.json
