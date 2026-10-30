@@ -1,0 +1,26 @@
+name: Test French official dataset connectivity
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe official API without importing data
+        run: |
+          python3 - <<'PY'
+          import urllib.request,json
+          base="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?limit=1"
+          try:
+              req=urllib.request.Request(base,headers={"User-Agent":"ATLAS-ELE-validation/1.0"})
+              with urllib.request.urlopen(req,timeout=25) as response:
+                  data=json.load(response)
+              print("API reachable; total_count:",data.get("total_count"))
+              print("Sample fields:",sorted((data.get("results") or [{}])[0].keys()))
+          except Exception as exc:
+              print("Connectivity probe failed:",repr(exc))
+              raise
+          PY
