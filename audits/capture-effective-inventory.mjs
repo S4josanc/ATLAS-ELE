@@ -65,6 +65,9 @@ try{
    spanishSchools:records.filter(x=>x.country==='Spain'&&x.type==='school').length,
    countryCount:new Set(records.map(x=>x.country)).size,precision:byPrecision,
    recordsWithAddress:records.filter(x=>!!x.address).length,
+   recordsWithWebsite:records.filter(x=>/^https?:\/\//i.test(String(x.web||''))).length,
+   recordsWithAddressWebsiteAndCoordinates:records.filter(x=>!!x.address&&/^https?:\/\//i.test(String(x.web||''))&&Number.isFinite(Number(x.lat))&&Number.isFinite(Number(x.lng))&&Math.abs(Number(x.lat))>0.001&&Math.abs(Number(x.lng))>0.001).length,
+   countryBreakdown:Object.entries(records.reduce((acc,x)=>{const key=x.country||'Unknown';acc[key]=(acc[key]||0)+1;return acc;},{})).sort((a,b)=>b[1]-a[1]).map(([country,count])=>({country,count})),
    packedMasterFragments:(window.ATLAS_PACKED_PARTS||[]).map(v=>typeof v==='string'?v.length:0),
    verifiedBatch:window.ATLAS_VERIFIED_SPAIN_STATS||null,
    verifiedCoordinatesAndAddresses:checked
@@ -79,7 +82,7 @@ try{
   displayedCount:metrics.displayedCount,uniqueIDs:metrics.uniqueIDs,
   uniqueNameCityCountryKeys:metrics.uniqueNameCityCountryKeys,
   potentialDuplicateNameGroups:metrics.potentialDuplicateNameGroups,
-  spanishSchools:metrics.spanishSchools,recordsWithAddress:metrics.recordsWithAddress,
+  spanishSchools:metrics.spanishSchools,recordsWithAddress:metrics.recordsWithAddress,recordsWithWebsite:metrics.recordsWithWebsite,recordsWithAddressWebsiteAndCoordinates:metrics.recordsWithAddressWebsiteAndCoordinates,
   verifiedBatch:metrics.verifiedBatch,
   packedMasterFragments:metrics.packedMasterFragments,
   jsErrors:jsErrors.slice(0,6),failedRequests:failedRequests.slice(0,6)
