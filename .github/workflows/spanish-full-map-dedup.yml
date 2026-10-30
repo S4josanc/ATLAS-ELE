@@ -60,9 +60,11 @@ jobs:
             reasons.push('official website and exact campus geolocation require independent verification');
             (reasons.length?review:ready).push({...c,reasons});
           }
+          const sortedReview=review.slice().sort((a,b)=>{const score=x=>Number(!!x.website)+Number(!!x.address)+Number(!!x.postal)+Number(typeof x.latitude==='number'&&typeof x.longitude==='number')+Number(!!x.precision);return score(b)-score(a)}).slice(0,100);
+          fs.writeFileSync('audits/spanish-next-100-candidates.json',JSON.stringify({limit:100,actualCandidates:sortedReview.length,publicationStatus:'NOT PUBLISHED - independent campus verification required',candidates:sortedReview},null,2));
           const result={existingRowsInspected:existing.length,dataFilesInspected:files.length,parseErrors:errors,joinedCandidates:joined.matches.length,alreadyPresent:alreadyPresent.length,newCandidatesNeedingVerification:review.length,readyForPublication:ready.length,requiresReview:review.length,review,alreadyPresentRecords:alreadyPresent};
           fs.writeFileSync('audits/spanish-full-map-dedup.json',JSON.stringify(result,null,2));
-          console.log(JSON.stringify({existingRowsInspected:result.existingRowsInspected,dataFilesInspected:result.dataFilesInspected,parseErrors:errors.length,joinedCandidates:result.joinedCandidates,alreadyPresent:result.alreadyPresent,newCandidatesNeedingVerification:result.newCandidatesNeedingVerification,readyForPublication:result.readyForPublication,requiresReview:result.requiresReview}));
+          console.log(JSON.stringify({existingRowsInspected:result.existingRowsInspected,dataFilesInspected:result.dataFilesInspected,parseErrors:errors.length,joinedCandidates:result.joinedCandidates,alreadyPresent:result.alreadyPresent,newCandidatesNeedingVerification:result.newCandidatesNeedingVerification,shortlistUpTo100:sortedReview.length,readyForPublication:result.readyForPublication,requiresReview:result.requiresReview}));
           JS
       - uses: actions/upload-artifact@v4
         if: always()
