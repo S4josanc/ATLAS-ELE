@@ -18,7 +18,7 @@ jobs:
               req=urllib.request.Request(base,headers={"User-Agent":"ATLAS-ELE-validation/1.0"})
               with urllib.request.urlopen(req,timeout=25) as response:
                   raw=response.read()
-                  if raw[:2] == b"\\x1f\\x8b": raw=gzip.decompress(raw)
+                  if raw.startswith(bytes([31,139])): raw=gzip.decompress(raw)
                   data=json.loads(raw.decode("utf-8"))
               print("API reachable; total_count:",data.get("total_count"))
               print("Sample fields:",sorted((data.get("results") or [{}])[0].keys()))
