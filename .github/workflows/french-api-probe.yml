@@ -12,12 +12,14 @@ jobs:
       - name: Probe official API without importing data
         run: |
           python3 - <<'PY'
-          import urllib.request,json
+          import urllib.request,json,gzip
           base="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?limit=1"
           try:
               req=urllib.request.Request(base,headers={"User-Agent":"ATLAS-ELE-validation/1.0"})
               with urllib.request.urlopen(req,timeout=25) as response:
-                  data=json.load(response)
+                  raw=response.read()
+                  if raw[:2] == b"\\x1f\\x8b": raw=gzip.decompress(raw)
+                  data=json.loads(raw.decode("utf-8"))
               print("API reachable; total_count:",data.get("total_count"))
               print("Sample fields:",sorted((data.get("results") or [{}])[0].keys()))
           except Exception as exc:
