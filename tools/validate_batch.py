@@ -29,7 +29,7 @@ def validate(candidates,existing):
   if verified is not True:why.append("not marked verified")
   if urllib.parse.urlparse(web).scheme not in ("http","https") or not domain(web):why.append("invalid official website URL")
   if urllib.parse.urlparse(source).scheme not in ("http","https"):why.append("invalid evidence URL")
-  if not re.search(r"\\d",address):why.append("address lacks number/postal code")
+  if not re.search(r"\d",address):why.append("address lacks number/postal code")
   if norm(id) in seen_ids:why.append("duplicate ID")
   if (norm(name),norm(city),norm(country)) in seen_places or (norm(address),norm(city),norm(country)) in seen_places:why.append("duplicate institution/address")
   if (domain(web),norm(city)) in seen_web:why.append("possible duplicate website in city; manual campus review")
