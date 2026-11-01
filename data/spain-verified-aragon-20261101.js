@@ -1,0 +1,4 @@
+// Official Aragón Education registry checked 2026-11-01; each institution independently confirmed via school-owned live website.
+// Coordinates correspond to the street-address campus, not a town centroid.
+window.ATLAS_VERIFIED_SPAIN_20261027=window.ATLAS_VERIFIED_SPAIN_20261027||[];
+window.ATLAS_VERIFIED_SPAIN_20261027.push(...[["ES-AR-44003077","Colegio Las Viñas","school","Teruel","Spain",40.3495284,-1.1119334,"https://colegiolasvinas.com/",true,"Camino de Capuchinos, 1, 44003 Teruel, España","address","https://centrosdocentes.catedu.es/ee/centro/679-las-vinas"],["ES-AR-44003156","Colegio Victoria Díez","school","Teruel","Spain",40.3305599,-1.1091406,"https://colegiovictoriadiez.wixsite.com/c-victoria-diez",true,"Avenida Ruiz Jarabo, 4, 44002 Teruel, España","address","https://centrosdocentes.catedu.es/ee/centro/680-victoria-diez"]]);
