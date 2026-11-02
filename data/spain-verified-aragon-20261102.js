@@ -1,0 +1,4 @@
+// ATLAS ELE: government registry (Aragón, checked 2026-11-02), school-owned current websites and government-published campus coordinates.
+// Colegio Nuestra Señora del Castillo uses its live school WordPress, linked by Ayuntamiento de Alagón.
+window.ATLAS_VERIFIED_SPAIN_20261027=window.ATLAS_VERIFIED_SPAIN_20261027||[];
+window.ATLAS_VERIFIED_SPAIN_20261027.push(...[["ES-AR-44000271","Colegio La Inmaculada","school","Alcañiz","Spain",41.0510353,-0.1335373,"https://anasalcaniz.com/",true,"Calle Jerónimo Blasco, 1, 44600 Alcañiz (Teruel), España","address","https://centrosdocentes.catedu.es/ee/centro/677-la-inmaculada"],["ES-AR-50000151","Colegio Nuestra Señora del Castillo","school","Alagón","Spain",41.7721288,-1.125256,"https://colegionscastillo.wordpress.com/",true,"Avenida de la Portalada, 39, 50630 Alagón (Zaragoza), España","address","https://centrosdocentes.catedu.es/ee/centro/682-ntra-sra-del-castillo"]]);
