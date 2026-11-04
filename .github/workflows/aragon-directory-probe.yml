@@ -28,4 +28,17 @@ jobs:
               print('CENTRE LINKS',len(paths),'SAMPLE',paths[:8])
               print('OTHER CENTER MATCHES',re.findall(r'(?:href|action)=[\"\']([^\"\']*(?:export|excel|xlsx)[^\"\']*)',html,re.I)[:10])
             except Exception as e:print('ERROR',url,repr(e))
+          url='https://centrosdocentes.catedu.es/ee/php/export/export_centros.php?'
+          try:
+            with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'ATLAS-ELE/1.0'}),timeout=90,context=ssl._create_unverified_context()) as resp:
+              raw=resp.read(22000000)
+              print('EXPORT',resp.status,'TYPE',resp.headers.get('content-type'),'SIZE',len(raw),'FINAL',resp.url)
+              import io,zipfile
+              if zipfile.is_zipfile(io.BytesIO(raw)):
+                z=zipfile.ZipFile(io.BytesIO(raw))
+                print('XLSX FILES',z.namelist()[:15])
+                s=z.read('xl/worksheets/sheet1.xml').decode('utf-8')
+                print('SHEET PREVIEW',re.sub(r'\s+',' ',s[:1300]))
+              else:print('EXPORT PREVIEW',repr(raw[:300]))
+          except Exception as e:print('EXPORT ERROR',repr(e))
           PY
