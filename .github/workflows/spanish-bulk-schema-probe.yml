@@ -1,0 +1,46 @@
+name: ATLAS official school dataset schema probe
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/spanish-bulk-schema-probe.yml']
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe official Spanish school tables (research only)
+        run: |
+          python3 - <<'PY'
+          import csv,io,json,urllib.request,urllib.error,collections,time
+          sources = {
+            'andalucia': 'https://www.juntadeandalucia.es/datosabiertos/portal/dataset/e039df22-4b82-4d0d-9884-0ab5952e24e4/resource/b5924e81-0b53-4418-9d93-b1f39ba1ef65/download/da_centros.csv',
+            'aragon': 'https://opendata.aragon.es/GA_OD_Core/download?resource_id=167&formato=csv'
+          }
+          for label,url in sources.items():
+            print('SOURCE',label,flush=True)
+            try:
+              request=urllib.request.Request(url,headers={'User-Agent':'ATLAS-ELE-Research/1.0','Accept':'text/csv,application/json,*/*'})
+              with urllib.request.urlopen(request,timeout=65) as response:
+                raw=response.read(16000000)
+                print('HTTP',response.status,'contenttype',response.headers.get('Content-Type'),'bytes',len(raw),flush=True)
+              for enc in ('utf-8-sig','utf-8','cp1252','latin-1'):
+                try:text=raw.decode(enc);break
+                except UnicodeDecodeError:continue
+              if text.lstrip().startswith(('{','[')):
+                payload=json.loads(text)
+                print('JSON root',type(payload).__name__,'keys',list(payload)[:12] if isinstance(payload,dict) else 'list','sample',str(payload)[:1000],flush=True)
+                continue
+              dialect=csv.Sniffer().sniff(text[:12000],delimiters=',;\t|')
+              rows=list(csv.DictReader(io.StringIO(text),dialect=dialect))
+              print('delimiter',repr(dialect.delimiter),'count',len(rows),'fields',list(rows[0].keys()) if rows else [],flush=True)
+              for n,r in enumerate(rows[:3]):
+                print('SAMPLE',n,json.dumps({k:v for k,v in r.items() if any(w in k.lower() for w in ('web','url','domic','direccion','lat','lon','coord','postal','cp','naturaleza','titular','tipo','nombre','denomin'))},ensure_ascii=False)[:1800],flush=True)
+              for f in (list(rows[0].keys()) if rows else []):
+                if any(w in f.lower() for w in ('web','url','lat','lon','coord','naturaleza','titular','postal','direccion','domicilio')):
+                  print('COVERAGE',f,sum(bool(str(r.get(f,'')).strip()) for r in rows),'of',len(rows),flush=True)
+            except Exception as exc:print('SOURCE FAILED',label,repr(exc),flush=True)
+          PY
