@@ -10,7 +10,11 @@ def norm(s):
  return re.sub(r"[^a-z0-9]","", "".join(c for c in s if not unicodedata.combining(c)))
 def domain(s):
  p=urllib.parse.urlparse(s or "")
- return (p.hostname or "").removeprefix("www.")
+ h=(p.hostname or "").lower().removeprefix("www.")
+ if h in ("portal.edu.gva.es","agora.xtec.cat","xtec.cat","educa.madrid.org","centros.educa.jcyl.es","sites.google.com"):
+  path=p.path.rstrip("/").lower()
+  return h+path if len(path)>1 else ""
+ return h
 def validate(candidates,existing):
  errors=[]; seen_ids=set();seen_places=set();seen_web=set()
  for r in existing:
