@@ -231,7 +231,7 @@ async function loadPublicMapData(){
   const verifiedSpain=window.ATLAS_VERIFIED_SPAIN_20261027||[];
   const normalizedVerified=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const schoolNameVerified=v=>normalizedVerified(v).replace(/^(colegio|centro educativo|escuela|ceip)\s+/,'');
-  const hostVerified=v=>{try{return new URL(v).hostname.toLowerCase().replace(/^www\./,'')}catch{return ''}};
+  const hostVerified=v=>{try{const u=new URL(v),h=u.hostname.toLowerCase().replace(/^www\./,'');if(['portal.edu.gva.es','agora.xtec.cat','xtec.cat','educa.madrid.org','centros.educa.jcyl.es','sites.google.com'].includes(h)){const p=u.pathname.replace(/\/+$/,'').toLowerCase();return p.length>1?h+p:''}return h}catch{return ''}};
   let verifiedAdded=0,verifiedEnriched=0,verifiedSkipped=0;
   for(const a of verifiedSpain){
     const x={id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7],verified:true,address:a[9],precision:a[10]||'address',sourceURL:a[11],program:'Spanish / MFL'};
