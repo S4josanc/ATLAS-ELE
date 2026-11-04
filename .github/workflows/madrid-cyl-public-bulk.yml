@@ -1,0 +1,74 @@
+name: ATLAS Madrid Castilla 2026 verified public school campuses massive import
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/import_madrid_castile_public_20261104.py'
+      - '.github/workflows/madrid-cyl-public-bulk.yml'
+  workflow_dispatch:
+jobs:
+  bulk-stage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install authoritative coordinate conversion
+        run: pip install pyproj==3.7.2
+      - name: Index existing map source IDs, addresses, site URLs and coordinates
+        run: node tools/build_existing_map_index.cjs
+      - name: Match Madrid and Castilla government public school campus lists
+        run: python tools/import_madrid_castile_public_20261104.py
+      - name: Validate complete source evidence and duplicates
+        if: hashFiles('data/spain-verified-madrid-cyl-public-20261104.js') != ''
+        run: |
+          node --check data/spain-verified-madrid-cyl-public-20261104.js
+          python tools/validate_batch.py audits/madrid-cyl-public-20261104-accepted.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Verify real distinct campus sites and full map load in Chrome
+        if: hashFiles('data/spain-verified-madrid-cyl-public-20261104.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          accepted=json.load(open('audits/madrid-cyl-public-20261104-accepted.json'))
+          a=json.load(open('audits/effective-inventory.json'))
+          sites={r['id']:r for r in a['verifiedCoordinatesAndAddresses']}
+          assert len(accepted)>50,("Not a meaningful public school batch",len(accepted))
+          assert all(x[0] in sites and sites[x[0]]['correctCoordinatesAndAddress'] for x in accepted),'source campus missing or mismatched on map'
+          assert a['mapRecords']==a['mapMarkers']==a['displayedCount']==a['uniqueIDs']
+          assert a['verifiedBatch']['skipped']==0
+          assert not a['jsErrors'] and not a['failedRequests']
+          delta=a['mapRecords']-7399
+          assert 0<delta<=len(accepted),("Inconsistent new campus count",delta,len(accepted))
+          assert a['verifiedBatch']['sourceRows']>=4677+len(accepted)
+          print('MADRID + CASTILLA PUBLIC MAP VERIFICATION:',json.dumps({'official_source_schools':len(accepted),'actual_new_visible':delta,'enriched_existing':len(accepted)-delta,'map_total':a['mapRecords'],'unique_IDs':a['uniqueIDs'],'verified_complete_source_rows':a['verifiedBatch']['sourceRows'],'total_complete_address_web_coordinates_rows':a['recordsWithAddressWebsiteAndCoordinates'],'potential_duplicate_groups':a['potentialDuplicateNameGroups']}))
+          PY
+      - name: Stage successfully validated public school sites on separate branch
+        if: hashFiles('data/spain-verified-madrid-cyl-public-20261104.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/official-madrid-cyl-public-20261104
+          git add index.html data/spain-verified-madrid-cyl-public-20261104.js
+          git commit -m "Stage verified 2026 Madrid/Castilla public primary-secondary school campuses"
+          git push -u origin import/official-madrid-cyl-public-20261104
+      - name: Save official and browser quality audits
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-2026-madrid-cyl-public-quality
+          path: |
+            audits/madrid-cyl-public-20261104-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
