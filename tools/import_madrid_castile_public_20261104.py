@@ -165,6 +165,33 @@ def run():
         if not (lat is not None and lon is not None and 40.0<lat<43.5 and -7.8<lon<-2.7):
             pending("missing_or_outside_region_coordinates","cyl",rid,name);continue
         evaluate("cyl",rid,name,city,postal,street,lat,lon,website(r.get("WEB")))
+    # Final exact-match duplicate screen uses the *same* canonical rules as
+    # tools/validate_batch.py (including casefold and complete postal address).
+    # Importer keys intentionally overblock some ambiguous variants; this pass
+    # rejects any remaining edge-case before file publication.
+    from validate_batch import norm as strictnorm, domain as strictdomain
+    strict_places=set();strict_websites=set()
+    for r in old:
+        if not isinstance(r,list) or len(r)<8:continue
+        loc=(strictnorm(r[3]),strictnorm(r[4]))
+        strict_places.add((strictnorm(r[1]),*loc))
+        if len(r)>9 and r[9]:strict_places.add((strictnorm(r[9]),*loc))
+        if r[7]:strict_websites.add((strictdomain(r[7]),strictnorm(r[3])))
+    cleaned=[]
+    for rec in accepted:
+        loc=(strictnorm(rec[3]),strictnorm(rec[4]))
+        key=(strictnorm(rec[1]),*loc)
+        street=(strictnorm(rec[9]),*loc)
+        webkey=(strictdomain(rec[7]),strictnorm(rec[3]))
+        if key in strict_places or street in strict_places or webkey in strict_websites:
+            pending("conservative_final_duplicate_screen",
+                    "madrid" if rec[0].startswith("ES-MD-") else "cyl",rec[0],rec[1])
+            continue
+        cleaned.append(rec)
+        strict_places.add(key);strict_places.add(street);strict_websites.add(webkey)
+    accepted=cleaned
+    counts["madrid:accepted"]=sum(rec[0].startswith("ES-MD-") for rec in accepted)
+    counts["cyl:accepted"]=sum(rec[0].startswith("ES-CYL-") for rec in accepted)
     AUDIT.parent.mkdir(parents=True,exist_ok=True)
     report={"sources":[SOURCE_MADRID,SOURCE_CYL],
             "official_source_rows":{"madrid":len(madrid),"cyl":len(cyl)},
