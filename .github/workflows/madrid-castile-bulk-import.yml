@@ -1,0 +1,76 @@
+name: ATLAS Madrid + Castilla y León private schools bulk import
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/madrid-castile-bulk-import.yml'
+      - 'tools/import_madrid_castile_official.py'
+  workflow_dispatch:
+jobs:
+  validate-and-stage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install precise coordinate transformer
+        run: pip install pyproj==3.7.2
+      - name: Index ALL existing map source files
+        run: node tools/build_existing_map_index.cjs
+      - name: Pull both official current datasets and verify candidate campuses
+        run: python tools/import_madrid_castile_official.py
+      - name: Check syntax and all import records against existing map
+        if: hashFiles('data/spain-verified-regional-20261104.js') != ''
+        run: |
+          node --check data/spain-verified-regional-20261104.js
+          python tools/validate_batch.py audits/regional-20261104-accepted.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Test actual map loader, physical site uniqueness and marker counts in Chrome
+        if: hashFiles('data/spain-verified-regional-20261104.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          source=json.load(open('audits/regional-20261104-quality-report.json'))
+          mapdata=json.load(open('audits/effective-inventory.json'))
+          expected=source['accepted_validated_new_campuses']['total']
+          if expected<1:raise RuntimeError('No new records validated')
+          allowed=set(a[0] for a in json.load(open('audits/regional-20261104-accepted.json')))
+          verified=[v for v in mapdata['verifiedCoordinatesAndAddresses'] if v['id'] in allowed]
+          assert len(verified)==expected, ('some accepted IDs not found',len(verified),expected)
+          assert all(v['correctCoordinatesAndAddress'] for v in verified),'coordinates/address/dedup mismatch'
+          assert mapdata['verifiedBatch']['skipped']==0,'some legacy/new source rows ambiguous'
+          assert mapdata['mapRecords']==mapdata['mapMarkers']==mapdata['displayedCount']
+          assert mapdata['uniqueIDs']==mapdata['mapRecords']
+          assert mapdata['mapRecords']>=2811+expected
+          assert not mapdata['jsErrors'] and not mapdata['failedRequests']
+          print('IN-BROWSER VALIDATION PASSED',json.dumps({'added':expected,'visible':mapdata['mapRecords'],'uniqueIDs':mapdata['uniqueIDs'],'potentialDuplicateNameGroups':mapdata['potentialDuplicateNameGroups']}),flush=True)
+          PY
+      - name: Stage successful bulk import safely in separate review branch
+        if: hashFiles('data/spain-verified-regional-20261104.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/official-madrid-cyl-20261104
+          git add index.html data/spain-verified-regional-20261104.js
+          git commit -m "Import validated 2026 Madrid and Castilla private school campuses"
+          git push -u origin import/official-madrid-cyl-20261104
+      - name: Store audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-private-schools-madrid-cyl-quality
+          path: |
+            audits/regional-20261104-quality-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
