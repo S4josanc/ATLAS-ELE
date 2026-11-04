@@ -1,0 +1,84 @@
+name: ATLAS bulk import Aragón private and concertado schools
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aragon-bulk-import.yml'
+      - 'tools/import_aragon_official.py'
+      - 'tools/build_existing_map_index.cjs'
+  workflow_dispatch:
+jobs:
+  build-verified-pull-request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Geographic validation library
+        run: pip install pyproj==3.7.2
+      - name: Index all existing sources (including packed master)
+        run: node tools/build_existing_map_index.cjs
+      - name: Fetch official data and prepare conservative private-school import
+        run: python tools/import_aragon_official.py
+      - name: Check new rows for existing duplicates, syntax and row completeness
+        shell: bash
+        run: |
+          if [ -f data/spain-verified-aragon-20261104-bulk.js ]; then
+            node --check data/spain-verified-aragon-20261104-bulk.js
+            python tools/validate_batch.py audits/aragon-bulk-20261104-candidates.json audits/aragon-existing-map-data.json
+            git diff --check
+          else
+            echo "No verified new records; no branch will be created."
+          fi
+      - name: Browser verification of exact visible sites (no publication on failure)
+        if: hashFiles('data/spain-verified-aragon-20261104-bulk.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          audit=json.load(open('audits/effective-inventory.json'))
+          source=json.load(open('audits/aragon-bulk-20261104-audit.json'))
+          if len(audit.get('jsErrors',[])) or len(audit.get('failedRequests',[])):
+              raise RuntimeError('Browser errors or failed requests')
+          if audit.get('verifiedBatch',{}).get('skipped'):
+              raise RuntimeError('Unmerged or ambiguous location detected')
+          if audit.get('mapRecords',0)<2783:
+              raise RuntimeError('Map unexpectedly shrank')
+          ids=set(source['accepted_ids'])
+          checked=[v for v in audit['verifiedCoordinatesAndAddresses'] if v['id'] in ids]
+          if len(checked)!=len(ids) or any(not x['correctCoordinatesAndAddress'] for x in checked):
+              raise RuntimeError('Imported campus not uniquely displayed at official location')
+          print('VERIFIED IN BROWSER: newly accepted',len(ids),'visible records',audit['mapRecords'],'new sites checked',len(checked))
+          PY
+      - name: Stage reviewed data in a new PR (never write directly to main)
+        if: hashFiles('data/spain-verified-aragon-20261104-bulk.js') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "import/aragon-official-bulk-20261104"
+          git add index.html data/spain-verified-aragon-20261104-bulk.js
+          git commit -m "Add validated Aragón private schools from official geospatial register"
+          git push -u origin "import/aragon-official-bulk-20261104"
+          gh pr create --base main --head "import/aragon-official-bulk-20261104" --title "ATLAS ELE: verified official Aragón bulk school import" --body "Source: Gobierno de Aragón public geospatial centre registry (CC BY 4.0). Private/concertado school sites only. Required official school URL, 5-digit postcode, address, code, and WGS84 coordinates agreeing to 100 m with UTM coordinates. Cross-checked against every source including packed master. Automatic browser inventory and all existing verified locations must pass before branch is written. No merge has been performed." || echo "Pull request creation needs manual connector action; branch pushed."
+      - name: Save detailed audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aragon-bulk-verified-audit
+          path: |
+            audits/aragon-bulk-20261104-audit.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
