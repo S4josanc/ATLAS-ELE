@@ -1,0 +1,21 @@
+name: ATLAS official Euskadi Galicia Andalucia source probe
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/probe_other_spain_20261104.py'
+      - '.github/workflows/other-spain-probe.yml'
+  workflow_dispatch:
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check campus-level official address geodata and website fields
+        run: python tools/probe_other_spain_20261104.py
