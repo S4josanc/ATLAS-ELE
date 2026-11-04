@@ -1,0 +1,73 @@
+name: ATLAS verified 2026 Aragón directory bulk import
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aragon-directory-import.yml'
+      - 'tools/import_aragon_directory.py'
+  workflow_dispatch:
+jobs:
+  stage-validated-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install geographic transformation
+        run: pip install pyproj==3.7.2
+      - name: Index existing map and legacy arrays
+        run: node tools/build_existing_map_index.cjs
+      - name: Import only verified and distinct official school campuses
+        run: python tools/import_aragon_directory.py
+      - name: Validate all proposed rows before browser trial
+        if: hashFiles('data/spain-verified-aragon-20261104-directory.js') != ''
+        run: |
+          node --check data/spain-verified-aragon-20261104-directory.js
+          python tools/validate_batch.py audits/aragon-directory-20261104-candidates.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Verify new sites and all old data in real browser
+        if: hashFiles('data/spain-verified-aragon-20261104-directory.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          summary=json.load(open('audits/aragon-directory-20261104-report.json'))
+          visible=json.load(open('audits/effective-inventory.json'))
+          accepted=set(summary['accepted_ids'])
+          checked=[a for a in visible['verifiedCoordinatesAndAddresses'] if a['id'] in accepted]
+          assert len(checked)==len(accepted) and len(accepted)>0
+          assert all(a['correctCoordinatesAndAddress'] for a in checked)
+          assert visible['verifiedBatch']['skipped']==0
+          assert not visible['jsErrors'] and not visible['failedRequests']
+          assert visible['displayedCount']==visible['mapMarkers']==visible['mapRecords']
+          assert visible['mapRecords']>=2783
+          print('BROWSER VERIFIED:',len(accepted),'new exact campus sites,',visible['mapRecords'],'total mapped rows')
+          PY
+      - name: Push branch for independent review and safe merge
+        if: hashFiles('data/spain-verified-aragon-20261104-directory.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/aragon-directory-20261104
+          git add index.html data/spain-verified-aragon-20261104-directory.js
+          git commit -m "Add validated sites from latest Aragón official directory"
+          git push -u origin import/aragon-directory-20261104
+      - name: Preserve audit records as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aragon-directory-import-quality-report
+          path: |
+            audits/aragon-directory-20261104-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
