@@ -47,7 +47,7 @@ try{
   for(const x of records)byPrecision[x.precision||'unknown']=(byPrecision[x.precision||'unknown']||0)+1;
   const verified=window.ATLAS_VERIFIED_SPAIN_20261027||[];
   const schoolName=v=>norm(v).replace(/^(colegio|centro educativo|escuela|ceip)\s+/,'');
-  const domain=v=>String(v||'').replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].toLowerCase();
+  const domain=v=>{try{const u=new URL(v),h=u.hostname.toLowerCase().replace(/^www\./,'');if(['portal.edu.gva.es','agora.xtec.cat','xtec.cat','educa.madrid.org','centros.educa.jcyl.es','sites.google.com'].includes(h)){const p=u.pathname.replace(/\/+$/,'').toLowerCase();return p.length>1?h+p:''}return h}catch{return ''}};
   const checked=verified.map(a=>{
    const x=records.filter(y=>norm(y.city)===norm(a[3])&&norm(y.country)===norm(a[4])&&(
     schoolName(y.name)===schoolName(a[1])||(domain(y.web)&&domain(y.web)===domain(a[7]))||(y.address&&norm(y.address)===norm(a[9]))
