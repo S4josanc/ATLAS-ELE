@@ -11,7 +11,7 @@ sources={
 for label,url in sources.items():
  try:
   req=urllib.request.Request(url,headers={"User-Agent":"ATLAS-ELE-2026-Official-Directory-Validation/1.0"})
-  with urllib.request.urlopen(req,timeout=90) as response:
+  with urllib.request.urlopen(req,timeout=15) as response:
    b=response.read(10000000)
    if len(b)>=10000000:raise RuntimeError("oversized")
   t=None
