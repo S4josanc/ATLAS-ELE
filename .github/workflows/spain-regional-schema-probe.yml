@@ -1,0 +1,43 @@
+name: ATLAS bulk candidate Spain regional dataset capability
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/spain-regional-schema-probe.yml']
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - name: Assess current official regional school dataset fields without importing
+        run: |
+          python3 - <<'PY'
+          import urllib.request,urllib.parse,collections,json,csv,io
+          sources={
+            "madrid_region":"https://datos.comunidad.madrid/dataset/c750856d-3166-4dac-8e80-d1b824c968b5/resource/28d60557-1d73-4281-ab08-6cfd3b2f5f83/download/centros_educativos.csv",
+            "castile_leon":"https://datosabiertos.jcyl.es/web/jcyl/risp/es/educacion/centrosdocentes/1284200521439.csv",
+            "madrid_city":"https://datos.madrid.es/id/id/dataset/300614-0-centros-educativos/resource/300614-1-centros-educativos-csv/download/300614-1-centros-educativos-csv.csv",
+          }
+          for name,url in sources.items():
+            try:
+              req=urllib.request.Request(url,headers={"User-Agent":"ATLAS-ELE-Regional-Data-Research/1.0"})
+              with urllib.request.urlopen(req,timeout=70) as r:
+                raw=r.read(20000000);print("SOURCE",name,"TYPE",r.headers.get('Content-Type'),"BYTES",len(raw),flush=True)
+              text=None
+              for enc in ('utf-8-sig','utf-8','cp1252','latin1'):
+                try:text=raw.decode(enc);break
+                except UnicodeError:pass
+              if text.lstrip().startswith(('<?xml','<!DOCTYPE','<html')):
+                print('RECEIVED HTML OR XML:',text[:250]);continue
+              try:delimiter=csv.Sniffer().sniff(text[:15000],delimiters=',;\t').delimiter
+              except csv.Error:delimiter=';'
+              rows=list(csv.DictReader(io.StringIO(text),delimiter=delimiter))
+              print("ROWS",name,len(rows),"FIELDS",list(rows[0].keys()) if rows else [])
+              for term in ('web','url','pagina','coordenada','latitud','longitud','x','y','direccion','postal','privado','titular'):
+                matched=[k for k in (rows[0].keys() if rows else []) if term in k.casefold()]
+                print('FIELDS_MATCH',name,term,[(k,sum(bool((r.get(k) or '').strip()) for r in rows)) for k in matched])
+              for row in rows[:2]:print('EXAMPLE',name,json.dumps(row,ensure_ascii=False)[:1500])
+            except Exception as e:print("SOURCE FAILED",name,repr(e),flush=True)
+          PY
