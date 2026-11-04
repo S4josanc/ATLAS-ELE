@@ -1,0 +1,74 @@
+name: ATLAS 2026 Catalonia Valencia verified schools bulk import
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/import_cat_val_official.py'
+      - '.github/workflows/cat-val-bulk-import.yml'
+  workflow_dispatch:
+jobs:
+  import-and-validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Dependencies for precise geodesic duplicate checks
+        run: pip install pyproj==3.7.2
+      - name: Index EVERY previously mapped institution and georeferenced campus
+        run: node tools/build_existing_map_index.cjs
+      - name: Download official 2026 catalogues and reject incomplete ambiguous school sites
+        run: python tools/import_cat_val_official.py
+      - name: Validate schema and cross-match against existing IDs/names/addresses/webs
+        if: hashFiles('data/spain-verified-cat-val-20261104.js') != ''
+        run: |
+          node --check data/spain-verified-cat-val-20261104.js
+          python tools/validate_batch.py audits/cat-val-20261104-accepted.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Test new records in actual Chrome map before staging
+        if: hashFiles('data/spain-verified-cat-val-20261104.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          accepted=json.load(open('audits/cat-val-20261104-accepted.json'))
+          audit=json.load(open('audits/effective-inventory.json'))
+          n=len(accepted)
+          assert n>10, ('too few valid records',n)
+          actual={r['id']:r for r in audit['verifiedCoordinatesAndAddresses']}
+          assert all(x[0] in actual and actual[x[0]]['correctCoordinatesAndAddress'] for x in accepted),'one or more school sites absent/mislocated'
+          assert audit['mapRecords']==audit['mapMarkers']==audit['displayedCount'] and audit['uniqueIDs']==audit['mapRecords']
+          assert audit['verifiedBatch']['skipped']==0
+          assert not audit['jsErrors'] and not audit['failedRequests']
+          added=audit['mapRecords']-3336
+          assert added>0 and added<=n, ('No actual visible new schools',added,n)
+          print('VERIFIED CATALONIA VALENCIA MAP:',json.dumps({'source_school_sites':n,'new_visible_map_records':added,'pre_existing_updated':n-added,'visible_total':audit['mapRecords'],'uniqueIDs':audit['uniqueIDs'],'same_name_city_country_groups_pending':audit['potentialDuplicateNameGroups']}))
+          PY
+      - name: Stage verified new school campuses on a review branch
+        if: hashFiles('data/spain-verified-cat-val-20261104.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/official-cat-val-20261104
+          git add data/spain-verified-cat-val-20261104.js index.html
+          git commit -m "Import verified Catalunya and Comunitat Valenciana private campuses"
+          git push -u origin import/official-cat-val-20261104
+      - name: Preserve full quality and browser audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cat-val-official-schools-quality
+          path: |
+            audits/cat-val-20261104-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
