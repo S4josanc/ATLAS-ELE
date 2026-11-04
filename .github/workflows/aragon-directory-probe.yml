@@ -39,6 +39,15 @@ jobs:
                 print('XLSX FILES',z.namelist()[:15])
                 s=z.read('xl/worksheets/sheet1.xml').decode('utf-8')
                 print('SHEET PREVIEW',re.sub(r'\s+',' ',s[:1300]))
-              else:print('EXPORT PREVIEW',repr(raw[:300]))
+              else:
+                import csv,collections
+                rows=list(csv.DictReader(__import__('io').StringIO(raw.decode('utf-8-sig')),delimiter=';'))
+                print('EXPORT ROWS',len(rows),'FIELDS',list(rows[0].keys()) if rows else [])
+                for ix,rr in enumerate(rows[:3]):
+                  print('EXPORT SAMPLE',ix,repr({k:rr.get(k) for k in ['nombre','codcentro','naturaleza','tipo_centro','web','emaps','direccion','cod_postal','localidad']}))
+                print('EXPORT COVERAGE', {k:sum(bool((row.get(k) or '').strip()) for row in rows) for k in ['web','emaps','direccion','cod_postal','codcentro','ensenanzas']})
+                private=[rr for rr in rows if rr.get('naturaleza','').lower() in ('privado','concertado')]
+                print('EXPORT PRIVATE',len(private),'WEBS',sum(bool(rr['web']) for rr in private),'EMAPS',sum(bool(rr['emaps']) for rr in private))
+                print('PRIVATE TYPES',collections.Counter(rr['tipo_centro'] for rr in private).most_common(30))
           except Exception as e:print('EXPORT ERROR',repr(e))
           PY
