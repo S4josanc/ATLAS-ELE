@@ -1,0 +1,75 @@
+name: ATLAS Valencia 2026 primary-secondary school expansion
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/import_val_school_extensions_20261104.py'
+      - '.github/workflows/val-school-extension.yml'
+  workflow_dispatch:
+jobs:
+  import-and-validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install geodesic check dependency
+        run: pip install pyproj==3.7.2
+      - name: Index existing mapped schools and IDs
+        run: node tools/build_existing_map_index.cjs
+      - name: Download Valencia government active school geospatial records
+        run: python tools/import_val_school_extensions_20261104.py
+      - name: Strict batch validation against legacy map and new sites
+        if: hashFiles('data/spain-verified-val-20261104-extension.js') != ''
+        run: |
+          node --check data/spain-verified-val-20261104-extension.js
+          python tools/validate_batch.py audits/val-20261104-extension-accepted.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Verify all map markers in real browser and distinguish net new sites
+        if: hashFiles('data/spain-verified-val-20261104-extension.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          accepted=json.load(open('audits/val-20261104-extension-accepted.json'))
+          audit=json.load(open('audits/effective-inventory.json'))
+          n=len(accepted)
+          assert n>0, ('No eligible new centres',n)
+          sites={r['id']:r for r in audit['verifiedCoordinatesAndAddresses']}
+          assert all(a[0] in sites and sites[a[0]]['correctCoordinatesAndAddress'] for a in accepted),'unmapped or mismatched official campus'
+          assert audit['mapRecords']==audit['mapMarkers']==audit['displayedCount']
+          assert audit['uniqueIDs']==audit['mapRecords']
+          assert audit['verifiedBatch']['skipped']==0
+          assert not audit['jsErrors'] and not audit['failedRequests']
+          delta=audit['mapRecords']-3886
+          assert delta>0 and delta<=n, ('zero or inconsistent new map records',delta,n)
+          print('VALENCIA EXTENSION VERIFIED:',json.dumps({'official_validated_schools':n,'new_visible_school_sites':delta,'enriched_existing':n-delta,'total_visible_rows':audit['mapRecords'],'distinctIDs':audit['uniqueIDs'],'potential_duplicate_groups_pending':audit['potentialDuplicateNameGroups']}))
+          PY
+      - name: Publish validated branch for independent review
+        if: hashFiles('data/spain-verified-val-20261104-extension.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/official-val-school-extension-20261104
+          git add data/spain-verified-val-20261104-extension.js index.html
+          git commit -m "Stage validated 2026 Valencia school campus extension"
+          git push -u origin import/official-val-school-extension-20261104
+      - name: Save quality audit records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-valencia-extension-quality
+          path: |
+            audits/val-20261104-extension-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
