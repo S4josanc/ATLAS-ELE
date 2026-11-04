@@ -52,7 +52,8 @@ jobs:
           assert mapdata['verifiedBatch']['skipped']==0,'some legacy/new source rows ambiguous'
           assert mapdata['mapRecords']==mapdata['mapMarkers']==mapdata['displayedCount']
           assert mapdata['uniqueIDs']==mapdata['mapRecords']
-          assert 2811<=mapdata['mapRecords']<=2811+expected\n          assert mapdata['verifiedBatch']['sourceRows']>=86+expected
+          assert 2811<=mapdata['mapRecords']<=2811+expected
+          assert mapdata['verifiedBatch']['sourceRows']>=86+expected
           assert not mapdata['jsErrors'] and not mapdata['failedRequests']
           print('IN-BROWSER VALIDATION PASSED',json.dumps({'validated_source_rows':expected,'actual_new_visible_institutions':mapdata['mapRecords']-2811,'enriched_preexisting_institutions':expected-(mapdata['mapRecords']-2811),'visible':mapdata['mapRecords'],'uniqueIDs':mapdata['uniqueIDs'],'potentialDuplicateNameGroups':mapdata['potentialDuplicateNameGroups']}),flush=True)
           PY
