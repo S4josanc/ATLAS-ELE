@@ -1,0 +1,31 @@
+name: ATLAS Aragon current directory HTML format probe
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/aragon-directory-probe.yml']
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions: {contents: read}
+    steps:
+      - name: Inspect government source links and structure (no import)
+        run: |
+          python3 - <<'PY'
+          import urllib.request,re
+          from html.parser import HTMLParser
+          for url in ['https://centrosdocentes.catedu.es/ee/centros/p/1','https://centrosdocentes.catedu.es/ee/centro/666-maria-soriano']:
+            try:
+              request=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (ATLAS-ELE validated education directory)'})
+              with urllib.request.urlopen(request,timeout=40) as resp:html=resp.read().decode('utf-8','replace')
+              print('URL',url,'LENGTH',len(html))
+              for pattern in ['href=', '/ee/centro/', 'Coordenadas:', 'coordenadas', 'Exportar', '50009646']:
+                print('TOKEN',pattern,'COUNT',html.count(pattern),'POS',html.find(pattern))
+                k=html.find(pattern)
+                if k>=0:print('SURROUND',re.sub(r'\s+',' ',html[max(0,k-130):k+270])[:430])
+              paths=sorted(set(re.findall(r'[\"\']([^\"\']*?/ee/centro/[^\"\']+)[\"\']',html)))
+              print('CENTRE LINKS',len(paths),'SAMPLE',paths[:8])
+              print('OTHER CENTER MATCHES',re.findall(r'(?:href|action)=[\"\']([^\"\']*(?:export|excel|xlsx)[^\"\']*)',html,re.I)[:10])
+            except Exception as e:print('ERROR',url,repr(e))
+          PY
