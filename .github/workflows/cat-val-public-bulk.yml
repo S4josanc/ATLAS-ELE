@@ -1,0 +1,74 @@
+name: ATLAS 2026 Spanish public primary-secondary verified campus bulk import
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/import_cat_val_public_20261104.py'
+      - '.github/workflows/cat-val-public-bulk.yml'
+  workflow_dispatch:
+jobs:
+  bulk-stage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install precise geospatial checker
+        run: pip install pyproj==3.7.2
+      - name: Index all already mapped sites from source files
+        run: node tools/build_existing_map_index.cjs
+      - name: Import 2026 government school building records, dropping incomplete sites
+        run: python tools/import_cat_val_public_20261104.py
+      - name: Validate web, ID, name, address, location and collision invariants
+        if: hashFiles('data/spain-verified-cat-val-public-20261104.js') != ''
+        run: |
+          node --check data/spain-verified-cat-val-public-20261104.js
+          python tools/validate_batch.py audits/cat-val-public-20261104-accepted.json audits/aragon-existing-map-data.json
+          git diff --check
+      - name: Render actual map and validate every new public school in Chrome
+        if: hashFiles('data/spain-verified-cat-val-public-20261104.js') != ''
+        run: |
+          npm install --no-save playwright
+          node audits/capture-effective-inventory.mjs
+          python3 - <<'PY'
+          import json
+          accepted=json.load(open('audits/cat-val-public-20261104-accepted.json'))
+          a=json.load(open('audits/effective-inventory.json'))
+          verified={x['id']:x for x in a['verifiedCoordinatesAndAddresses']}
+          assert len(accepted)>50,('unexpectedly small validated public schools batch',len(accepted))
+          assert all(x[0] in verified and verified[x[0]]['correctCoordinatesAndAddress'] for x in accepted),'some school geolocation or school URL mismatched'
+          assert a['mapRecords']==a['mapMarkers']==a['displayedCount']==a['uniqueIDs']
+          assert a['verifiedBatch']['skipped']==0
+          assert not a['jsErrors'] and not a['failedRequests']
+          new=a['mapRecords']-4198
+          assert new>0 and new<=len(accepted),('non-matching net new school sites',new,len(accepted))
+          assert a['verifiedBatch']['sourceRows']>=1476+len(accepted)
+          print('2026 PUBLIC CAMPUS BROWSER VALIDATION PASSED:',json.dumps({'source_sites_validated':len(accepted),'new_visible_campuses':new,'enriched_existing':len(accepted)-new,'map_total':a['mapRecords'],'distinct_IDs':a['uniqueIDs'],'potential_name_groups_for_review':a['potentialDuplicateNameGroups'],'with_full_address_web_coordinates':a['recordsWithAddressWebsiteAndCoordinates']}))
+          PY
+      - name: Publish candidates only to independently reviewable import branch
+        if: hashFiles('data/spain-verified-cat-val-public-20261104.js') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c import/official-public-cat-val-20261104
+          git add index.html data/spain-verified-cat-val-public-20261104.js
+          git commit -m "Stage school-level government georeferenced 2026 public campuses"
+          git push -u origin import/official-public-cat-val-20261104
+      - name: Save full audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-2026-public-campuses-quality
+          path: |
+            audits/cat-val-public-20261104-report.json
+            audits/effective-inventory.json
+          if-no-files-found: warn
