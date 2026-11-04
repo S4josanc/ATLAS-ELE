@@ -39,5 +39,21 @@ jobs:
                 matched=[k for k in (rows[0].keys() if rows else []) if term in k.casefold()]
                 print('FIELDS_MATCH',name,term,[(k,sum(bool((r.get(k) or '').strip()) for r in rows)) for k in matched])
               for row in rows[:2]:print('EXAMPLE',name,json.dumps(row,ensure_ascii=False)[:1500])
+              from collections import Counter
+              if name=='madrid_region':
+                print('NATURE',name,Counter(r['TITULARIDAD'] for r in rows).most_common(12))
+                print('STATUS',name,Counter(r['SITUACIÓN'] for r in rows).most_common(12))
+                filt=[r for r in rows if 'PRIVAD' in r['TITULARIDAD'].upper() and r['SITUACIÓN'].upper()=='ALTA']
+                print('PRIVATE ACTIVE',len(filt),'WITH WEB UTM CODE POSTAL',sum(all((r.get(k) or '').strip() for k in ('WEB','UTM_X','UTM_Y','CODIGO','CDPOSTAL')) for r in filt))
+                print('PRIVATE TYPES',Counter(r['TIPO_EXT'] for r in filt).most_common(25))
+                for r in filt[:3]:print('PRIVATE_SAMPLE',name,json.dumps(r,ensure_ascii=False)[:1200])
+              if name=='castile_leon':
+                print('NATURE',name,Counter(r['NATURALEZA'] for r in rows).most_common(12))
+                print('STATUS',name,Counter(r['SITUACIÓN'] for r in rows).most_common(12))
+                filt=[r for r in rows if 'PRIVAD' in r['NATURALEZA'].upper() and r['SITUACIÓN'].upper()=='ALTA']
+                print('PRIVATE ACTIVE',len(filt),'WITH WEB AND COORDS',sum(all((r.get(k) or '').strip() for k in ('WEB','COORD. LATITUD','COORD. LONGITUD','C.POSTAL')) for r in filt))
+                print('PRIVATE TYPES',Counter(r['DENOMINACIÓN GENÉRICA'] for r in filt).most_common(25))
+                for r in filt[:3]:print('PRIVATE_SAMPLE',name,json.dumps(r,ensure_ascii=False)[:1200])
+
             except Exception as e:print("SOURCE FAILED",name,repr(e),flush=True)
           PY
