@@ -11,11 +11,11 @@ if(errors.length)throw Error('Cannot safely index all sources: '+errors.join('; 
 const windows=sandbox.window;
 const arr=Object.values(windows).filter(Array.isArray).flatMap(a=>a.filter(r=>Array.isArray(r)&&r.length>=8&&typeof r[5]==='number'&&typeof r[6]==='number'));
 const fragments=windows.ATLAS_PACKED_PARTS||[];
-if(fragments.length){
-  if(!fragments.every(x=>typeof x==='string'))throw Error('Malformed packed fragments');
+if(fragments[0] && fragments.length>=8 && fragments.slice(0,8).every(x=>typeof x==='string' && x.length)){
+  // Match app.js: an incomplete compressed pack is not an active map source.
   const packed=JSON.parse(zlib.inflateSync(Buffer.from(fragments.join(''),'base64')).toString('utf8'));
   for(const a of packed){if(Array.isArray(a)&&a.length>=8)arr.push(a)}
-}
+}else if(fragments.length){console.warn('Compressed master incomplete: app.js skips it too; no entries to index')}
 const pilot=JSON.parse(fs.readFileSync('data/pilot-city-points.json','utf8')).institutions||[];
 for(const x of pilot){arr.push([x.id,x.name,x.type,x.city,x.country,x.lat,x.lng,x.web||'',x.verified||false,x.address||''])}
 fs.mkdirSync('audits',{recursive:true});
