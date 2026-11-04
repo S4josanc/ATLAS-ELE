@@ -1,0 +1,21 @@
+name: ATLAS official Catalonia Valencia dataset probe
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/probe_cat_val_20261104.py'
+      - '.github/workflows/cat-val-probe.yml'
+  workflow_dispatch:
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify official source schemas and row coverage
+        run: python tools/probe_cat_val_20261104.py
