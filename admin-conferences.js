@@ -1,0 +1,17 @@
+/* ATLAS ELE - private conference list inside admin panel. RLS protects data. */
+(()=>{'use strict';
+const byId=id=>document.getElementById(id);
+const btn=byId('adminConferencesBtn'),section=byId('atlasConferenceSection');
+if(!btn||!section)return;
+const db=window.supabase?.createClient('https://mhrebbssqamkuulzqcki.supabase.co',"sb_publishable_ciIqbUv4EV1yZgjelooxUw_V8jGdTBM",{auth:{persistSession:true,autoRefreshToken:true}});
+const titles={"vienna-children-2026":"Training day for teachers of Spanish to children and young people · Vienna","bratislava-training-2026":"ELE teacher training day · Bratislava","vienna-training-2026":"2nd Teacher Training Day in Austria · Vienna","kosovo-2026":"Conference · Kosovo","bratislava-ele-2026":"ELE Conference · Bratislava","profedeele-budapest-2027":"ProfedeELE Teaching Conference · Budapest","difusion-valencia-2027":"Difusión Conference · Valencia","jefe-vi-2027":"JEFE-Vi · Vienna","praguele-viii-2027":"Praguele VIII · Prague","budapest-ele-2027":"ELE Teaching Conference · Budapest"};
+const msg=byId('atlasConferenceMessage'),list=byId('atlasConferenceList'),login=byId('atlasConferenceLogin'),logout=byId('atlasConferenceLogout');
+const show=async()=>{section.style.display='block';byId('adminWorkspace').style.display='none';if(!db){msg.textContent='No se pudo cargar el acceso seguro.';return}await load()};
+const load=async()=>{const {data,error}=await db.auth.getUser();const user=data?.user;if(error||!user||user.app_metadata?.atlas_role!=='admin'){login.style.display='flex';logout.style.display='none';list.replaceChildren();msg.textContent=user?'Esta cuenta no tiene permiso de administrador de ATLAS ELE.':'Entra con tu cuenta para consultar tus conferencias.';return}
+login.style.display='none';logout.style.display='inline-block';const result=await db.from('atlas_conference_favorites').select('event_id,notify_registration').order('created_at');if(result.error){msg.textContent='No se pudieron cargar las favoritas.';return}
+msg.textContent=result.data.length+' conferencias favoritas';list.replaceChildren();for(const item of result.data){const li=document.createElement('li');li.style.cssText='padding:10px 0;border-bottom:1px solid #35566b';const name=document.createElement('span');name.textContent=titles[item.event_id]||item.event_id;const remove=document.createElement('button');remove.type='button';remove.textContent='♡ Quitar';remove.style.marginLeft='12px';remove.onclick=async()=>{const {error}=await db.from('atlas_conference_favorites').delete().eq('user_id',user.id).eq('event_id',item.event_id);if(!error)await load();else msg.textContent='No se pudo quitar la favorita.'};li.append(name,remove);list.append(li)}
+const p=document.createElement('p');p.textContent='Para añadir más conferencias, utiliza el catálogo. Las alertas de inscripción aún no están activadas.';list.append(p)};
+btn.addEventListener('click',show);byId('atlasConferenceClose').addEventListener('click',()=>{section.style.display='none';byId('adminWorkspace').style.display=''});
+login.addEventListener('submit',async e=>{e.preventDefault();if(!db)return;const email=byId('atlasConferenceEmail').value.trim(),password=byId('atlasConferencePassword').value;const {error}=await db.auth.signInWithPassword({email,password});byId('atlasConferencePassword').value='';if(error){msg.textContent='No se pudo iniciar sesión. Comprueba tus credenciales.';return}await load()});
+logout.addEventListener('click',async()=>{await db.auth.signOut();await load()});
+})();
