@@ -177,9 +177,18 @@ function initGlobe(){
  const resize=()=>{globeInstance.width(el.clientWidth).height(el.clientHeight)};resize();window.addEventListener('resize',resize);
 }
 function setViewMode(mode){
- const is3=mode==='3d';document.body.classList.toggle('globe-mode',is3);document.getElementById('globeView').classList.toggle('active',is3);
+ const is3=mode==='3d',view=document.getElementById('globeView');
+ document.body.classList.toggle('globe-mode',is3);view.classList.toggle('active',is3);
  document.getElementById('map2d').classList.toggle('active',!is3);document.getElementById('globe3d').classList.toggle('active',is3);
- if(is3){loadGlobe().then(()=>initGlobe()).catch(()=>{setViewMode('2d');alert('No se pudo cargar el globo 3D. Prueba otra vez.');});setTimeout(()=>{const el=document.getElementById('globeView');globeInstance.width(el.clientWidth).height(el.clientHeight)},50)}else{setTimeout(()=>map.invalidateSize(),50)}
+ if(!is3){setTimeout(()=>map.invalidateSize(),50);return}
+ loadGlobe().then(()=>{
+  if(!view.classList.contains('active'))return;
+  if(globeInstance)globeInstance.width(view.clientWidth).height(view.clientHeight);
+  else initGlobe();
+ }).catch(()=>{
+  if(!view.classList.contains('active'))return;
+  setViewMode('2d');alert('No se pudo cargar el globo 3D. Prueba otra vez.');
+ });
 }
 document.getElementById('globe3d').onclick=()=>setViewMode('3d');
 document.getElementById('map2d').onclick=()=>setViewMode('2d');
@@ -198,6 +207,146 @@ function initMiniGlobe(){
  }catch(e){ el.textContent='🌍'; el.style.fontSize='42px'; el.style.display='grid'; el.style.placeItems='center'; }
 }
 initMiniGlobe();
+
+// Keep the original record positions, including the order reported for ambiguous matches.
+function mergeVerifiedSchools(data, verifiedSpain) {
+  const ids = new Set();
+  const byCountry = new Map();
+  const sharedHosts = new Set([
+    'portal.edu.gva.es', 'agora.xtec.cat', 'xtec.cat',
+    'educa.madrid.org', 'centros.educa.jcyl.es', 'sites.google.com'
+  ]);
+
+  function normalize(value) {
+    return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function websiteKey(value) {
+    if (!value) return null;
+    try {
+      const url = new URL(value);
+      const host = url.hostname.toLowerCase().replace(/^www\./, '');
+      if (!sharedHosts.has(host)) return host || null;
+      const path = url.pathname.replace(/\/+$/, '').toLowerCase();
+      return path.length > 1 ? host + path : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function locationIndex(record) {
+    let cities = byCountry.get(record.country);
+    if (!cities) {
+      cities = new Map();
+      byCountry.set(record.country, cities);
+    }
+    const city = normalize(record.city);
+    let indexes = cities.get(city);
+    if (!indexes) {
+      indexes = {id: new Map(), name: new Map(), address: new Map(), web: new Map()};
+      cities.set(city, indexes);
+    }
+    return indexes;
+  }
+
+  function matchKeys(record) {
+    return {
+      id: record.id,
+      name: normalize(record.name).replace(/^(colegio|centro educativo|escuela|ceip)\s+/, ''),
+      address: record.address ? normalize(record.address) : null,
+      web: websiteKey(record.web)
+    };
+  }
+
+  function addMatch(index, key, position) {
+    if (key == null) return;
+    let positions = index.get(key);
+    if (!positions) {
+      positions = new Set();
+      index.set(key, positions);
+    }
+    positions.add(position);
+  }
+
+  function indexRecord(indexes, keys, position) {
+    for (const [field, key] of Object.entries(keys)) {
+      addMatch(indexes[field], key, position);
+    }
+  }
+
+  function replaceMatch(index, oldKey, newKey, position) {
+    if (oldKey === newKey) return;
+    if (oldKey != null) {
+      const positions = index.get(oldKey);
+      positions.delete(position);
+      if (!positions.size) index.delete(oldKey);
+    }
+    addMatch(index, newKey, position);
+  }
+
+  // An ID collision outside the imported countries must still prevent an addition.
+  const countries = new Set(verifiedSpain.map(row => row[4]));
+  data.forEach((record, position) => {
+    ids.add(record.id);
+    if (countries.has(record.country)) {
+      indexRecord(locationIndex(record), matchKeys(record), position);
+    }
+  });
+
+  let added = 0, enriched = 0, skipped = 0;
+  for (const row of verifiedSpain) {
+    const [id, name, type, city, country, lat, lng, web, , address, precision, sourceURL] = row;
+    if (!id || !name || !address || !web || !sourceURL || !Number.isFinite(lat) || !Number.isFinite(lng)) {
+      skipped++;
+      console.warn('[ATLAS] incomplete verified school', id);
+      continue;
+    }
+
+    const record = {id, name, type, city, country, lat, lng, web, verified: true,
+      address, precision: precision || 'address', sourceURL, program: 'Spanish / MFL'};
+    const indexes = locationIndex(record);
+    const keys = matchKeys(record);
+    const hits = new Set();
+    for (const [field, key] of Object.entries(keys)) {
+      const positions = indexes[field].get(key);
+      if (positions) {
+        for (const position of positions) hits.add(position);
+      }
+    }
+    if (hits.size > 1) {
+      const matchedIds = [...hits].sort((a, b) => a - b).map(position => data[position].id);
+      skipped++;
+      console.warn('[ATLAS] multiple records match verified school, needs manual review', id, matchedIds);
+      continue;
+    }
+    if (hits.size === 1) {
+      const [position] = hits;
+      const previous = data[position];
+      const sameName = indexes.name.get(keys.name)?.has(position);
+      const sameWeb = indexes.web.get(keys.web)?.has(position);
+      if (!sameName && !sameWeb) {
+        skipped++;
+        console.warn('[ATLAS] address-only or ID-only conflict, not merging', id, previous.id);
+        continue;
+      }
+      // Later rows must see the new keys and must not match the old ones.
+      replaceMatch(indexes.address, previous.address ? normalize(previous.address) : null, keys.address, position);
+      replaceMatch(indexes.web, websiteKey(previous.web), keys.web, position);
+      Object.assign(previous, {address, lat, lng, precision: record.precision, verified: true, web, sourceURL});
+      enriched++;
+    } else if (ids.has(id)) {
+      skipped++;
+      console.warn('[ATLAS] verified school ID collides with another location', id);
+    } else {
+      indexRecord(indexes, keys, data.length);
+      ids.add(id);
+      data.push(record);
+      added++;
+    }
+  }
+  return {added, enriched, skipped, sourceRows: verifiedSpain.length};
+}
 
 async function loadPublicMapData(){
  try{
@@ -230,37 +379,8 @@ async function loadPublicMapData(){
   for(const a of (window.ATLAS_FEDELE_AUDIT_MISSING||[])){const [name,type,city,country,lat,lng,web]=a,norm=v=>(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),n=norm(name),ct=norm(city);let hit=data.find(x=>x.country===country&&norm(x.city)===ct&&(norm(x.name)===n||norm(x.name).includes(n)||n.includes(norm(x.name))));if(hit){hit.fedele=true;hit.accreditation=hit.accreditation||'Instituto Cervantes Accredited';hit.web=hit.web||web}else data.push({id:'ES-FEDELE-AUD-'+(data.length+1),name,type,city,country,lat,lng,web,verified:true,precision:'city',program:'Spanish / ELE',fedele:true,accreditation:'Instituto Cervantes Accredited'})}
   for(const a of (window.ATLAS_FEDELE_INTERNATIONAL||[])){const [name,type,city,country,lat,lng,web]=a,norm=v=>(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),n=norm(name),ct=norm(city);let hit=data.find(x=>norm(x.country)===norm(country)&&norm(x.city)===ct&&(norm(x.name)===n||norm(x.name).includes(n)||n.includes(norm(x.name))));if(hit){hit.fedeleInternational=true;hit.web=hit.web||web}else data.push({id:'FEDELE-INTL-'+(data.length+1),name,type,city,country,lat,lng,web,verified:true,precision:'city',program:'Spanish / ELE',fedeleInternational:true})}
 
-  // School-level addresses and coordinates from the official Aragón government registry.
-  // Keep the existing institution ID if a matching school is already in the map.
   const verifiedSpain=window.ATLAS_VERIFIED_SPAIN_20261027||[];
-  const normalizedVerified=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-  const schoolNameVerified=v=>normalizedVerified(v).replace(/^(colegio|centro educativo|escuela|ceip)\s+/,'');
-  const hostVerified=v=>{try{const u=new URL(v),h=u.hostname.toLowerCase().replace(/^www\./,'');if(['portal.edu.gva.es','agora.xtec.cat','xtec.cat','educa.madrid.org','centros.educa.jcyl.es','sites.google.com'].includes(h)){const p=u.pathname.replace(/\/+$/,'').toLowerCase();return p.length>1?h+p:''}return h}catch{return ''}};
-  let verifiedAdded=0,verifiedEnriched=0,verifiedSkipped=0;
-  for(const a of verifiedSpain){
-    const x={id:a[0],name:a[1],type:a[2],city:a[3],country:a[4],lat:a[5],lng:a[6],web:a[7],verified:true,address:a[9],precision:a[10]||'address',sourceURL:a[11],program:'Spanish / MFL'};
-    if(!x.id||!x.name||!x.address||!x.web||!x.sourceURL||!Number.isFinite(x.lat)||!Number.isFinite(x.lng)){
-      verifiedSkipped++;console.warn('[ATLAS] incomplete verified school',x.id);continue
-    }
-    const hits=data.filter(y=>y.country===x.country&&normalizedVerified(y.city)===normalizedVerified(x.city)&&(
-      y.id===x.id||
-      schoolNameVerified(y.name)===schoolNameVerified(x.name)||
-      (y.address&&normalizedVerified(y.address)===normalizedVerified(x.address))||
-      (hostVerified(y.web)&&hostVerified(y.web)===hostVerified(x.web))
-    ));
-    if(hits.length>1){verifiedSkipped++;console.warn('[ATLAS] multiple records match verified school, needs manual review',x.id,hits.map(y=>y.id));continue}
-    if(hits.length===1){
-      const previous=hits[0],sameName=schoolNameVerified(previous.name)===schoolNameVerified(x.name),sameWeb=hostVerified(previous.web)&&hostVerified(previous.web)===hostVerified(x.web);
-      if(!sameName&&!sameWeb){verifiedSkipped++;console.warn('[ATLAS] address-only or ID-only conflict, not merging',x.id,previous.id);continue}
-      // An official school's address and coordinates supersede an approximate city marker.
-      previous.address=x.address;previous.lat=x.lat;previous.lng=x.lng;previous.precision=x.precision;previous.verified=true;
-      if(!previous.web||sameWeb||sameName)previous.web=x.web;
-      previous.sourceURL=x.sourceURL;verifiedEnriched++;
-    }else if(data.some(y=>y.id===x.id)){
-      verifiedSkipped++;console.warn('[ATLAS] verified school ID collides with another location',x.id)
-    }else{data.push(x);verifiedAdded++}
-  }
-  window.ATLAS_VERIFIED_SPAIN_STATS={added:verifiedAdded,enriched:verifiedEnriched,skipped:verifiedSkipped,sourceRows:verifiedSpain.length};
+  window.ATLAS_VERIFIED_SPAIN_STATS=mergeVerifiedSchools(data,verifiedSpain);
   console.info('[ATLAS] Verified schools',window.ATLAS_VERIFIED_SPAIN_STATS);
 
   render();
@@ -269,7 +389,10 @@ async function loadPublicMapData(){
   const hs=document.querySelectorAll('.headlineStats strong');if(hs[0])hs[0].textContent=data.length.toLocaleString();if(hs[1])hs[1].textContent=new Set(data.map(x=>x.country)).size;
   const ms=document.querySelectorAll('.mini-stats strong');if(ms[0])ms[0].textContent=data.length.toLocaleString();if(ms[1])ms[1].textContent=new Set(data.map(x=>x.country)).size;
   if(globeInstance)globeInstance.pointsData(getGlobePoints());
- }catch(e){console.error('ATLAS ELE data load failed',e)}
+ }catch(e){
+  console.error('ATLAS ELE data load failed',e);
+  document.getElementById('mapLoadWarning')?.removeAttribute('hidden');
+ }
 }
 loadPublicMapData();
 
