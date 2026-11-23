@@ -34,14 +34,21 @@ try{
  },null,{timeout:90000});
  const metrics=await page.evaluate(()=>{
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-  const records=data.map(x=>({id:x.id,name:x.name,city:x.city,country:x.country,address:x.address,web:x.web,precision:x.precision,lat:x.lat,lng:x.lng,type:x.type}));
+  const records=data.map(x=>({
+   id:x.id,name:x.name,city:x.city,country:x.country,address:x.address,web:x.web,
+   precision:x.precision,lat:x.lat,lng:x.lng,type:x.type,
+   sourceLayer:x._source||null,sourceURL:x.sourceURL||null
+  }));
   const groups=new Map();
   for(const x of records){
    const key=[norm(x.name),norm(x.city),norm(x.country)].join('|');
    if(!groups.has(key))groups.set(key,[]);
-   groups.get(key).push(x.id);
+   groups.get(key).push(x);
   }
-  const duplicatedNames=[...groups].filter(([_,ids])=>ids.length>1).map(([key,ids])=>({key,ids}));
+  // Retain every candidate row. A shared name key does not establish a shared site.
+  const duplicateNameGroups=[...groups]
+   .filter(([,members])=>members.length>1)
+   .map(([key,members])=>({key,ids:members.map(x=>x.id),members}));
   const ids=records.map(x=>x.id);
   const byPrecision={};
   for(const x of records)byPrecision[x.precision||'unknown']=(byPrecision[x.precision||'unknown']||0)+1;
@@ -60,8 +67,9 @@ try{
   return {
    capturedAt:new Date().toISOString(),mapRecords:records.length,mapMarkers,
    displayedCount:Number(statText.replace(/[^0-9]/g,'')),uniqueIDs:new Set(ids).size,
-   uniqueNameCityCountryKeys:groups.size,potentialDuplicateNameGroups:duplicatedNames.length,
-   duplicateNamesSample:duplicatedNames.slice(0,30),
+   uniqueNameCityCountryKeys:groups.size,potentialDuplicateNameGroups:duplicateNameGroups.length,
+   duplicateNameGroups,
+   duplicateNamesSample:duplicateNameGroups.slice(0,30).map(({key,ids})=>({key,ids})),
    spanishSchools:records.filter(x=>x.country==='Spain'&&x.type==='school').length,
    countryCount:new Set(records.map(x=>x.country)).size,precision:byPrecision,
    recordsWithAddress:records.filter(x=>!!x.address).length,
